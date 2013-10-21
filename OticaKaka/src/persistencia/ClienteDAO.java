@@ -32,6 +32,20 @@ public class ClienteDAO {
         
     }
 
+      public void insertCliente (String nome, String cpf_cnpj, String endereco, String telefone) throws SQLException {
+
+        conexao.conecta();
+       
+        String SQL_String = "INSERT INTO CLIENTES (cpf_cnpj,nome,endereco,telefone)" +
+                " VALUES ('" + cpf_cnpj + "', '" + nome + "', '" + endereco + "', '" + telefone+"')";
+
+         conexao.execute(SQL_String);
+        
+        conexao.desconecta();
+    }
+
+   
+   
     public void updateConteudo(String nome,ArrayList<String> conteudo) {
 
         String tabela = "paginas";
