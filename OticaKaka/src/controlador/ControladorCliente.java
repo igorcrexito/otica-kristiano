@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.ClienteDAO;
 import persistencia.UsuarioDAO;
+import utils.Cliente;
 import utils.Usuario;
 
 /**
@@ -25,6 +26,31 @@ public class ControladorCliente {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public Cliente buscaClientePorCPFouNome (String nome, String cpf) {
+        Cliente client = null;
+        if (nome.equals("") && !cpf.equals(""))
+            try {
+            client = clienteDAO.buscaClientePorCPF_CNPJ(cpf);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        else if (!nome.equals("") && cpf.equals(""))
+            try {
+            client = clienteDAO.buscaClientePorNome(nome);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        else
+            try {
+            client = clienteDAO.buscaClientePorCPF_CNPJ(cpf);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return client;
     }
     
 }
