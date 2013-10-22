@@ -97,6 +97,7 @@ public class ClienteDAO {
         
         
         try {
+            nome = rs.getString("nome");
             cpf_cnpj = rs.getString("cpf_cnpj");
             telefone = rs.getString("telefone");
             endereco = rs.getString("endereco");
@@ -115,6 +116,18 @@ public class ClienteDAO {
         return cliente;
     }
    
+   
+   public void atualizaCliente(String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) throws SQLException {
+        conexao.conecta();
+
+         String tabela = "clientes";
+        String SQL = "UPDATE " + tabela + " SET nome = '" + nome + "', cpf_cnpj = '" + cpf_cnpj + "', endereco = '" + endereco + "', telefone = '" + telefone + "' WHERE cpf_cnpj = '" + cpfAntigo + "'";
+        
+        conexao.execute(SQL);
+     
+        conexao.desconecta();
+        
+    }
 
 
 }

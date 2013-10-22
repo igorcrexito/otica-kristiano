@@ -29,6 +29,15 @@ public class ControladorCliente {
     }
     
     
+    
+    public void atualizaCliente (String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) {
+        try {
+            clienteDAO.atualizaCliente(nome, cpf_cnpj, endereco, telefone, cpfAntigo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Cliente buscaClientePorCPFouNome (String nome, String cpf) {
         Cliente client = null;
         if (nome.equals("") && !cpf.equals(""))

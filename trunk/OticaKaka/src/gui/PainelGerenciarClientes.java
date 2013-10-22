@@ -64,7 +64,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         enderecoDoClienteBuscado = new javax.swing.JLabel();
         telefoneDoClienteBuscado = new javax.swing.JLabel();
         buscarCliente = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        atualizaCliente = new javax.swing.JButton();
         novoNome = new javax.swing.JTextField();
         novoCPF = new javax.swing.JTextField();
         novoEndereco = new javax.swing.JTextField();
@@ -226,7 +226,12 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Editar");
+        atualizaCliente.setText("Editar");
+        atualizaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizaClienteActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Digite os novos campos:");
 
@@ -260,7 +265,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(325, 325, 325)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                            .addComponent(atualizaCliente)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(buscarCliente)
                                 .addGap(102, 102, 102)
@@ -301,7 +306,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                             .addComponent(telefoneDoClienteBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(novoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(atualizaCliente))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel9)))
@@ -391,20 +396,38 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         cpfDoClienteBuscado.setText("CPF/CNPJ:");
         telefoneDoClienteBuscado.setText("Telefone:");
         enderecoDoClienteBuscado.setText("Endereço:");
-        
-        if (cliente!=null) {
+
+        if (cliente != null) {
             nomeClienteBuscado.setText(nomeClienteBuscado.getText() + " " + cliente.getNome());
             cpfDoClienteBuscado.setText(cpfDoClienteBuscado.getText() + " " + cliente.getCpf_cnpj());
-            telefoneDoClienteBuscado.setText(telefoneDoClienteBuscado.getText()+ " " + cliente.getTelefone());
-            enderecoDoClienteBuscado.setText(enderecoDoClienteBuscado.getText()+ " "+ cliente.getEndereco());
+            telefoneDoClienteBuscado.setText(telefoneDoClienteBuscado.getText() + " " + cliente.getTelefone());
+            enderecoDoClienteBuscado.setText(enderecoDoClienteBuscado.getText() + " " + cliente.getEndereco());
+
+            novoNome.setText(cliente.getNome());
+            novoCPF.setText(cliente.getCpf_cnpj());
+            novoEndereco.setText(cliente.getEndereco());
+            novoTelefone.setText(cliente.getTelefone());
         } else {
-            JOptionPane.showMessageDialog(this, "Cliente não encontrado", "Warning",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado", "Warning", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_buscarClienteActionPerformed
+
+    private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
+        Cliente cliente = controladorCliente.buscaClientePorCPFouNome(campoBuscaNome.getText(), campoBuscaCPF.getText());
+
+        if (!novoEndereco.getText().equals("") && !novoTelefone.getText().equals("") && !novoNome.getText().equals("") && !novoCPF.equals("")) {
+            controladorCliente.atualizaCliente(novoNome.getText(), novoCPF.getText(), novoEndereco.getText(), novoTelefone.getText(), cliente.getCpf_cnpj());
+            JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Campos precisam ser preenchidos", null, JOptionPane.OK_OPTION);
+            
+        }
+    }//GEN-LAST:event_atualizaClienteActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuario;
+    private javax.swing.JButton atualizaCliente;
     private javax.swing.JToolBar barraCliente;
     private javax.swing.JButton botaoConfirmarUsuario;
     private javax.swing.JButton buscarCliente;
@@ -418,7 +441,6 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
     private javax.swing.JLabel cpfDoClienteBuscado;
     private javax.swing.JButton editarUsuario;
     private javax.swing.JLabel enderecoDoClienteBuscado;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
