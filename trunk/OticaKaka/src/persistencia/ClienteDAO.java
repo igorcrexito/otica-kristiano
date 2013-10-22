@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import utils.Cliente;
+import utils.Usuario;
 
 public class ClienteDAO {
 
@@ -44,15 +45,76 @@ public class ClienteDAO {
         conexao.desconecta();
     }
 
-   
-   
-    public void updateConteudo(String nome,ArrayList<String> conteudo) {
+   public Cliente buscaClientePorCPF_CNPJ(String cpf_cnpj) throws SQLException {
+        conexao.conecta();
 
-        String tabela = "paginas";
-        String SQL = "UPDATE " + tabela + " SET campo1 = '" + conteudo.get(0) + "' ,campo2 = '" + conteudo.get(1) +"' ,campo3 = '" + conteudo.get(2) +"' ,campo4 = '" + conteudo.get(3) +" 'WHERE nome = '" + nome + "'";
+        String SQL_string = "SELECT * FROM clientes WHERE "
+                + "cpf_cnpj LIKE '" + cpf_cnpj + "'";
 
-        conexao.execute(SQL);
+        ResultSet rs = conexao.executeSql(SQL_string);
+        rs.first();
+
+        Cliente cliente = null;
+        String nome;
+        String cpf__cnpj;
+        String telefone;
+        String endereco;
+        
+        
+        try {
+            nome = rs.getString("nome");
+            cpf__cnpj = rs.getString("cpf_cnpj");
+            telefone = rs.getString("telefone");
+            endereco = rs.getString("endereco");
+            
+            if (!nome.equals("") && !cpf__cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
+                if (nome!=null && cpf__cnpj!=null && telefone!= null && endereco!= null) {
+                    cliente = new Cliente(nome, cpf__cnpj, endereco, telefone);
+                }
+            }
+            
+
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return cliente;
     }
+   
+   public Cliente buscaClientePorNome(String nome) throws SQLException {
+        conexao.conecta();
+
+        String SQL_string = "SELECT * FROM clientes WHERE "
+                + "nome LIKE '%" + nome + "%'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+        rs.first();
+
+        Cliente cliente = null;
+        String cpf_cnpj;
+        String telefone;
+        String endereco;
+        
+        
+        try {
+            cpf_cnpj = rs.getString("cpf_cnpj");
+            telefone = rs.getString("telefone");
+            endereco = rs.getString("endereco");
+            
+            if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
+                if (nome!=null && cpf_cnpj!=null && telefone!= null && endereco!= null) {
+                    cliente = new Cliente(nome, cpf_cnpj, endereco, telefone);
+                }
+            }
+            
+
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return cliente;
+    }
+   
 
 
 }
