@@ -79,7 +79,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         selecionaCliente = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        removerCliente = new javax.swing.JButton();
 
         barraCliente.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraCliente.setRollover(true);
@@ -257,8 +257,13 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
-        jButton1.setText("Remover");
+        removerCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        removerCliente.setText("Remover");
+        removerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -287,7 +292,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(atualizaCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)))
+                                .addComponent(removerCliente)))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -342,7 +347,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(atualizaCliente)
                             .addComponent(selecionaCliente)
-                            .addComponent(jButton1)))
+                            .addComponent(removerCliente)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(247, Short.MAX_VALUE))
         );
@@ -471,6 +476,15 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_selecionaClienteActionPerformed
 
+    private void removerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteActionPerformed
+        if (!cpfSelecionado.equals("") && cpfSelecionado!=null && tabelaClientes.getSelectedRow()!=-1) {
+            controladorCliente.deletaClientesPorCPFCNPJ(cpfSelecionado);
+            JOptionPane.showMessageDialog(this, "Cliente removido com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na Tabela", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_removerClienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuario;
@@ -488,7 +502,6 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkCPF;
     private javax.swing.JCheckBox checkNome;
     private javax.swing.JButton editarUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -506,6 +519,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
     private javax.swing.JTextField novoEndereco;
     private javax.swing.JTextField novoNome;
     private javax.swing.JTextField novoTelefone;
+    private javax.swing.JButton removerCliente;
     private javax.swing.JButton selecionaCliente;
     private javax.swing.JTable tabelaClientes;
     // End of variables declaration//GEN-END:variables
