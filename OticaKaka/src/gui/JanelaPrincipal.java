@@ -40,7 +40,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        botaoEstoque = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         painelPrincipal = new javax.swing.JPanel();
 
@@ -90,12 +90,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraBotoes.add(jButton5);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/estoque.png"))); // NOI18N
-        jButton6.setText("Gerenciar Estoque");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barraBotoes.add(jButton6);
+        botaoEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/estoque.png"))); // NOI18N
+        botaoEstoque.setText("Gerenciar Estoque");
+        botaoEstoque.setFocusable(false);
+        botaoEstoque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoEstoque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEstoqueActionPerformed(evt);
+            }
+        });
+        barraBotoes.add(botaoEstoque);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -144,10 +149,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void botaoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoClienteActionPerformed
         PainelGerenciarClientes painelClientes = new PainelGerenciarClientes();
+        painelPrincipal.removeAll();
         this.painelPrincipal.setLayout(new BorderLayout());
         painelPrincipal.add(painelClientes);
         this.repaint();
     }//GEN-LAST:event_botaoClienteActionPerformed
+
+    private void botaoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEstoqueActionPerformed
+        PainelGerenciarEstoque painelEstoque = new PainelGerenciarEstoque();
+        painelPrincipal.removeAll();
+        this.painelPrincipal.setLayout(new BorderLayout());
+        painelPrincipal.add(painelEstoque);
+        this.repaint();
+    }//GEN-LAST:event_botaoEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +200,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barraBotoes;
     private javax.swing.JButton botaoCliente;
+    private javax.swing.JButton botaoEstoque;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel painelPrincipal;
     // End of variables declaration//GEN-END:variables
