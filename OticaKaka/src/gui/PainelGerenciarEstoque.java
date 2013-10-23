@@ -4,6 +4,9 @@
  */
 package gui;
 
+import controlador.ControladorProduto;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Igor
@@ -13,8 +16,16 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     /**
      * Creates new form PainelGerenciarEstoque
      */
+    
+    DefaultTableModel modelProdutos;
+    ControladorProduto controladorProduto = new ControladorProduto();
+    
+    
     public PainelGerenciarEstoque() {
         initComponents();
+        modelProdutos = (DefaultTableModel) tabelaEstoque.getModel();
+
+        
         this.campoCodigo.setEnabled(false);
         this.campoQuantidade.setEnabled(false);
         this.campoPreco.setEnabled(false);
@@ -106,6 +117,11 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
 
         buscarProdutoEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         buscarProdutoEstoque.setText("Buscar");
+        buscarProdutoEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarProdutoEstoqueActionPerformed(evt);
+            }
+        });
 
         cancelarBusca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
         cancelarBusca.setText("Cancelar");
@@ -390,6 +406,29 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoVSRadio.setSelected(false);
         }
     }//GEN-LAST:event_tipoEPRadioActionPerformed
+
+    private void buscarProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoEstoqueActionPerformed
+        if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            
+        } else if (checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            //código
+            
+        } else if (!checkCodigo.isSelected() && checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            //nome
+            
+        } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            //preço
+            
+        } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            //quantidade
+            
+        } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && checkTipo.isSelected()) {
+            //tipo
+            
+        }
+        
+    }//GEN-LAST:event_buscarProdutoEstoqueActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarProdutoEstoque;
     private javax.swing.JTextField campoCodigo;
