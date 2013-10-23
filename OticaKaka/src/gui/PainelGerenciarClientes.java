@@ -33,7 +33,6 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         this.campoBuscaNome.setEnabled(false);
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
-        this.abasUsuario.setEnabledAt(2, false);
     }
 
     /**
@@ -48,7 +47,6 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         barraCliente = new javax.swing.JToolBar();
         adicionarUsuario = new javax.swing.JButton();
         editarUsuario = new javax.swing.JButton();
-        removerUsuario = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         abasUsuario = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -81,7 +79,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         selecionaCliente = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         barraCliente.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraCliente.setRollover(true);
@@ -109,18 +107,6 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             }
         });
         barraCliente.add(editarUsuario);
-
-        removerUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/removeClient.png"))); // NOI18N
-        removerUsuario.setText("Remover");
-        removerUsuario.setFocusable(false);
-        removerUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        removerUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        removerUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerUsuarioActionPerformed(evt);
-            }
-        });
-        barraCliente.add(removerUsuario);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -229,6 +215,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             }
         });
 
+        atualizaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit.png"))); // NOI18N
         atualizaCliente.setText("Editar");
         atualizaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +249,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tabelaClientes);
 
+        selecionaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
         selecionaCliente.setText("Selecionar");
         selecionaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,19 +257,38 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        jButton1.setText("Remover");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(192, 192, 192)
                 .addComponent(buscarCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(96, 96, 96))
+                .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(novoTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                                    .addComponent(novoEndereco)
+                                    .addComponent(novoCPF)
+                                    .addComponent(novoNome)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(selecionaCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(atualizaCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)))
+                        .addGap(20, 20, 20))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8)
@@ -292,22 +299,12 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                         .addGap(43, 43, 43)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkCPF)
-                            .addComponent(checkNome)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(novoCPF)
-                                .addComponent(novoNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(novoEndereco)
-                                .addComponent(novoTelefone))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(selecionaCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atualizaCliente)
-                                .addGap(79, 79, 79)))))
-                .addContainerGap())
+                            .addComponent(checkNome))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(154, 154, 154))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,10 +323,10 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoBuscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkNome))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(buscarCliente))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel9)
+                .addGap(7, 7, 7)
+                .addComponent(buscarCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -344,25 +341,13 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(atualizaCliente)
-                            .addComponent(selecionaCliente)))
+                            .addComponent(selecionaCliente)
+                            .addComponent(jButton1)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(247, Short.MAX_VALUE))
         );
 
         abasUsuario.addTab("Editar", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 884, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-
-        abasUsuario.addTab("Remover", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -387,22 +372,13 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
         abasUsuario.setSelectedIndex(0);
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
-        this.abasUsuario.setEnabledAt(2, false);
     }//GEN-LAST:event_adicionarUsuarioActionPerformed
 
     private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
         abasUsuario.setSelectedIndex(1);
         this.abasUsuario.setEnabledAt(0, false);
         this.abasUsuario.setEnabledAt(1, true);
-        this.abasUsuario.setEnabledAt(2, false);
     }//GEN-LAST:event_editarUsuarioActionPerformed
-
-    private void removerUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerUsuarioActionPerformed
-        abasUsuario.setSelectedIndex(2);
-        this.abasUsuario.setEnabledAt(0, false);
-        this.abasUsuario.setEnabledAt(1, false);
-        this.abasUsuario.setEnabledAt(2, true);
-    }//GEN-LAST:event_removerUsuarioActionPerformed
 
     private void cancelarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotaoActionPerformed
         this.campoCPFAddCliente.setText("");
@@ -494,6 +470,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_selecionaClienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuario;
@@ -511,6 +488,7 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkCPF;
     private javax.swing.JCheckBox checkNome;
     private javax.swing.JButton editarUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -523,13 +501,11 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField novoCPF;
     private javax.swing.JTextField novoEndereco;
     private javax.swing.JTextField novoNome;
     private javax.swing.JTextField novoTelefone;
-    private javax.swing.JButton removerUsuario;
     private javax.swing.JButton selecionaCliente;
     private javax.swing.JTable tabelaClientes;
     // End of variables declaration//GEN-END:variables
