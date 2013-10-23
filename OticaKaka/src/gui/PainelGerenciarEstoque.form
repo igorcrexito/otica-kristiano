@@ -30,7 +30,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="comboMaiorQuantidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="campoMenorPreco" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboMenorPreco" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -39,13 +39,13 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tipoBFRadio" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tipoVSRadio" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tipoMTRadio" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tipoEPRadio" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -104,15 +104,15 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="checkPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="campoPreco" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoMenorPreco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboMenorPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="checkTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tipoBFRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tipoVSRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tipoMTRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tipoEPRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -145,26 +145,41 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Busque pelo c&#xf3;digo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCodigoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkNome">
       <Properties>
         <Property name="text" type="java.lang.String" value="Busque pelo nome"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkNomeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkQuantidade">
       <Properties>
         <Property name="text" type="java.lang.String" value="Busque pela quantidade"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkQuantidadeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkPreco">
       <Properties>
         <Property name="text" type="java.lang.String" value="Busque pelo pre&#xe7;o"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkPrecoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkTipo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Busque pelo tipo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkTipoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="campoCodigo">
     </Component>
@@ -184,7 +199,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="campoMenorPreco">
+    <Component class="javax.swing.JComboBox" name="comboMenorPreco">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
@@ -267,25 +282,37 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="tipoBFRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="BF"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoBFRadioActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="tipoVSRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="VS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoVSRadioActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+    <Component class="javax.swing.JRadioButton" name="tipoMTRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="MT"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoMTRadioActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton4">
+    <Component class="javax.swing.JRadioButton" name="tipoEPRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="EP"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoEPRadioActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
