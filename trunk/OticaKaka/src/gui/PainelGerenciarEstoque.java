@@ -15,7 +15,18 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
      */
     public PainelGerenciarEstoque() {
         initComponents();
-        
+        this.campoCodigo.setEnabled(false);
+        this.campoQuantidade.setEnabled(false);
+        this.campoPreco.setEnabled(false);
+        this.campoNome.setEnabled(false);
+
+        this.comboMaiorQuantidade.setEnabled(false);
+        this.comboMenorPreco.setEnabled(false);
+
+        this.tipoBFRadio.setEnabled(false);
+        this.tipoEPRadio.setEnabled(false);
+        this.tipoMTRadio.setEnabled(false);
+        this.tipoVSRadio.setEnabled(false);
     }
 
     /**
@@ -39,15 +50,15 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         campoQuantidade = new javax.swing.JTextField();
         campoPreco = new javax.swing.JTextField();
         comboMaiorQuantidade = new javax.swing.JComboBox();
-        campoMenorPreco = new javax.swing.JComboBox();
+        comboMenorPreco = new javax.swing.JComboBox();
         buscarProdutoEstoque = new javax.swing.JButton();
         cancelarBusca = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaEstoque = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        tipoBFRadio = new javax.swing.JRadioButton();
+        tipoVSRadio = new javax.swing.JRadioButton();
+        tipoMTRadio = new javax.swing.JRadioButton();
+        tipoEPRadio = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Gerenciamento de Estoque");
@@ -55,18 +66,43 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         jLabel2.setText("Selecione o tipo de filtro:");
 
         checkCodigo.setText("Busque pelo código");
+        checkCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCodigoActionPerformed(evt);
+            }
+        });
 
         checkNome.setText("Busque pelo nome");
+        checkNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkNomeActionPerformed(evt);
+            }
+        });
 
         checkQuantidade.setText("Busque pela quantidade");
+        checkQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkQuantidadeActionPerformed(evt);
+            }
+        });
 
         checkPreco.setText("Busque pelo preço");
+        checkPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkPrecoActionPerformed(evt);
+            }
+        });
 
         checkTipo.setText("Busque pelo tipo");
+        checkTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkTipoActionPerformed(evt);
+            }
+        });
 
         comboMaiorQuantidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima de:", "Abaixo de:" }));
 
-        campoMenorPreco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima de:", "Abaixo de:" }));
+        comboMenorPreco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima de:", "Abaixo de:" }));
 
         buscarProdutoEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         buscarProdutoEstoque.setText("Buscar");
@@ -89,13 +125,33 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tabelaEstoque);
 
-        jRadioButton1.setText("BF");
+        tipoBFRadio.setText("BF");
+        tipoBFRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoBFRadioActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("VS");
+        tipoVSRadio.setText("VS");
+        tipoVSRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoVSRadioActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("MT");
+        tipoMTRadio.setText("MT");
+        tipoMTRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoMTRadioActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setText("EP");
+        tipoEPRadio.setText("EP");
+        tipoEPRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoEPRadioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,19 +171,19 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(comboMaiorQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(campoMenorPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(comboMenorPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(campoPreco)
                                             .addComponent(campoQuantidade)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(tipoBFRadio)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2)
+                                        .addComponent(tipoVSRadio)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton3)
+                                        .addComponent(tipoMTRadio)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton4)
+                                        .addComponent(tipoEPRadio)
                                         .addGap(0, 41, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,14 +228,14 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkPreco)
                             .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoMenorPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboMenorPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkTipo)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4))
+                            .addComponent(tipoBFRadio)
+                            .addComponent(tipoVSRadio)
+                            .addComponent(tipoMTRadio)
+                            .addComponent(tipoEPRadio))
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buscarProdutoEstoque)
@@ -193,10 +249,150 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelarBuscaActionPerformed
 
+    private void checkCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoActionPerformed
+        if (checkCodigo.isSelected()) {
+            this.campoCodigo.setEnabled(true);
+            this.campoQuantidade.setEnabled(false);
+            this.campoPreco.setEnabled(false);
+            this.campoNome.setEnabled(false);
+
+            this.comboMaiorQuantidade.setEnabled(false);
+            this.comboMenorPreco.setEnabled(false);
+
+            this.tipoBFRadio.setEnabled(false);
+            this.tipoEPRadio.setEnabled(false);
+            this.tipoMTRadio.setEnabled(false);
+            this.tipoVSRadio.setEnabled(false);
+            
+            checkPreco.setSelected(false);
+            checkNome.setSelected(false);
+            checkQuantidade.setSelected(false);
+            checkTipo.setSelected(false);
+        }
+    }//GEN-LAST:event_checkCodigoActionPerformed
+
+    private void checkNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNomeActionPerformed
+        if (checkNome.isSelected()) {
+            this.campoCodigo.setEnabled(false);
+            this.campoQuantidade.setEnabled(false);
+            this.campoPreco.setEnabled(false);
+            this.campoNome.setEnabled(true);
+
+            this.comboMaiorQuantidade.setEnabled(false);
+            this.comboMenorPreco.setEnabled(false);
+
+            this.tipoBFRadio.setEnabled(false);
+            this.tipoEPRadio.setEnabled(false);
+            this.tipoMTRadio.setEnabled(false);
+            this.tipoVSRadio.setEnabled(false);
+            
+            checkTipo.setSelected(false);
+            checkCodigo.setSelected(false);
+            checkQuantidade.setSelected(false);
+            checkPreco.setSelected(false);
+        }
+    }//GEN-LAST:event_checkNomeActionPerformed
+
+    private void checkQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkQuantidadeActionPerformed
+        if (checkQuantidade.isSelected()) {
+            this.campoCodigo.setEnabled(false);
+            this.campoQuantidade.setEnabled(true);
+            this.campoPreco.setEnabled(false);
+            this.campoNome.setEnabled(false);
+
+            this.comboMaiorQuantidade.setEnabled(true);
+            this.comboMenorPreco.setEnabled(false);
+
+            this.tipoBFRadio.setEnabled(false);
+            this.tipoEPRadio.setEnabled(false);
+            this.tipoMTRadio.setEnabled(false);
+            this.tipoVSRadio.setEnabled(false);
+            
+            checkTipo.setSelected(false);
+            checkNome.setSelected(false);
+            checkCodigo.setSelected(false);
+            checkPreco.setSelected(false);
+        }
+    }//GEN-LAST:event_checkQuantidadeActionPerformed
+
+    private void checkPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPrecoActionPerformed
+        if (checkPreco.isSelected()) {
+            this.campoCodigo.setEnabled(false);
+            this.campoQuantidade.setEnabled(false);
+            this.campoPreco.setEnabled(true);
+            this.campoNome.setEnabled(false);
+
+            this.comboMaiorQuantidade.setEnabled(false);
+            this.comboMenorPreco.setEnabled(true);
+
+            this.tipoBFRadio.setEnabled(false);
+            this.tipoEPRadio.setEnabled(false);
+            this.tipoMTRadio.setEnabled(false);
+            this.tipoVSRadio.setEnabled(false);
+            
+            checkCodigo.setSelected(false);
+            checkNome.setSelected(false);
+            checkQuantidade.setSelected(false);
+            checkTipo.setSelected(false);
+        }
+    }//GEN-LAST:event_checkPrecoActionPerformed
+
+    private void checkTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkTipoActionPerformed
+        if (this.checkTipo.isSelected()) {
+            this.campoCodigo.setEnabled(false);
+            this.campoQuantidade.setEnabled(false);
+            this.campoPreco.setEnabled(false);
+            this.campoNome.setEnabled(false);
+
+            this.comboMaiorQuantidade.setEnabled(false);
+            this.comboMenorPreco.setEnabled(false);
+
+            this.tipoBFRadio.setEnabled(true);
+            this.tipoEPRadio.setEnabled(true);
+            this.tipoMTRadio.setEnabled(true);
+            this.tipoVSRadio.setEnabled(true);
+            
+            checkCodigo.setSelected(false);
+            checkNome.setSelected(false);
+            checkQuantidade.setSelected(false);
+            checkPreco.setSelected(false);
+        }
+    }//GEN-LAST:event_checkTipoActionPerformed
+
+    private void tipoBFRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBFRadioActionPerformed
+        if (this.tipoBFRadio.isSelected()) {
+            this.tipoEPRadio.setSelected(false);
+            this.tipoMTRadio.setSelected(false);
+            this.tipoVSRadio.setSelected(false);
+        }
+    }//GEN-LAST:event_tipoBFRadioActionPerformed
+
+    private void tipoVSRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoVSRadioActionPerformed
+        if (this.tipoVSRadio.isSelected()) {
+            this.tipoEPRadio.setSelected(false);
+            this.tipoMTRadio.setSelected(false);
+            this.tipoBFRadio.setSelected(false);
+        }
+    }//GEN-LAST:event_tipoVSRadioActionPerformed
+
+    private void tipoMTRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoMTRadioActionPerformed
+        if (this.tipoMTRadio.isSelected()) {
+            this.tipoEPRadio.setSelected(false);
+            this.tipoBFRadio.setSelected(false);
+            this.tipoVSRadio.setSelected(false);
+        }
+    }//GEN-LAST:event_tipoMTRadioActionPerformed
+
+    private void tipoEPRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoEPRadioActionPerformed
+        if (this.tipoEPRadio.isSelected()) {
+            this.tipoMTRadio.setSelected(false);
+            this.tipoBFRadio.setSelected(false);
+            this.tipoVSRadio.setSelected(false);
+        }
+    }//GEN-LAST:event_tipoEPRadioActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarProdutoEstoque;
     private javax.swing.JTextField campoCodigo;
-    private javax.swing.JComboBox campoMenorPreco;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoPreco;
     private javax.swing.JTextField campoQuantidade;
@@ -207,13 +403,14 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkQuantidade;
     private javax.swing.JCheckBox checkTipo;
     private javax.swing.JComboBox comboMaiorQuantidade;
+    private javax.swing.JComboBox comboMenorPreco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaEstoque;
+    private javax.swing.JRadioButton tipoBFRadio;
+    private javax.swing.JRadioButton tipoEPRadio;
+    private javax.swing.JRadioButton tipoMTRadio;
+    private javax.swing.JRadioButton tipoVSRadio;
     // End of variables declaration//GEN-END:variables
 }
