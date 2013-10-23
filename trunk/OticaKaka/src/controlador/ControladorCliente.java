@@ -51,16 +51,25 @@ public class ControladorCliente {
         return clientes;
     }
     
-    public ArrayList<Cliente> buscaClientesPorCPFCNPJ(String nome) {
+    public ArrayList<Cliente> buscaClientesPorCPFCNPJ(String cpf_cnpj) {
         
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = clienteDAO.buscaClientesPorCPFCNPJ(nome);
+            clientes = clienteDAO.buscaClientesPorCPFCNPJ(cpf_cnpj);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return clientes;
+    }
+    
+    public void deletaClientesPorCPFCNPJ(String cpf_cnpj) {
+        
+        try {
+            clienteDAO.deletaCliente(cpf_cnpj);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

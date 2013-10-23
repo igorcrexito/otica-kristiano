@@ -124,4 +124,17 @@ public class ClienteDAO {
         conexao.desconecta();
 
     }
+    
+    public void deletaCliente(String cpf_cnpj) throws SQLException {
+        conexao.conecta();
+
+        String tabela = "clientes";
+        String SQL = "DELETE FROM " + tabela + " WHERE cpf_cnpj = '" + cpf_cnpj + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+
+    }
+    
 }
