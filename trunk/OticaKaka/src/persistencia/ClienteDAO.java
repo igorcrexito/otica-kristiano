@@ -8,20 +8,20 @@ import utils.Usuario;
 
 public class ClienteDAO {
 
-  private ConexaoBD conexao;
+    private ConexaoBD conexao;
 
-  public ClienteDAO() {
-       this.conexao = ConexaoBD.getConexaoBD();
-  }
+    public ClienteDAO() {
+        this.conexao = ConexaoBD.getConexaoBD();
+    }
 
-   public Cliente getClienteFromCPFCNPJ (String cpf_cnpj) throws SQLException {
+    public Cliente getClienteFromCPFCNPJ(String cpf_cnpj) throws SQLException {
 
         conexao.conecta();
-       
-        String SQL_string = "SELECT * FROM clientes WHERE " +
-                "CPF_CNPJ LIKE'%" + cpf_cnpj + "%'";
 
-        ResultSet rs= conexao.executeSql(SQL_string);
+        String SQL_string = "SELECT * FROM clientes WHERE "
+                + "CPF_CNPJ LIKE'%" + cpf_cnpj + "%'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
         rs.first();
 
         String nome = rs.getString("nome");
@@ -29,105 +29,99 @@ public class ClienteDAO {
         String telefone = rs.getString("telefone");
 
         conexao.desconecta();
-        return new Cliente(nome,cpf_cnpj,endereco,telefone);
-        
+        return new Cliente(nome, cpf_cnpj, endereco, telefone);
+
     }
 
-      public void insertCliente (String nome, String cpf_cnpj, String endereco, String telefone) throws SQLException {
+    public void insertCliente(String nome, String cpf_cnpj, String endereco, String telefone) throws SQLException {
 
         conexao.conecta();
-       
-        String SQL_String = "INSERT INTO CLIENTES (cpf_cnpj,nome,endereco,telefone)" +
-                " VALUES ('" + cpf_cnpj + "', '" + nome + "', '" + endereco + "', '" + telefone+"')";
 
-         conexao.execute(SQL_String);
-        
+        String SQL_String = "INSERT INTO CLIENTES (cpf_cnpj,nome,endereco,telefone)"
+                + " VALUES ('" + cpf_cnpj + "', '" + nome + "', '" + endereco + "', '" + telefone + "')";
+
+        conexao.execute(SQL_String);
+
         conexao.desconecta();
     }
 
-   public Cliente buscaClientePorCPF_CNPJ(String cpf_cnpj) throws SQLException {
+    public ArrayList<Cliente> buscaClientesPorCPFCNPJ(String cpf_cnpj) throws SQLException {
         conexao.conecta();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
         String SQL_string = "SELECT * FROM clientes WHERE "
                 + "cpf_cnpj LIKE '" + cpf_cnpj + "'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
-        rs.first();
 
-        Cliente cliente = null;
+        
         String nome;
-        String cpf__cnpj;
         String telefone;
         String endereco;
-        
-        
+
         try {
-            nome = rs.getString("nome");
-            cpf__cnpj = rs.getString("cpf_cnpj");
-            telefone = rs.getString("telefone");
-            endereco = rs.getString("endereco");
-            
-            if (!nome.equals("") && !cpf__cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
-                if (nome!=null && cpf__cnpj!=null && telefone!= null && endereco!= null) {
-                    cliente = new Cliente(nome, cpf__cnpj, endereco, telefone);
+            while (rs.next()) {
+                nome = rs.getString("nome");
+                cpf_cnpj = rs.getString("cpf_cnpj");
+                telefone = rs.getString("telefone");
+                endereco = rs.getString("endereco");
+
+                if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
+                    if (nome != null && cpf_cnpj != null && telefone != null && endereco != null) {
+                        clientes.add(new Cliente(nome, cpf_cnpj, endereco, telefone));
+                    }
                 }
             }
-            
-
         } catch (SQLException e) {
             System.out.println("Erro no sistema");
         }
         conexao.desconecta();
-        return cliente;
+        return clientes;
     }
-   
-   public Cliente buscaClientePorNome(String nome) throws SQLException {
+
+    
+    public ArrayList<Cliente> buscaClientesPorNome(String nome) throws SQLException {
         conexao.conecta();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
         String SQL_string = "SELECT * FROM clientes WHERE "
                 + "nome LIKE '%" + nome + "%'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
-        rs.first();
 
-        Cliente cliente = null;
         String cpf_cnpj;
         String telefone;
         String endereco;
-        
-        
+
         try {
-            nome = rs.getString("nome");
-            cpf_cnpj = rs.getString("cpf_cnpj");
-            telefone = rs.getString("telefone");
-            endereco = rs.getString("endereco");
-            
-            if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
-                if (nome!=null && cpf_cnpj!=null && telefone!= null && endereco!= null) {
-                    cliente = new Cliente(nome, cpf_cnpj, endereco, telefone);
+            while (rs.next()) {
+                nome = rs.getString("nome");
+                cpf_cnpj = rs.getString("cpf_cnpj");
+                telefone = rs.getString("telefone");
+                endereco = rs.getString("endereco");
+
+                if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
+                    if (nome != null && cpf_cnpj != null && telefone != null && endereco != null) {
+                        clientes.add(new Cliente(nome, cpf_cnpj, endereco, telefone));
+                    }
                 }
             }
-            
-
         } catch (SQLException e) {
             System.out.println("Erro no sistema");
         }
         conexao.desconecta();
-        return cliente;
+        return clientes;
     }
-   
-   
-   public void atualizaCliente(String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) throws SQLException {
+
+    public void atualizaCliente(String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) throws SQLException {
         conexao.conecta();
 
-         String tabela = "clientes";
+        String tabela = "clientes";
         String SQL = "UPDATE " + tabela + " SET nome = '" + nome + "', cpf_cnpj = '" + cpf_cnpj + "', endereco = '" + endereco + "', telefone = '" + telefone + "' WHERE cpf_cnpj = '" + cpfAntigo + "'";
-        
+
         conexao.execute(SQL);
-     
+
         conexao.desconecta();
-        
+
     }
-
-
 }

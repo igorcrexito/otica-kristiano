@@ -5,6 +5,7 @@
 package controlador;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.ClienteDAO;
@@ -38,28 +39,28 @@ public class ControladorCliente {
         }
     }
     
-    public Cliente buscaClientePorCPFouNome (String nome, String cpf) {
-        Cliente client = null;
-        if (nome.equals("") && !cpf.equals(""))
-            try {
-            client = clienteDAO.buscaClientePorCPF_CNPJ(cpf);
-        } catch (SQLException ex) {
-            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        else if (!nome.equals("") && cpf.equals(""))
-            try {
-            client = clienteDAO.buscaClientePorNome(nome);
-        } catch (SQLException ex) {
-            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        else
-            try {
-            client = clienteDAO.buscaClientePorCPF_CNPJ(cpf);
+    public ArrayList<Cliente> buscaClientesPorNome (String nome) {
+        
+        ArrayList<Cliente> clientes = null;
+        try {
+            clientes = clienteDAO.buscaClientesPorNome(nome);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return client;
+        return clientes;
+    }
+    
+    public ArrayList<Cliente> buscaClientesPorCPFCNPJ(String nome) {
+        
+        ArrayList<Cliente> clientes = null;
+        try {
+            clientes = clienteDAO.buscaClientesPorCPFCNPJ(nome);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return clientes;
     }
     
 }
