@@ -5,7 +5,10 @@
 package gui;
 
 import controlador.ControladorProduto;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import utils.Produto;
 
 /**
  *
@@ -16,16 +19,15 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     /**
      * Creates new form PainelGerenciarEstoque
      */
-    
     DefaultTableModel modelProdutos;
     ControladorProduto controladorProduto = new ControladorProduto();
-    
-    
+    ArrayList<Produto> produtos;
+
     public PainelGerenciarEstoque() {
         initComponents();
         modelProdutos = (DefaultTableModel) tabelaEstoque.getModel();
 
-        
+
         this.campoCodigo.setEnabled(false);
         this.campoQuantidade.setEnabled(false);
         this.campoPreco.setEnabled(false);
@@ -279,7 +281,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoEPRadio.setEnabled(false);
             this.tipoMTRadio.setEnabled(false);
             this.tipoVSRadio.setEnabled(false);
-            
+
             checkPreco.setSelected(false);
             checkNome.setSelected(false);
             checkQuantidade.setSelected(false);
@@ -301,7 +303,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoEPRadio.setEnabled(false);
             this.tipoMTRadio.setEnabled(false);
             this.tipoVSRadio.setEnabled(false);
-            
+
             checkTipo.setSelected(false);
             checkCodigo.setSelected(false);
             checkQuantidade.setSelected(false);
@@ -323,7 +325,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoEPRadio.setEnabled(false);
             this.tipoMTRadio.setEnabled(false);
             this.tipoVSRadio.setEnabled(false);
-            
+
             checkTipo.setSelected(false);
             checkNome.setSelected(false);
             checkCodigo.setSelected(false);
@@ -345,7 +347,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoEPRadio.setEnabled(false);
             this.tipoMTRadio.setEnabled(false);
             this.tipoVSRadio.setEnabled(false);
-            
+
             checkCodigo.setSelected(false);
             checkNome.setSelected(false);
             checkQuantidade.setSelected(false);
@@ -367,7 +369,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             this.tipoEPRadio.setEnabled(true);
             this.tipoMTRadio.setEnabled(true);
             this.tipoVSRadio.setEnabled(true);
-            
+
             checkCodigo.setSelected(false);
             checkNome.setSelected(false);
             checkQuantidade.setSelected(false);
@@ -408,27 +410,31 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoEPRadioActionPerformed
 
     private void buscarProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoEstoqueActionPerformed
+        modelProdutos.setNumRows(0);           
         if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
-            
         } else if (checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //código
-            
+            produtos = controladorProduto.buscaClientesPorCodigo(campoCodigo.getSelectedText());
+            for (int i = 0; i < produtos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, produtos.get(i).getCodigo());
+                vec.add(1, produtos.get(i).getNome());
+                vec.add(2, produtos.get(i).getPrecoPorUnidade());
+                vec.add(3, produtos.get(i).getQuantidadeEstoque());
+                vec.add(4, produtos.get(i).getTipoProduto());
+                modelProdutos.addRow(vec);
+            }
         } else if (!checkCodigo.isSelected() && checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //nome
-            
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //preço
-            
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //quantidade
-            
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && checkTipo.isSelected()) {
             //tipo
-            
         }
-        
+        this.repaint();
     }//GEN-LAST:event_buscarProdutoEstoqueActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarProdutoEstoque;
     private javax.swing.JTextField campoCodigo;

@@ -27,7 +27,8 @@ public class ProdutoDAO {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
 
         String SQL_string = "SELECT * FROM produtos WHERE "
-                + "codigo LIKE '" + codigo + "'";
+                + "codigo LIKE '%" + codigo + "%'";
+
 
         ResultSet rs = conexao.executeSql(SQL_string);
        
