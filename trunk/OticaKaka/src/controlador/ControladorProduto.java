@@ -18,19 +18,40 @@ import utils.Produto;
  * @author Igor
  */
 public class ControladorProduto {
-    
+
     ProdutoDAO produtoDAO = new ProdutoDAO();
-    
-    public ArrayList<Produto> buscaClientesPorCodigo (String codigo) {
-        
+
+    public ArrayList<Produto> buscaClientesPorCodigo(String codigo) {
+
         ArrayList<Produto> produtos = null;
         try {
             produtos = produtoDAO.buscaProdutosPorCodigo(codigo);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return produtos;
     }
-    
+
+    public ArrayList<Produto> buscaProdutosPorNome(String nome) {
+
+        ArrayList<Produto> produtos = null;
+        try {
+            produtos = produtoDAO.buscaProdutosPorNome(nome);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return produtos;
+    }
+
+    public ArrayList<Produto> buscaTodosOsProdutos() {
+
+        ArrayList<Produto> produtos = null;
+
+        produtos = produtoDAO.buscaTodosOsProdutos();
+
+
+        return produtos;
+    }
 }

@@ -26,9 +26,8 @@ public class ProdutoDAO {
         conexao.conecta();
         ArrayList<Produto> produtos = new ArrayList<Produto>();
 
-        String SQL_string = "SELECT * FROM produtos WHERE "
-                + "codigo LIKE '%" + codigo + "%'";
-
+                String SQL_string = "SELECT * FROM produtos WHERE "
+                + "codigo LIKE'%" + codigo + "%'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
        
@@ -36,9 +35,11 @@ public class ProdutoDAO {
         String precoPorUnidade;
         int quantidadeEstoque = -1;
         String tipo;
+        String codigoProduto;
 
         try {
             while (rs.next()) {
+                codigoProduto = rs.getString("codigo");               
                 nome = rs.getString("nome");
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
@@ -46,7 +47,7 @@ public class ProdutoDAO {
 
                 if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
                     if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigo,nome, precoPorUnidade, quantidadeEstoque, tipo));
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo));
                     }
                 }
             }
@@ -58,29 +59,32 @@ public class ProdutoDAO {
     }
 
     
-    public ArrayList<Cliente> buscaClientesPorNome(String nome) throws SQLException {
+    public ArrayList<Produto> buscaProdutosPorNome(String nome) throws SQLException {
         conexao.conecta();
-        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
 
-        String SQL_string = "SELECT * FROM clientes WHERE "
-                + "nome LIKE '%" + nome + "%'";
+                String SQL_string = "SELECT * FROM produtos WHERE "
+                + "nome LIKE'%" + nome + "%'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
-
-        String cpf_cnpj;
-        String telefone;
-        String endereco;
+       
+        String nomeProduto;
+        String precoPorUnidade;
+        int quantidadeEstoque = -1;
+        String tipo;
+        String codigoProduto;
 
         try {
             while (rs.next()) {
-                nome = rs.getString("nome");
-                cpf_cnpj = rs.getString("cpf_cnpj");
-                telefone = rs.getString("telefone");
-                endereco = rs.getString("endereco");
+                codigoProduto = rs.getString("codigo");               
+                nomeProduto = rs.getString("nome");
+                precoPorUnidade = rs.getString("precoporunidade");
+                quantidadeEstoque = rs.getInt("qtdestoque");
+                tipo = rs.getString("tipo");
 
-                if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
-                    if (nome != null && cpf_cnpj != null && telefone != null && endereco != null) {
-                        clientes.add(new Cliente(nome, cpf_cnpj, endereco, telefone));
+                if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
+                    if (nome != null && precoPorUnidade != null && tipo != null) {
+                        produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo));
                     }
                 }
             }
@@ -88,7 +92,7 @@ public class ProdutoDAO {
             System.out.println("Erro no sistema");
         }
         conexao.desconecta();
-        return clientes;
+        return produtos;
     }
 
     public void atualizaCliente(String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) throws SQLException {
@@ -113,6 +117,41 @@ public class ProdutoDAO {
 
         conexao.desconecta();
 
+    }
+
+    public ArrayList<Produto> buscaTodosOsProdutos() {
+        conexao.conecta();
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+
+                String SQL_string = "SELECT * FROM produtos";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+       
+        String nome;
+        String precoPorUnidade;
+        int quantidadeEstoque = -1;
+        String tipo;
+        String codigoProduto;
+
+        try {
+            while (rs.next()) {
+                codigoProduto = rs.getString("codigo");               
+                nome = rs.getString("nome");
+                precoPorUnidade = rs.getString("precoporunidade");
+                quantidadeEstoque = rs.getInt("qtdestoque");
+                tipo = rs.getString("tipo");
+
+                if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
+                    if (nome != null && precoPorUnidade != null && tipo != null) {
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return produtos;
     }
     
 }
