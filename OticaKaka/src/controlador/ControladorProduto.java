@@ -62,4 +62,12 @@ public class ControladorProduto {
 
         return produtos;
     }
+
+    public ArrayList<Produto> buscaProdutosPorPreco(String preco, int opcaoSelecionada) {
+        ArrayList<Produto> produtos = null;
+        
+        //produtos = produtoDAO.buscaProdutosPorTipo(preco, opcaoSelecionada);
+
+        return produtos;
+    }
 }
