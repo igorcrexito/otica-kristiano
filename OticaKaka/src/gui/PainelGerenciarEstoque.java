@@ -264,7 +264,28 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBuscaActionPerformed
-        // TODO add your handling code here:
+        campoCodigo.setText("");
+        campoNome.setText("");
+        campoPreco.setText("");
+        campoQuantidade.setText("");
+        
+        campoCodigo.setEnabled(false);
+        campoNome.setEnabled(false);
+        campoPreco.setEnabled(false);
+        campoQuantidade.setEnabled(false);
+        
+        this.tipoBFRadio.setEnabled(false);
+        this.tipoEPRadio.setEnabled(false);
+        this.tipoMTRadio.setEnabled(false);
+        this.tipoVSRadio.setEnabled(false);
+
+        checkCodigo.setSelected(false);
+        checkNome.setSelected(false);
+        checkPreco.setSelected(false);
+        checkQuantidade.setSelected(false);
+        checkTipo.setSelected(false);
+        
+        modelProdutos.setNumRows(0);
     }//GEN-LAST:event_cancelarBuscaActionPerformed
 
     private void checkCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoActionPerformed
@@ -410,11 +431,21 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoEPRadioActionPerformed
 
     private void buscarProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoEstoqueActionPerformed
-        modelProdutos.setNumRows(0);           
+        modelProdutos.setNumRows(0);
         if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
+            produtos = controladorProduto.buscaTodosOsProdutos();
+            for (int i = 0; i < produtos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, produtos.get(i).getCodigo());
+                vec.add(1, produtos.get(i).getNome());
+                vec.add(2, produtos.get(i).getPrecoPorUnidade());
+                vec.add(3, produtos.get(i).getQuantidadeEstoque());
+                vec.add(4, produtos.get(i).getTipoProduto());
+                modelProdutos.addRow(vec);
+            }
         } else if (checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
-            //código
-            produtos = controladorProduto.buscaClientesPorCodigo(campoCodigo.getSelectedText());
+            String codigo = campoCodigo.getText();
+            produtos = controladorProduto.buscaClientesPorCodigo(codigo);
             for (int i = 0; i < produtos.size(); i++) {
                 Vector vec = new Vector();
                 vec.add(0, produtos.get(i).getCodigo());
@@ -425,7 +456,17 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
                 modelProdutos.addRow(vec);
             }
         } else if (!checkCodigo.isSelected() && checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
-            //nome
+            String nome = campoNome.getText();
+            produtos = controladorProduto.buscaProdutosPorNome(nome);
+            for (int i = 0; i < produtos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, produtos.get(i).getCodigo());
+                vec.add(1, produtos.get(i).getNome());
+                vec.add(2, produtos.get(i).getPrecoPorUnidade());
+                vec.add(3, produtos.get(i).getQuantidadeEstoque());
+                vec.add(4, produtos.get(i).getTipoProduto());
+                modelProdutos.addRow(vec);
+            }
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //preço
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && checkQuantidade.isSelected() && !checkTipo.isSelected()) {
