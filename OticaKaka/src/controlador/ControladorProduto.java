@@ -54,4 +54,12 @@ public class ControladorProduto {
 
         return produtos;
     }
+
+    public ArrayList<Produto> buscaProdutosPorTipo(String tipo) {
+        ArrayList<Produto> produtos = null;
+        
+        produtos = produtoDAO.buscaProdutosPorTipo(tipo);
+
+        return produtos;
+    }
 }

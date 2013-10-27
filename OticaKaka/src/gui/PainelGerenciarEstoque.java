@@ -268,12 +268,12 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         campoNome.setText("");
         campoPreco.setText("");
         campoQuantidade.setText("");
-        
+
         campoCodigo.setEnabled(false);
         campoNome.setEnabled(false);
         campoPreco.setEnabled(false);
         campoQuantidade.setEnabled(false);
-        
+
         this.tipoBFRadio.setEnabled(false);
         this.tipoEPRadio.setEnabled(false);
         this.tipoMTRadio.setEnabled(false);
@@ -284,7 +284,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
         checkPreco.setSelected(false);
         checkQuantidade.setSelected(false);
         checkTipo.setSelected(false);
-        
+
         modelProdutos.setNumRows(0);
     }//GEN-LAST:event_cancelarBuscaActionPerformed
 
@@ -469,10 +469,31 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             }
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //preço
+            
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             //quantidade
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && checkTipo.isSelected()) {
-            //tipo
+            String tipo = null;
+            if (tipoBFRadio.isSelected()) {
+                tipo = "BF";
+            } else if (tipoEPRadio.isSelected()) {
+                tipo = "EP";
+            } else if (tipoMTRadio.isSelected()) {
+                tipo = "MT";
+            } else if (tipoVSRadio.isSelected()) {
+                tipo = "VS";
+            }
+
+            produtos = controladorProduto.buscaProdutosPorTipo(tipo);
+            for (int i = 0; i < produtos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, produtos.get(i).getCodigo());
+                vec.add(1, produtos.get(i).getNome());
+                vec.add(2, produtos.get(i).getPrecoPorUnidade());
+                vec.add(3, produtos.get(i).getQuantidadeEstoque());
+                vec.add(4, produtos.get(i).getTipoProduto());
+                modelProdutos.addRow(vec);
+            }
         }
         this.repaint();
     }//GEN-LAST:event_buscarProdutoEstoqueActionPerformed

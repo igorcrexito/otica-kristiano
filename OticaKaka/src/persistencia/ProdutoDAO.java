@@ -153,5 +153,42 @@ public class ProdutoDAO {
         conexao.desconecta();
         return produtos;
     }
+
+    public ArrayList<Produto> buscaProdutosPorTipo(String tipo) {
+                conexao.conecta();
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+
+                String SQL_string = "SELECT * FROM produtos WHERE "
+                + "tipo LIKE'%" + tipo + "%'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+       
+        String nome;
+        String precoPorUnidade;
+        int quantidadeEstoque = -1;
+        String tipoProduto;
+        String codigoProduto;
+
+        try {
+            while (rs.next()) {
+                codigoProduto = rs.getString("codigo");               
+                nome = rs.getString("nome");
+                precoPorUnidade = rs.getString("precoporunidade");
+                quantidadeEstoque = rs.getInt("qtdestoque");
+                tipoProduto = rs.getString("tipo");
+
+                if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
+                    if (nome != null && precoPorUnidade != null && tipo != null) {
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipoProduto));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return produtos;
+
+    }
     
 }
