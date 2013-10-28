@@ -36,7 +36,7 @@ public class ProdutoDAO {
         int quantidadeEstoque = -1;
         String tipo;
         String codigoProduto;
-
+        String precoDeCusto;
         try {
             while (rs.next()) {
                 codigoProduto = rs.getString("codigo");               
@@ -44,10 +44,11 @@ public class ProdutoDAO {
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
                 tipo = rs.getString("tipo");
+                precoDeCusto = rs.getString("precoDeCusto");
 
                 if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
                     if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo));
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo, precoDeCusto));
                     }
                 }
             }
@@ -73,7 +74,8 @@ public class ProdutoDAO {
         int quantidadeEstoque = -1;
         String tipo;
         String codigoProduto;
-
+        String precoDeCusto;
+        
         try {
             while (rs.next()) {
                 codigoProduto = rs.getString("codigo");               
@@ -81,10 +83,11 @@ public class ProdutoDAO {
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
                 tipo = rs.getString("tipo");
-
+                precoDeCusto = rs.getString("precoDeCusto");
+                
                 if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
                     if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo));
+                        produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo,precoDeCusto));
                     }
                 }
             }
@@ -132,6 +135,7 @@ public class ProdutoDAO {
         int quantidadeEstoque = -1;
         String tipo;
         String codigoProduto;
+        String precoDeCusto;
 
         try {
             while (rs.next()) {
@@ -140,10 +144,11 @@ public class ProdutoDAO {
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
                 tipo = rs.getString("tipo");
+                precoDeCusto = rs.getString("precodecusto");
 
                 if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
                     if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo));
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipo, precoDeCusto));
                     }
                 }
             }
@@ -168,6 +173,7 @@ public class ProdutoDAO {
         int quantidadeEstoque = -1;
         String tipoProduto;
         String codigoProduto;
+        String precoDeCusto;
 
         try {
             while (rs.next()) {
@@ -176,10 +182,11 @@ public class ProdutoDAO {
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
                 tipoProduto = rs.getString("tipo");
+                precoDeCusto = rs.getString("precodecusto");
 
                 if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
                     if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipoProduto));
+                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipoProduto, precoDeCusto));
                     }
                 }
             }
@@ -191,32 +198,49 @@ public class ProdutoDAO {
 
     }
 
-   /* public ArrayList<Produto> buscaProdutosPorTipo(String preco, int opcaoSelecionada) {
-                        conexao.conecta();
-       /* ArrayList<Produto> produtos = new ArrayList<Produto>();
+    public ArrayList<Produto> buscaProdutosPorPreco(String preco, int opcaoSelecionada) throws SQLException {
+        conexao.conecta();
+        
+        
+        if (preco.contains(",")) {
+            preco = preco.replace(",", ".");
+        }
+        
+        double precoProduto = Double.parseDouble(preco);
+        
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
 
-                String SQL_string = "SELECT * FROM produtos WHERE "
-                + "tipo LIKE'%" + tipo + "%'";
+                String SQL_string = "SELECT * FROM produtos";
 
         ResultSet rs = conexao.executeSql(SQL_string);
        
-        String nome;
+        String nomeProduto;
         String precoPorUnidade;
         int quantidadeEstoque = -1;
-        String tipoProduto;
+        String tipo;
         String codigoProduto;
-
+        String precoDeCusto;
+        
         try {
             while (rs.next()) {
                 codigoProduto = rs.getString("codigo");               
-                nome = rs.getString("nome");
+                nomeProduto = rs.getString("nome");
                 precoPorUnidade = rs.getString("precoporunidade");
                 quantidadeEstoque = rs.getInt("qtdestoque");
-                tipoProduto = rs.getString("tipo");
-
-                if (!nome.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
-                    if (nome != null && precoPorUnidade != null && tipo != null) {
-                        produtos.add(new Produto(codigoProduto ,nome, precoPorUnidade, quantidadeEstoque, tipoProduto));
+                tipo = rs.getString("tipo");
+                precoDeCusto = rs.getString("precoDeCusto");
+                
+                if (precoPorUnidade.contains(","))
+                    precoPorUnidade = precoPorUnidade.replace(",", ".");
+                
+                double precoChecar = Double.parseDouble(precoPorUnidade);
+                
+                if (!codigoProduto.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
+                    if (nomeProduto != null && precoPorUnidade != null && tipo != null) {
+                        if (opcaoSelecionada==0 && precoChecar >= precoProduto)
+                            produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo,precoDeCusto));
+                        else if (opcaoSelecionada==1 && precoChecar <= precoProduto)    
+                            produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo,precoDeCusto));
                     }
                 }
             }
@@ -224,8 +248,52 @@ public class ProdutoDAO {
             System.out.println("Erro no sistema");
         }
         conexao.desconecta();
-       // return produtos;
-
+        return produtos;
     }
-    */
+
+    public ArrayList<Produto> buscaProdutosPorQuantidade(int quantidade, int opcaoSelecionada) {
+        conexao.conecta();
+        
+        
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+
+                String SQL_string = "SELECT * FROM produtos";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+       
+        String nomeProduto;
+        String precoPorUnidade;
+        int quantidadeEstoque = -1;
+        String tipo;
+        String codigoProduto;
+        String precoDeCusto;
+        
+        try {
+            while (rs.next()) {
+                codigoProduto = rs.getString("codigo");               
+                nomeProduto = rs.getString("nome");
+                precoPorUnidade = rs.getString("precoporunidade");
+                quantidadeEstoque = rs.getInt("qtdestoque");
+                tipo = rs.getString("tipo");
+                precoDeCusto = rs.getString("precoDeCusto");
+                
+                if (precoPorUnidade.contains(","))
+                    precoPorUnidade = precoPorUnidade.replace(",", ".");
+                
+                if (!codigoProduto.equals("") && !precoPorUnidade.equals("") && quantidadeEstoque!=-1 && !tipo.equals("")) {
+                    if (nomeProduto != null && precoPorUnidade != null && tipo != null) {
+                        if (opcaoSelecionada==0 && quantidadeEstoque >= quantidade)
+                            produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo,precoDeCusto));
+                        else if (opcaoSelecionada==1 && quantidadeEstoque <= quantidade)    
+                            produtos.add(new Produto(codigoProduto ,nomeProduto, precoPorUnidade, quantidadeEstoque, tipo,precoDeCusto));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return produtos;
+    }
+
 }
