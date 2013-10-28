@@ -57,7 +57,7 @@ public class ControladorProduto {
 
     public ArrayList<Produto> buscaProdutosPorTipo(String tipo) {
         ArrayList<Produto> produtos = null;
-        
+
         produtos = produtoDAO.buscaProdutosPorTipo(tipo);
 
         return produtos;
@@ -65,8 +65,18 @@ public class ControladorProduto {
 
     public ArrayList<Produto> buscaProdutosPorPreco(String preco, int opcaoSelecionada) {
         ArrayList<Produto> produtos = null;
-        
-        //produtos = produtoDAO.buscaProdutosPorTipo(preco, opcaoSelecionada);
+        try {
+            produtos = produtoDAO.buscaProdutosPorPreco(preco, opcaoSelecionada);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return produtos;
+    }
+
+    public ArrayList<Produto> buscaProdutosPorQuantidade(int quantidade, int opcaoSelecionada) {
+        ArrayList<Produto> produtos = null;
+        produtos = produtoDAO.buscaProdutosPorQuantidade(quantidade, opcaoSelecionada);
 
         return produtos;
     }

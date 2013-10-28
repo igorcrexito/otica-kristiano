@@ -469,7 +469,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             }
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && checkPreco.isSelected() && !checkQuantidade.isSelected() && !checkTipo.isSelected()) {
             String preco = campoPreco.getText();
-            int opcaoSelecionada = comboMaiorQuantidade.getSelectedIndex();
+            int opcaoSelecionada = comboMenorPreco.getSelectedIndex();
             produtos = controladorProduto.buscaProdutosPorPreco(preco, opcaoSelecionada);
             for (int i = 0; i < produtos.size(); i++) {
                 Vector vec = new Vector();
@@ -482,7 +482,19 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
             }
             
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && checkQuantidade.isSelected() && !checkTipo.isSelected()) {
-            //quantidade
+            int quantidade = Integer.parseInt(campoQuantidade.getText());
+            int opcaoSelecionada = comboMaiorQuantidade.getSelectedIndex();
+            
+            produtos = controladorProduto.buscaProdutosPorQuantidade(quantidade, opcaoSelecionada);
+            for (int i = 0; i < produtos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, produtos.get(i).getCodigo());
+                vec.add(1, produtos.get(i).getNome());
+                vec.add(2, produtos.get(i).getPrecoPorUnidade());
+                vec.add(3, produtos.get(i).getQuantidadeEstoque());
+                vec.add(4, produtos.get(i).getTipoProduto());
+                modelProdutos.addRow(vec);
+            }
         } else if (!checkCodigo.isSelected() && !checkNome.isSelected() && !checkPreco.isSelected() && !checkQuantidade.isSelected() && checkTipo.isSelected()) {
             String tipo = null;
             if (tipoBFRadio.isSelected()) {

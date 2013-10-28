@@ -13,15 +13,25 @@ public class Produto {
     private String codigo;
     private String nome;
     private String precoPorUnidade;
+    private String precoDeCusto;
     private int quantidadeEstoque;
     private String tipoProduto;
     
-    public Produto(String codigo, String nome, String precoPorUnidade, int quantidadeEstoque, String tipoProduto) {
+    public Produto(String codigo, String nome, String precoPorUnidade, int quantidadeEstoque, String tipoProduto, String precoDeCusto) {
         this.codigo = codigo;
         this.nome = nome;
         this.precoPorUnidade = precoPorUnidade;
         this.quantidadeEstoque = quantidadeEstoque;
         this.tipoProduto = tipoProduto;
+        this.precoDeCusto = precoDeCusto;
+    }
+
+    public String getPrecoDeCusto() {
+        return precoDeCusto;
+    }
+
+    public void setPrecoDeCusto(String precoDeCusto) {
+        this.precoDeCusto = precoDeCusto;
     }
 
     public String getTipoProduto() {
