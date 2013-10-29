@@ -55,6 +55,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         barraBotoes.add(jButton2);
 
         botaoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cliente.png"))); // NOI18N
@@ -162,6 +167,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelPrincipal.add(painelEstoque);
         this.repaint();
     }//GEN-LAST:event_botaoEstoqueActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PainelGerenciarProdutos painelProdutos = new PainelGerenciarProdutos();
+        painelPrincipal.removeAll();
+        this.painelPrincipal.setLayout(new BorderLayout());
+        painelPrincipal.add(painelProdutos);
+        this.repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

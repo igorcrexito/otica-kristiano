@@ -22,6 +22,31 @@ public class ProdutoDAO {
         this.conexao = ConexaoBD.getConexaoBD();
     }
 
+     public void insertProduto(String codigo, String nome, String precoporunidade, String precodecusto, int qtdestoque, int tipo) throws SQLException {
+
+        conexao.conecta();
+        String tipoFinal = null;
+        
+        if (tipo ==0)
+            tipoFinal = "BF";
+        else if (tipo ==1)
+            tipoFinal = "VS";
+        else if (tipo ==2)
+            tipoFinal = "EP";
+        else if (tipo ==3)
+            tipoFinal = "MT";
+
+        precodecusto = precodecusto.replace(",", ".");
+        precoporunidade = precoporunidade.replace(",", ".");
+        
+        String SQL_String = "INSERT INTO PRODUTOS (codigo,nome,precoporunidade,precodecusto,qtdestoque, tipo)"
+                + " VALUES ('" + codigo + "', '" + nome + "', '" + precoporunidade + "', '" + precodecusto + "', '" + qtdestoque + "', '" + tipoFinal + "')";
+
+        conexao.execute(SQL_String);
+
+        conexao.desconecta();
+    }
+
     public ArrayList<Produto> buscaProdutosPorCodigo(String codigo) throws SQLException {
         conexao.conecta();
         ArrayList<Produto> produtos = new ArrayList<Produto>();
@@ -96,30 +121,6 @@ public class ProdutoDAO {
         }
         conexao.desconecta();
         return produtos;
-    }
-
-    public void atualizaCliente(String nome, String cpf_cnpj, String endereco, String telefone, String cpfAntigo) throws SQLException {
-        conexao.conecta();
-
-        String tabela = "clientes";
-        String SQL = "UPDATE " + tabela + " SET nome = '" + nome + "', cpf_cnpj = '" + cpf_cnpj + "', endereco = '" + endereco + "', telefone = '" + telefone + "' WHERE cpf_cnpj = '" + cpfAntigo + "'";
-
-        conexao.execute(SQL);
-
-        conexao.desconecta();
-
-    }
-    
-    public void deletaCliente(String cpf_cnpj) throws SQLException {
-        conexao.conecta();
-
-        String tabela = "clientes";
-        String SQL = "DELETE FROM " + tabela + " WHERE cpf_cnpj = '" + cpf_cnpj + "'";
-
-        conexao.execute(SQL);
-
-        conexao.desconecta();
-
     }
 
     public ArrayList<Produto> buscaTodosOsProdutos() {
