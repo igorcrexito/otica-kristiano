@@ -81,7 +81,6 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
         novoCodigo = new javax.swing.JTextField();
         novoNome = new javax.swing.JTextField();
         novoPrecoUnidade = new javax.swing.JTextField();
-        novoPrecoCusto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         checkCPF = new javax.swing.JCheckBox();
         checkNome = new javax.swing.JCheckBox();
@@ -345,14 +344,22 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(novoPrecoCusto, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                            .addComponent(novoPrecoUnidade)
-                            .addComponent(novoNome)
-                            .addComponent(novoCodigo)
-                            .addComponent(novaQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                            .addComponent(novoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(novoPrecoUnidade)
+                                    .addComponent(novoNome)
+                                    .addComponent(novoCodigo)
+                                    .addComponent(novaQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                                    .addComponent(novoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(selecionaProduto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(atualizaCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removerCliente)))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -372,14 +379,6 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(154, 154, 154))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(selecionaProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(atualizaCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(removerCliente)
-                .addGap(57, 57, 57))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +402,8 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(54, 54, 54)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(novoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,19 +412,16 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(novoPrecoUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
                                 .addComponent(novaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(novoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(novoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(selecionaProduto)
+                                    .addComponent(atualizaCliente)
+                                    .addComponent(removerCliente)))))
                     .addComponent(buscarProduto))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selecionaProduto)
-                    .addComponent(atualizaCliente)
-                    .addComponent(removerCliente))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         abasProduto.addTab("Editar", jPanel3);
@@ -534,14 +531,19 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
     }//GEN-LAST:event_buscarProdutoActionPerformed
 
     private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
+        novoTipo.setText(novoTipo.getText().toUpperCase());
+        if (novoTipo.getText().equals("EP") || novoTipo.getText().equals("MT") || novoTipo.getText().equals("VS") || novoTipo.getText().equals("BF")) {
         
-       /* if (!novoEndereco.getText().equals("") && !novoTelefone.getText().equals("") && !novoNome.getText().equals("") && !novoCPF.equals("")) {
-            controladorCliente.atualizaCliente(novoNome.getText(), novoCPF.getText(), novoEndereco.getText(), novoTelefone.getText(), cpfSelecionado);
-            JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (!novoCodigo.getText().equals("") && !novoNome.getText().equals("") && !novoPrecoUnidade.getText().equals("") && !novoTipo.equals("") && !novaQuantidade.getText().equals("") && tabelaProdutos.getSelectedRow()!= -1 && !codigoSelecionado.equals("")) {
+            controladorProduto.atualizaProduto(novoCodigo.getText(), novoNome.getText(), novoPrecoUnidade.getText(), Integer.parseInt(novaQuantidade.getText()), novoTipo.getText(), codigoSelecionado);
+            JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Campos precisam ser preenchidos", null, JOptionPane.OK_OPTION);
 
-        }*/
+        }
+        } else {
+             JOptionPane.showMessageDialog(this, "Grupo de produto inexistente", null, JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_atualizaClienteActionPerformed
 
     private void checkCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCPFActionPerformed
@@ -571,7 +573,6 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
             novoCodigo.setText(produtoSelecionado.getCodigo());
             novoNome.setText(produtoSelecionado.getNome());
             novoPrecoUnidade.setText(produtoSelecionado.getPrecoPorUnidade());
-            novoPrecoCusto.setText(produtoSelecionado.getPrecoDeCusto());
             novoTipo.setText(produtoSelecionado.getTipoProduto());
             novaQuantidade.setText(String.valueOf(produtoSelecionado.getQuantidadeEstoque()));
             
@@ -659,7 +660,6 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
     private javax.swing.JTextField novaQuantidade;
     private javax.swing.JTextField novoCodigo;
     private javax.swing.JTextField novoNome;
-    private javax.swing.JTextField novoPrecoCusto;
     private javax.swing.JTextField novoPrecoUnidade;
     private javax.swing.JTextField novoTipo;
     private javax.swing.JRadioButton radioGrupoBF;

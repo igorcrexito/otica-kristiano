@@ -308,4 +308,17 @@ public class ProdutoDAO {
         conexao.desconecta();
     }
 
+    public void atualizaProduto(String codigo, String nome, String precoUnidade, int quantidadeEstoque, String tipo, String codigoAntigo) {
+        conexao.conecta();
+
+        precoUnidade = precoUnidade.replace(",", ".");
+        
+        String tabela = "produtos";
+        String SQL = "UPDATE " + tabela + " SET codigo = '" + codigo + "', nome = '" + nome + "', precoporunidade = '" + precoUnidade + "', tipo = '" + tipo + "', qtdestoque = '" + quantidadeEstoque + "' WHERE codigo = '" + codigoAntigo + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
 }

@@ -138,7 +138,7 @@ public class PainelGerenciarEstoque extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "Preço", "Quantidade", "Tipo"
+                "Código", "Nome", "Preço", "Quantidade", "Grupo"
             }
         ));
         jScrollPane1.setViewportView(tabelaEstoque);

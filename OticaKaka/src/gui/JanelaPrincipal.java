@@ -16,13 +16,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPrincipal
      */
+    PainelInicial painelInicial;
+    
     public JanelaPrincipal() {
         super("Frente de Caixa");
         initComponents();
-        Toolkit tk = Toolkit.getDefaultToolkit();  
-        int xSize = ((int) tk.getScreenSize().getWidth());  
-        int ySize = ((int) tk.getScreenSize().getHeight());  
-        this.setSize(xSize,ySize);  
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xSize = ((int) tk.getScreenSize().getWidth());
+        int ySize = ((int) tk.getScreenSize().getHeight());
+        this.setSize(xSize, ySize);
+
+        painelInicial = new PainelInicial();
+        painelPrincipal.removeAll();
+        this.painelPrincipal.setLayout(new BorderLayout());
+        this.painelPrincipal.setAutoscrolls(true);
+        painelPrincipal.add(painelInicial);
+        this.repaint();
     }
 
     /**
@@ -35,6 +46,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         barraBotoes = new javax.swing.JToolBar();
+        apresentacaoBotao = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         botaoCliente = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -49,6 +61,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraBotoes.setRollover(true);
         barraBotoes.setBorderPainted(false);
         barraBotoes.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        apresentacaoBotao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/home.png"))); // NOI18N
+        apresentacaoBotao.setText("Apresentação");
+        apresentacaoBotao.setFocusable(false);
+        apresentacaoBotao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        apresentacaoBotao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        apresentacaoBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apresentacaoBotaoActionPerformed(evt);
+            }
+        });
+        barraBotoes.add(apresentacaoBotao);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/glasses.png"))); // NOI18N
         jButton2.setText("Gerenciar Produtos");
@@ -135,7 +159,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barraBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+            .addComponent(barraBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -176,6 +200,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void apresentacaoBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apresentacaoBotaoActionPerformed
+        painelPrincipal.removeAll();
+        painelPrincipal.add(painelInicial);
+        this.repaint();
+
+    }//GEN-LAST:event_apresentacaoBotaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -211,6 +242,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton apresentacaoBotao;
     private javax.swing.JToolBar barraBotoes;
     private javax.swing.JButton botaoCliente;
     private javax.swing.JButton botaoEstoque;
