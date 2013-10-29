@@ -80,15 +80,17 @@ public class ControladorProduto {
 
         return produtos;
     }
-    
-     public void insereProdutos(String codigo, String nome, String precoPorUnidade, String precoDeCusto, int qtdEstoque, int tipo) {
-        
-         try {
+
+    public void deletaProdutosPorCodigo(String codigo) {
+        produtoDAO.deletaProduto(codigo);
+    }
+
+    public void insereProdutos(String codigo, String nome, String precoPorUnidade, String precoDeCusto, int qtdEstoque, int tipo) {
+
+        try {
             produtoDAO.insertProduto(codigo, nome, precoPorUnidade, precoDeCusto, qtdEstoque, tipo);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
-     
 }
