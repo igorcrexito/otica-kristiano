@@ -93,4 +93,9 @@ public class ControladorProduto {
             Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void atualizaProduto(String codigo, String nome, String precoUnidade, int quantidadeEstoque, String tipo, String codigoAntigo) {
+        produtoDAO.atualizaProduto(codigo, nome, precoUnidade, quantidadeEstoque, tipo, codigoAntigo);
+
+    }
 }
