@@ -317,24 +317,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="novoTelefone" pref="424" max="32767" attributes="0"/>
-                                          <Component id="novoEndereco" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="novoCPF" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="novoNome" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Component id="selecionaCliente" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="atualizaCliente" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="removerCliente" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="novoPrecoCusto" pref="424" max="32767" attributes="0"/>
+                                  <Component id="novoPrecoUnidade" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="novoNome" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="novoCodigo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="novaQuantidade" alignment="0" pref="424" max="32767" attributes="0"/>
+                                  <Component id="novoTipo" alignment="0" pref="424" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
@@ -343,7 +333,7 @@
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" pref="154" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoBuscaCPF" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campoBuscaCodigo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="campoBuscaNome" alignment="0" pref="450" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -357,10 +347,19 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
-                      <Component id="buscarCliente" min="-2" max="-2" attributes="0"/>
+                      <Component id="buscarProduto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="321" max="32767" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="selecionaProduto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="atualizaCliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="removerCliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -373,7 +372,7 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="campoBuscaCPF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoBuscaCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -388,29 +387,33 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                      <Component id="novoCodigo" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="novoNome" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="novoCPF" min="-2" max="-2" attributes="0"/>
+                                      <Component id="novoPrecoUnidade" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="novoEndereco" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="novoTelefone" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="atualizaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="selecionaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="removerCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="novoPrecoCusto" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="novaQuantidade" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="novoTipo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane1" min="-2" pref="176" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="buscarCliente" min="-2" max="-2" attributes="0"/>
+                          <Component id="buscarProduto" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="229" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="selecionaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="atualizaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="removerCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="170" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -421,24 +424,24 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Edi&#xe7;&#xe3;o de Clientes"/>
+                <Property name="text" type="java.lang.String" value="Edi&#xe7;&#xe3;o de Produtos"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Busque o cliente por CPF/CNPJ"/>
+                <Property name="text" type="java.lang.String" value="Busque o produto por c&#xf3;digo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoBuscaCPF">
+            <Component class="javax.swing.JTextField" name="campoBuscaCodigo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Busque o cliente pelo nome"/>
+                <Property name="text" type="java.lang.String" value="Busque o produto pelo nome"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campoBuscaNome">
             </Component>
-            <Component class="javax.swing.JButton" name="buscarCliente">
+            <Component class="javax.swing.JButton" name="buscarProduto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/search.png"/>
@@ -446,7 +449,7 @@
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarClienteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarProdutoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="atualizaCliente">
@@ -460,13 +463,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizaClienteActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JTextField" name="novoCodigo">
+            </Component>
             <Component class="javax.swing.JTextField" name="novoNome">
             </Component>
-            <Component class="javax.swing.JTextField" name="novoCPF">
+            <Component class="javax.swing.JTextField" name="novoPrecoUnidade">
             </Component>
-            <Component class="javax.swing.JTextField" name="novoEndereco">
-            </Component>
-            <Component class="javax.swing.JTextField" name="novoTelefone">
+            <Component class="javax.swing.JTextField" name="novoPrecoCusto">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -475,7 +478,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkCPF">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Busque por CPF/CNPJ"/>
+                <Property name="text" type="java.lang.String" value="Busque pelo c&#xf3;digo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCPFActionPerformed"/>
@@ -483,7 +486,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkNome">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Busque por nome"/>
+                <Property name="text" type="java.lang.String" value="Busque pelo nome"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkNomeActionPerformed"/>
@@ -496,18 +499,24 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tabelaClientes">
+                <Component class="javax.swing.JTable" name="tabelaProdutos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
-                        <Column editable="true" title="CPF/CNPJ" type="java.lang.Object"/>
+                      <Table columnCount="5" rowCount="0">
+                        <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nome" type="java.lang.Object"/>
-                        <Column editable="true" title="Endere&#xe7;o" type="java.lang.Object"/>
-                        <Column editable="true" title="Telefone" type="java.lang.Object"/>
+                        <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
+                        <Column editable="true" title="Quantidade" type="java.lang.Object"/>
+                        <Column editable="true" title="Grupo" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -537,7 +546,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="selecionaCliente">
+            <Component class="javax.swing.JButton" name="selecionaProduto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/select.png"/>
@@ -545,7 +554,7 @@
                 <Property name="text" type="java.lang.String" value="Selecionar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selecionaClienteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selecionaProdutoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="removerCliente">
@@ -558,6 +567,10 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerClienteActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="novaQuantidade">
+            </Component>
+            <Component class="javax.swing.JTextField" name="novoTipo">
             </Component>
           </SubComponents>
         </Container>

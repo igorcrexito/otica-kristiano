@@ -11,6 +11,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Cliente;
+import utils.Produto;
 
 /**
  *
@@ -18,19 +19,19 @@ import utils.Cliente;
  */
 public class PainelGerenciarProdutos extends javax.swing.JPanel {
 
-    ArrayList<Cliente> clientes = null;
+    ArrayList<Produto> produtos = null;
     ControladorProduto controladorProduto = new ControladorProduto();
     DefaultTableModel modelUsuarios;
-    String cpfSelecionado = "";
+    String codigoSelecionado = "";
     boolean grupoSelecionado = false;
     /**
      * Creates new form PainelGerenciarClientes
      */
     public PainelGerenciarProdutos() {
         initComponents();
-        modelUsuarios = (DefaultTableModel) tabelaClientes.getModel();
+        modelUsuarios = (DefaultTableModel) tabelaProdutos.getModel();
 
-        this.campoBuscaCPF.setEnabled(false);
+        this.campoBuscaCodigo.setEnabled(false);
         this.campoBuscaNome.setEnabled(false);
         this.abasProduto.setEnabledAt(0, true);
         this.abasProduto.setEnabledAt(1, false);
@@ -72,22 +73,24 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        campoBuscaCPF = new javax.swing.JTextField();
+        campoBuscaCodigo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         campoBuscaNome = new javax.swing.JTextField();
-        buscarCliente = new javax.swing.JButton();
+        buscarProduto = new javax.swing.JButton();
         atualizaCliente = new javax.swing.JButton();
+        novoCodigo = new javax.swing.JTextField();
         novoNome = new javax.swing.JTextField();
-        novoCPF = new javax.swing.JTextField();
-        novoEndereco = new javax.swing.JTextField();
-        novoTelefone = new javax.swing.JTextField();
+        novoPrecoUnidade = new javax.swing.JTextField();
+        novoPrecoCusto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         checkCPF = new javax.swing.JCheckBox();
         checkNome = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
-        selecionaCliente = new javax.swing.JButton();
+        tabelaProdutos = new javax.swing.JTable();
+        selecionaProduto = new javax.swing.JButton();
         removerCliente = new javax.swing.JButton();
+        novaQuantidade = new javax.swing.JTextField();
+        novoTipo = new javax.swing.JTextField();
 
         barraCliente.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraCliente.setRollover(true);
@@ -269,17 +272,17 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
         abasProduto.addTab("Adicionar", jPanel2);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Edição de Clientes");
+        jLabel6.setText("Edição de Produtos");
 
-        jLabel7.setText("Busque o cliente por CPF/CNPJ");
+        jLabel7.setText("Busque o produto por código");
 
-        jLabel8.setText("Busque o cliente pelo nome");
+        jLabel8.setText("Busque o produto pelo nome");
 
-        buscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
-        buscarCliente.setText("Buscar");
-        buscarCliente.addActionListener(new java.awt.event.ActionListener() {
+        buscarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        buscarProduto.setText("Buscar");
+        buscarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarClienteActionPerformed(evt);
+                buscarProdutoActionPerformed(evt);
             }
         });
 
@@ -293,35 +296,35 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
 
         jLabel9.setText("Digite os novos campos:");
 
-        checkCPF.setText("Busque por CPF/CNPJ");
+        checkCPF.setText("Busque pelo código");
         checkCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkCPFActionPerformed(evt);
             }
         });
 
-        checkNome.setText("Busque por nome");
+        checkNome.setText("Busque pelo nome");
         checkNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkNomeActionPerformed(evt);
             }
         });
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF/CNPJ", "Nome", "Endereço", "Telefone"
+                "Código", "Nome", "Preço", "Quantidade", "Grupo"
             }
         ));
-        jScrollPane1.setViewportView(tabelaClientes);
+        jScrollPane1.setViewportView(tabelaProdutos);
 
-        selecionaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
-        selecionaCliente.setText("Selecionar");
-        selecionaCliente.addActionListener(new java.awt.event.ActionListener() {
+        selecionaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
+        selecionaProduto.setText("Selecionar");
+        selecionaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selecionaClienteActionPerformed(evt);
+                selecionaProdutoActionPerformed(evt);
             }
         });
 
@@ -342,28 +345,21 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(novoTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                                    .addComponent(novoEndereco)
-                                    .addComponent(novoCPF)
-                                    .addComponent(novoNome)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(selecionaCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(atualizaCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(removerCliente)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(novoPrecoCusto, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                            .addComponent(novoPrecoUnidade)
+                            .addComponent(novoNome)
+                            .addComponent(novoCodigo)
+                            .addComponent(novaQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                            .addComponent(novoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(campoBuscaCPF)
+                            .addComponent(campoBuscaCodigo)
                             .addComponent(campoBuscaNome, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,10 +368,18 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(192, 192, 192)
-                .addComponent(buscarCliente)
+                .addComponent(buscarProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(154, 154, 154))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(selecionaProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(atualizaCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removerCliente)
+                .addGap(57, 57, 57))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,7 +390,7 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkCPF))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
@@ -399,24 +403,28 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(54, 54, 54)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
+                                .addComponent(novoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(novoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(novoPrecoUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(atualizaCliente)
-                                    .addComponent(selecionaCliente)
-                                    .addComponent(removerCliente)))
+                                .addComponent(novoPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(novaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(novoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(buscarCliente))
-                .addContainerGap(229, Short.MAX_VALUE))
+                    .addComponent(buscarProduto))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selecionaProduto)
+                    .addComponent(atualizaCliente)
+                    .addComponent(removerCliente))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         abasProduto.addTab("Editar", jPanel3);
@@ -500,29 +508,30 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
         
     }//GEN-LAST:event_botaoConfirmarProdutoActionPerformed
 
-    private void buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarClienteActionPerformed
+    private void buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoActionPerformed
 
 
-      /*  if (campoBuscaNome.getText() != null && !campoBuscaNome.getText().equals("") && campoBuscaNome.isEnabled()) {
-            clientes = controladorCliente.buscaClientesPorNome(campoBuscaNome.getText());
-        } else if (campoBuscaCPF.getText() != null && !campoBuscaCPF.getText().equals("") && campoBuscaCPF.isEnabled()) {
-            clientes = controladorCliente.buscaClientesPorCPFCNPJ(campoBuscaCPF.getText());
+        if (campoBuscaNome.getText() != null && !campoBuscaNome.getText().equals("") && campoBuscaNome.isEnabled()) {
+            produtos = controladorProduto.buscaProdutosPorNome(campoBuscaNome.getText());
+        } else if (campoBuscaCodigo.getText() != null && !campoBuscaCodigo.getText().equals("") && campoBuscaCodigo.isEnabled()) {
+            produtos = controladorProduto.buscaClientesPorCodigo(campoBuscaCodigo.getText());
         }
 
         modelUsuarios.setNumRows(0);
 
 
-        for (int i = 0; i < clientes.size(); i++) {
+        for (int i = 0; i < produtos.size(); i++) {
             Vector vec = new Vector();
-            vec.add(0, clientes.get(i).getCpf_cnpj());
-            vec.add(1, clientes.get(i).getNome());
-            vec.add(2, clientes.get(i).getEndereco());
-            vec.add(3, clientes.get(i).getTelefone());
+            vec.add(0, produtos.get(i).getCodigo());
+            vec.add(1, produtos.get(i).getNome());
+            vec.add(2, produtos.get(i).getPrecoPorUnidade());
+            vec.add(3, produtos.get(i).getQuantidadeEstoque());
+            vec.add(4, produtos.get(i).getTipoProduto());
             modelUsuarios.addRow(vec);
         }
 
-        this.repaint(); */
-    }//GEN-LAST:event_buscarClienteActionPerformed
+        this.repaint();
+    }//GEN-LAST:event_buscarProdutoActionPerformed
 
     private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
         
@@ -537,46 +546,49 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
 
     private void checkCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCPFActionPerformed
         if (checkCPF.isSelected()) {
-            campoBuscaCPF.setEnabled(true);
+            campoBuscaCodigo.setEnabled(true);
             checkNome.setSelected(false);
             campoBuscaNome.setEnabled(false);
         } else {
-            campoBuscaCPF.setEnabled(false);
+            campoBuscaCodigo.setEnabled(false);
         }
     }//GEN-LAST:event_checkCPFActionPerformed
 
     private void checkNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNomeActionPerformed
         if (checkNome.isSelected()) {
             campoBuscaNome.setEnabled(true);
-            campoBuscaCPF.setEnabled(false);
+            campoBuscaCodigo.setEnabled(false);
             checkCPF.setSelected(false);
         } else {
             campoBuscaNome.setEnabled(false);
         }
     }//GEN-LAST:event_checkNomeActionPerformed
 
-    private void selecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaClienteActionPerformed
+    private void selecionaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaProdutoActionPerformed
         try {
-            int selecionado = tabelaClientes.getSelectedRow();
-            Cliente clienteSelecionado = clientes.get(selecionado);
-            novoNome.setText(clienteSelecionado.getNome());
-            novoCPF.setText(clienteSelecionado.getCpf_cnpj());
-            novoEndereco.setText(clienteSelecionado.getEndereco());
-            novoTelefone.setText(clienteSelecionado.getTelefone());
-            cpfSelecionado = clienteSelecionado.getCpf_cnpj();
+            int selecionado = tabelaProdutos.getSelectedRow();
+            Produto produtoSelecionado = produtos.get(selecionado);
+            novoCodigo.setText(produtoSelecionado.getCodigo());
+            novoNome.setText(produtoSelecionado.getNome());
+            novoPrecoUnidade.setText(produtoSelecionado.getPrecoPorUnidade());
+            novoPrecoCusto.setText(produtoSelecionado.getPrecoDeCusto());
+            novoTipo.setText(produtoSelecionado.getTipoProduto());
+            novaQuantidade.setText(String.valueOf(produtoSelecionado.getQuantidadeEstoque()));
+            
+            codigoSelecionado = produtoSelecionado.getCodigo();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Um produto deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
 
         }
-    }//GEN-LAST:event_selecionaClienteActionPerformed
+    }//GEN-LAST:event_selecionaProdutoActionPerformed
 
     private void removerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteActionPerformed
-     /*   if (!cpfSelecionado.equals("") && cpfSelecionado!=null && tabelaClientes.getSelectedRow()!=-1) {
-            controladorCliente.deletaClientesPorCPFCNPJ(cpfSelecionado);
-            JOptionPane.showMessageDialog(this, "Cliente removido com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (!codigoSelecionado.equals("") && codigoSelecionado!=null && tabelaProdutos.getSelectedRow()!=-1) {
+            controladorProduto.deletaProdutosPorCodigo(codigoSelecionado);
+            JOptionPane.showMessageDialog(this, "Produto removido com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na Tabela", null, JOptionPane.OK_OPTION);
-        }*/
+            JOptionPane.showMessageDialog(this, "Um produto deve ser selecionado na Tabela", null, JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_removerClienteActionPerformed
 
     private void radioGrupoBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGrupoBFActionPerformed
@@ -617,8 +629,8 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
     private javax.swing.JButton atualizaCliente;
     private javax.swing.JToolBar barraCliente;
     private javax.swing.JButton botaoConfirmarProduto;
-    private javax.swing.JButton buscarCliente;
-    private javax.swing.JTextField campoBuscaCPF;
+    private javax.swing.JButton buscarProduto;
+    private javax.swing.JTextField campoBuscaCodigo;
     private javax.swing.JTextField campoBuscaNome;
     private javax.swing.JTextField campoCodigoAddProduto;
     private javax.swing.JTextField campoNomeAddProduto;
@@ -644,16 +656,18 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField novoCPF;
-    private javax.swing.JTextField novoEndereco;
+    private javax.swing.JTextField novaQuantidade;
+    private javax.swing.JTextField novoCodigo;
     private javax.swing.JTextField novoNome;
-    private javax.swing.JTextField novoTelefone;
+    private javax.swing.JTextField novoPrecoCusto;
+    private javax.swing.JTextField novoPrecoUnidade;
+    private javax.swing.JTextField novoTipo;
     private javax.swing.JRadioButton radioGrupoBF;
     private javax.swing.JRadioButton radioGrupoEP;
     private javax.swing.JRadioButton radioGrupoMT;
     private javax.swing.JRadioButton radioGrupoVS;
     private javax.swing.JButton removerCliente;
-    private javax.swing.JButton selecionaCliente;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JButton selecionaProduto;
+    private javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 }

@@ -297,4 +297,15 @@ public class ProdutoDAO {
         return produtos;
     }
 
+    public void deletaProduto(String codigo) {
+        conexao.conecta();
+
+        String tabela = "produtos";
+        String SQL = "DELETE FROM " + tabela + " WHERE codigo = '" + codigo + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
 }
