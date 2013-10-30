@@ -172,7 +172,7 @@ public class PainelAdministrador extends javax.swing.JFrame {
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         if (controladorUsuario.checkUserIsAdmin(campoLogin.getText(), campoSenha.getText())) {
             this.hide();
-            PainelZonaAdministrador painelZonaAdmin = new PainelZonaAdministrador();
+            PainelDaZonaDeAdministracao painelZonaAdmin = new PainelDaZonaDeAdministracao();
             janelaPrincipal.getPainelPrincipal().removeAll();
             janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
             janelaPrincipal.getPainelPrincipal().add(painelZonaAdmin);
