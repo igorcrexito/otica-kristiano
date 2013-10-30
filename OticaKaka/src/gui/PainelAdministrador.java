@@ -7,6 +7,7 @@ package gui;
 import controlador.ControladorUsuario;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.JLabel;
 
 /**
  *
@@ -37,6 +38,16 @@ public class PainelAdministrador extends javax.swing.JFrame {
     public void setJanelaPrincipal(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
+
+    public JLabel getSaidaLogin() {
+        return saidaLogin;
+    }
+
+    public void setSaidaLogin(JLabel saidaLogin) {
+        this.saidaLogin = saidaLogin;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,14 +166,16 @@ public class PainelAdministrador extends javax.swing.JFrame {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         this.campoLogin.setText("");
         this.campoSenha.setText("");
+        this.saidaLogin.setText("");
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         if (controladorUsuario.checkUserIsAdmin(campoLogin.getText(), campoSenha.getText())) {
             this.hide();
+            PainelZonaAdministrador painelZonaAdmin = new PainelZonaAdministrador();
             janelaPrincipal.getPainelPrincipal().removeAll();
             janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
-            janelaPrincipal.getPainelPrincipal().add(new PainelInicial());
+            janelaPrincipal.getPainelPrincipal().add(painelZonaAdmin);
         } else {
             
             saidaLogin.setText("Este usuário não tem acesso a esta zona");

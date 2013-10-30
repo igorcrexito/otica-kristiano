@@ -51,4 +51,9 @@ public class ControladorUsuario {
             return false;
         }
     }
+
+    public void insereUsuario(String login, String senha, int nivelAcesso) {
+        usuarioDAO.insereUsuario(login, senha, nivelAcesso);
+
+    }
 }
