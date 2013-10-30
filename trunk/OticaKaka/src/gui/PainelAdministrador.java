@@ -28,6 +28,10 @@ public class PainelAdministrador extends javax.swing.JFrame {
         this.setAutoRequestFocus(true);
         this.setAlwaysOnTop(true);
         this.setPreferredSize(new Dimension(300, 273));
+        this.campoLogin.setText("");
+        this.campoSenha.setText("");
+        this.saidaLogin.setText("");
+
 
     }
 
@@ -46,8 +50,6 @@ public class PainelAdministrador extends javax.swing.JFrame {
     public void setSaidaLogin(JLabel saidaLogin) {
         this.saidaLogin = saidaLogin;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,12 +174,15 @@ public class PainelAdministrador extends javax.swing.JFrame {
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         if (controladorUsuario.checkUserIsAdmin(campoLogin.getText(), campoSenha.getText())) {
             this.hide();
+            this.campoLogin.setText("");
+            this.campoSenha.setText("");
+            this.saidaLogin.setText("");
             PainelDaZonaDeAdministracao painelZonaAdmin = new PainelDaZonaDeAdministracao();
             janelaPrincipal.getPainelPrincipal().removeAll();
             janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
             janelaPrincipal.getPainelPrincipal().add(painelZonaAdmin);
         } else {
-            
+
             saidaLogin.setText("Este usuário não tem acesso a esta zona");
         }
 

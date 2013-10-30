@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import utils.Cliente;
+import utils.Produto;
 import utils.Usuario;
 
 /**
@@ -61,6 +62,82 @@ public class UsuarioDAO {
                 + " VALUES ('" + login + "', '" + senha + "', '" + nivelAcesso + "')";
 
         conexao.execute(SQL_String);
+
+        conexao.desconecta();
+    }
+
+    public ArrayList<Usuario> buscaTodosOsUsuarios() {
+        conexao.conecta();
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+                String SQL_string = "SELECT * FROM usuario";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+       
+
+        int nivelAcesso = -1;
+        String login;
+        String senha;
+
+        try {
+            while (rs.next()) {
+                login = rs.getString("login");               
+                senha = rs.getString("senha");
+                nivelAcesso = rs.getInt("nivelAcesso");
+                
+                if (!login.equals("") && !senha.equals("") && nivelAcesso!=-1) {
+                    if (login != null && senha != null) {
+                        usuarios.add(new Usuario(login ,senha, nivelAcesso));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return usuarios;
+    }
+
+    public ArrayList<Usuario> buscaUsuariosPorLogin(String loginUsuario) {
+        conexao.conecta();
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+                String SQL_string = "SELECT * FROM usuario where login like '%" +loginUsuario+"%'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+       
+
+        int nivelAcesso = -1;
+        String login;
+        String senha;
+
+        try {
+            while (rs.next()) {
+                login = rs.getString("login");               
+                senha = rs.getString("senha");
+                nivelAcesso = rs.getInt("nivelAcesso");
+                
+                if (!login.equals("") && !senha.equals("") && nivelAcesso!=-1) {
+                    if (login != null && senha != null) {
+                        usuarios.add(new Usuario(login ,senha, nivelAcesso));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return usuarios;
+    }
+
+    public void atualizaUsuario(String login, String senha, int nivelAcesso, String loginSelecionado) {
+        conexao.conecta();
+
+        
+        String tabela = "usuario";
+        String SQL = "UPDATE " + tabela + " SET login = '" + login + "', senha = '" + senha + "', nivelAcesso = '" + nivelAcesso + "' WHERE login = '" + loginSelecionado + "'";
+
+        conexao.execute(SQL);
 
         conexao.desconecta();
     }

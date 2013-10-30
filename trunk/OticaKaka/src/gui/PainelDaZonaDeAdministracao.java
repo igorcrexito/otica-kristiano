@@ -6,6 +6,7 @@ package gui;
 
 import controlador.ControladorUsuario;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Usuario;
@@ -22,6 +23,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     ControladorUsuario controladorUsuario = new ControladorUsuario();
     ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
     private final DefaultTableModel modelUsuarios;
+    String loginSelecionado = "";
     
 
     public PainelDaZonaDeAdministracao() {
@@ -64,18 +66,13 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        campoBuscaCPF = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        campoBuscaNome = new javax.swing.JTextField();
+        campoBuscaLogin = new javax.swing.JTextField();
         buscarCliente = new javax.swing.JButton();
         atualizaCliente = new javax.swing.JButton();
-        novoNome = new javax.swing.JTextField();
-        novoCPF = new javax.swing.JTextField();
-        novoEndereco = new javax.swing.JTextField();
-        novoTelefone = new javax.swing.JTextField();
+        novoLogin = new javax.swing.JTextField();
+        novaSenha = new javax.swing.JTextField();
+        novoNivelAcesso = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        checkCPF = new javax.swing.JCheckBox();
-        checkNome = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaUsuarios = new javax.swing.JTable();
         selecionaCliente = new javax.swing.JButton();
@@ -185,7 +182,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addComponent(campoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                                 .addComponent(campoLoginUsuario)
                                 .addComponent(confirmaSenha)))))
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(646, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +217,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Edição de Usuários");
 
-        jLabel7.setText("Busque o cliente por CPF/CNPJ");
-
-        jLabel8.setText("Busque o cliente pelo nome");
+        jLabel7.setText("Busque pelo login:");
 
         buscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         buscarCliente.setText("Buscar");
@@ -242,26 +237,12 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
         jLabel9.setText("Digite os novos campos:");
 
-        checkCPF.setText("Busque por CPF/CNPJ");
-        checkCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkCPFActionPerformed(evt);
-            }
-        });
-
-        checkNome.setText("Busque por nome");
-        checkNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkNomeActionPerformed(evt);
-            }
-        });
-
         tabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF/CNPJ", "Nome", "Endereço", "Telefone"
+                "Login", "Senha", "Nível de acesso"
             }
         ));
         jScrollPane1.setViewportView(tabelaUsuarios);
@@ -290,41 +271,31 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(campoBuscaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(novoTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                                    .addComponent(novoEndereco)
-                                    .addComponent(novoCPF)
-                                    .addComponent(novoNome)))
+                                .addGap(156, 156, 156)
+                                .addComponent(buscarCliente)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(novaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(novoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(novoNivelAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                                .addGap(29, 29, 29)
                                 .addComponent(selecionaCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(atualizaCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(removerCliente)))
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(campoBuscaCPF)
-                            .addComponent(campoBuscaNome, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkCPF)
-                            .addComponent(checkNome))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(buscarCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(154, 154, 154))
+                                .addComponent(removerCliente))
+                            .addComponent(jLabel9))
+                        .addGap(0, 62, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,38 +305,28 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkCPF))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkNome))
-                .addGap(10, 10, 10)
+                .addComponent(campoBuscaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addGap(26, 26, 26)
+                        .addComponent(buscarCliente)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(novoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(novoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(atualizaCliente)
-                                    .addComponent(selecionaCliente)
-                                    .addComponent(removerCliente)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(buscarCliente))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(novoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(novaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(novoNivelAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(atualizaCliente)
+                            .addComponent(selecionaCliente)
+                            .addComponent(removerCliente))))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         abasUsuario.addTab("Editar", jPanel3);
@@ -374,7 +335,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGap(0, 969, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,8 +353,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(abasUsuario)
-                .addGap(0, 0, 0))
+                .addComponent(abasUsuario))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,13 +413,31 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarBotaoActionPerformed
 
     private void buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarClienteActionPerformed
+            if (campoBuscaLogin.getText().equals("")) {
+                usuarios = controladorUsuario.buscaTodosOsUsuarios();
+            } else {
+                usuarios = controladorUsuario.buscaUsuariosPorLogin(campoBuscaLogin.getText());
+            }
+            
+        modelUsuarios.setNumRows(0);
 
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            Vector vec = new Vector();
+            vec.add(0, usuarios.get(i).getLogin());
+            vec.add(1, usuarios.get(i).getSenha());
+            vec.add(2, usuarios.get(i).getNivelAcesso());
+            modelUsuarios.addRow(vec);
+        }
+
+        this.repaint();
+            
     }//GEN-LAST:event_buscarClienteActionPerformed
 
     private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
 
-        if (!novoEndereco.getText().equals("") && !novoTelefone.getText().equals("") && !novoNome.getText().equals("") && !novoCPF.equals("")) {
-            //    controladorCliente.atualizaCliente(novoNome.getText(), novoCPF.getText(), novoEndereco.getText(), novoTelefone.getText(), cpfSelecionado);
+        if (!novoNivelAcesso.getText().equals("") && !novoLogin.getText().equals("") && !novaSenha.equals("")) {
+            controladorUsuario.atualizaUsuario(novoLogin.getText(), novaSenha.getText(), Integer.parseInt(novoNivelAcesso.getText()), loginSelecionado);
             JOptionPane.showMessageDialog(this, "Usuário atualizado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Campos precisam ser preenchidos", null, JOptionPane.OK_OPTION);
@@ -467,39 +445,18 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_atualizaClienteActionPerformed
 
-    private void checkCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCPFActionPerformed
-        if (checkCPF.isSelected()) {
-            campoBuscaCPF.setEnabled(true);
-            checkNome.setSelected(false);
-            campoBuscaNome.setEnabled(false);
-        } else {
-            campoBuscaCPF.setEnabled(false);
-        }
-    }//GEN-LAST:event_checkCPFActionPerformed
-
-    private void checkNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNomeActionPerformed
-        if (checkNome.isSelected()) {
-            campoBuscaNome.setEnabled(true);
-            campoBuscaCPF.setEnabled(false);
-            checkCPF.setSelected(false);
-        } else {
-            campoBuscaNome.setEnabled(false);
-        }
-    }//GEN-LAST:event_checkNomeActionPerformed
-
     private void selecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaClienteActionPerformed
-        /* try {
+         try {
             int selecionado = tabelaUsuarios.getSelectedRow();
-            Cliente clienteSelecionado = clientes.get(selecionado);
-            novoNome.setText(clienteSelecionado.getNome());
-            novoCPF.setText(clienteSelecionado.getCpf_cnpj());
-            novoEndereco.setText(clienteSelecionado.getEndereco());
-            novoTelefone.setText(clienteSelecionado.getTelefone());
-            cpfSelecionado = clienteSelecionado.getCpf_cnpj();
+            Usuario usuarioSelecionado = usuarios.get(selecionado);
+            novoLogin.setText(usuarioSelecionado.getLogin());
+            novaSenha.setText(usuarioSelecionado.getSenha());
+            novoNivelAcesso.setText(String.valueOf(usuarioSelecionado.getNivelAcesso()));
+            loginSelecionado = usuarioSelecionado.getLogin();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
 
-        }*/
+        }
     }//GEN-LAST:event_selecionaClienteActionPerformed
 
     private void removerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteActionPerformed
@@ -518,13 +475,10 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JToolBar barraAdministrador;
     private javax.swing.JButton botaoConfirmarUsuario;
     private javax.swing.JButton buscarCliente;
-    private javax.swing.JTextField campoBuscaCPF;
-    private javax.swing.JTextField campoBuscaNome;
+    private javax.swing.JTextField campoBuscaLogin;
     private javax.swing.JTextField campoLoginUsuario;
     private javax.swing.JTextField campoSenha;
     private javax.swing.JButton cancelarBotao;
-    private javax.swing.JCheckBox checkCPF;
-    private javax.swing.JCheckBox checkNome;
     private javax.swing.JComboBox comboNivelAcesso;
     private javax.swing.JTextField confirmaSenha;
     private javax.swing.JButton editarTransacoes;
@@ -536,17 +490,15 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField novoCPF;
-    private javax.swing.JTextField novoEndereco;
-    private javax.swing.JTextField novoNome;
-    private javax.swing.JTextField novoTelefone;
+    private javax.swing.JTextField novaSenha;
+    private javax.swing.JTextField novoLogin;
+    private javax.swing.JTextField novoNivelAcesso;
     private javax.swing.JButton removerCliente;
     private javax.swing.JButton selecionaCliente;
     private javax.swing.JTable tabelaUsuarios;
