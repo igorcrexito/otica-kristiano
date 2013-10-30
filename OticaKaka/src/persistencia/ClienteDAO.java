@@ -136,5 +136,39 @@ public class ClienteDAO {
         conexao.desconecta();
 
     }
+
+    public ArrayList<Cliente> buscaTodosOsClientes() {
+            conexao.conecta();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+        String SQL_string = "SELECT * FROM clientes";
+                
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+
+        String cpf_cnpj;
+        String telefone;
+        String endereco;
+        String nome;
+        
+        try {
+            while (rs.next()) {
+                nome = rs.getString("nome");
+                cpf_cnpj = rs.getString("cpf_cnpj");
+                telefone = rs.getString("telefone");
+                endereco = rs.getString("endereco");
+
+                if (!nome.equals("") && !cpf_cnpj.equals("") && !telefone.equals("") && !endereco.equals("")) {
+                    if (nome != null && cpf_cnpj != null && telefone != null && endereco != null) {
+                        clientes.add(new Cliente(nome, cpf_cnpj, endereco, telefone));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return clientes;
+    }
     
 }

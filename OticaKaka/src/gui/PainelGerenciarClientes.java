@@ -413,6 +413,8 @@ public class PainelGerenciarClientes extends javax.swing.JPanel {
             clientes = controladorCliente.buscaClientesPorNome(campoBuscaNome.getText());
         } else if (campoBuscaCPF.getText() != null && !campoBuscaCPF.getText().equals("") && campoBuscaCPF.isEnabled()) {
             clientes = controladorCliente.buscaClientesPorCPFCNPJ(campoBuscaCPF.getText());
+        } else {
+            clientes = controladorCliente.buscaTodosOsClientes();
         }
 
         modelUsuarios.setNumRows(0);
