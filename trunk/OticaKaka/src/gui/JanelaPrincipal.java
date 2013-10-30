@@ -229,6 +229,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDoAdministrador.setVisible(true);
       } else {
           painelDoAdministrador.setVisible(true);
+          
       }
        
         

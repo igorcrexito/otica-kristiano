@@ -53,6 +53,17 @@ public class UsuarioDAO {
         conexao.desconecta();
         return usuario;
     }
+
+    public void insereUsuario(String login, String senha, int nivelAcesso) {
+        conexao.conecta();
+
+        String SQL_String = "INSERT INTO USUARIO (login,senha,nivelAcesso)"
+                + " VALUES ('" + login + "', '" + senha + "', '" + nivelAcesso + "')";
+
+        conexao.execute(SQL_String);
+
+        conexao.desconecta();
+    }
     
     
      
