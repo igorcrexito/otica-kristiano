@@ -26,7 +26,7 @@ public class UsuarioDAO {
         conexao.conecta();
 
         String SQL_string = "SELECT * FROM usuario WHERE "
-                + "LOGIN LIKE '%" + login + "%'" + " AND SENHA LIKE '%" + senha + "%'";
+                + "LOGIN LIKE '" + login + "'" + " AND SENHA LIKE '" + senha + "'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
         rs.first();
@@ -34,13 +34,15 @@ public class UsuarioDAO {
         Usuario usuario = null;
         String loginUsuario = "";
         String senhaUsuario = "";
+        int nivelDeAcesso = 0;
 
         try {
             loginUsuario = rs.getString("login");
             senhaUsuario = rs.getString("senha");
+            nivelDeAcesso = rs.getInt("nivelAcesso");
             if (loginUsuario != null && !loginUsuario.equals("")) {
                 if (senhaUsuario != null && !senhaUsuario.equals("")) {
-                    usuario = new Usuario(loginUsuario, senhaUsuario);
+                    usuario = new Usuario(loginUsuario, senhaUsuario, nivelDeAcesso);
                 }
             }
             

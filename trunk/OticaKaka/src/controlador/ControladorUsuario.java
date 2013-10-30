@@ -15,21 +15,40 @@ import utils.Usuario;
  * @author Igor
  */
 public class ControladorUsuario {
-    
+
     UsuarioDAO usuarioDAO = new UsuarioDAO();
-    
-    public boolean realizaLogin (String login, String senha) {
+
+    public boolean realizaLogin(String login, String senha) {
         Usuario usuario = null;
         try {
             usuario = usuarioDAO.buscaUsuarioPorLogineSenha(login, senha);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (usuario!= null)
+
+        if (usuario != null) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
-    
+
+    public boolean checkUserIsAdmin(String login, String senha) {
+        Usuario usuario = null;
+        try {
+            usuario = usuarioDAO.buscaUsuarioPorLogineSenha(login, senha);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (usuario != null) {
+            if (usuario.getNivelAcesso() != 1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
 }
