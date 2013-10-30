@@ -5,9 +5,11 @@
 package controlador;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.UsuarioDAO;
+import utils.Produto;
 import utils.Usuario;
 
 /**
@@ -56,4 +58,28 @@ public class ControladorUsuario {
         usuarioDAO.insereUsuario(login, senha, nivelAcesso);
 
     }
+
+    public ArrayList<Usuario> buscaTodosOsUsuarios() {
+         ArrayList<Usuario> usuarios = null;
+
+        usuarios = usuarioDAO.buscaTodosOsUsuarios();
+
+
+        return usuarios;
+    }
+
+    public ArrayList<Usuario> buscaUsuariosPorLogin(String login) {
+         ArrayList<Usuario> usuarios = null;
+
+        usuarios = usuarioDAO.buscaUsuariosPorLogin(login);
+
+
+        return usuarios;
+    }
+
+    public void atualizaUsuario(String login, String senha, int nivelAcesso, String loginSelecionado) {
+        usuarioDAO.atualizaUsuario(login, senha, nivelAcesso,loginSelecionado);
+    }
+
+    
 }
