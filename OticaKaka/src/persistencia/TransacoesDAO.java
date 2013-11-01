@@ -251,4 +251,15 @@ public class TransacoesDAO {
         conexao.desconecta();
         return transacoes;
     }
+
+    public void atualizaTransacao(int id, String nomeDoCliente, String cpf_cnpjDoCliente, String nomeDoProduto, String codigoDoProduto, int quantidadeVendida, double precoPorUnidade, double valorTotalTransacao, double desconto, Date data, String codigoSelecionado) {
+        conexao.conecta();
+
+        String tabela = "transacoes";
+        String SQL = "UPDATE " + tabela + " SET id = '" + id + "', nomedocliente = '" + nomeDoCliente + "', cpf_cnpjcliente = '" + cpf_cnpjDoCliente + "', nomedoproduto = '" + nomeDoProduto + "', codigodoproduto = '" + codigoDoProduto + "', qtdvendida = '" + quantidadeVendida + "', precoporunidade = '" + precoPorUnidade + "', valortotaltransacao = '" + valorTotalTransacao + "', desconto = '" + desconto + "', data = '" + data +"' WHERE id = '" + id + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
 }

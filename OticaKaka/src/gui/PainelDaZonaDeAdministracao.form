@@ -544,11 +544,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="selecionarTransacao" max="32767" attributes="0"/>
+                          <Component id="buscarTransacao" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cancelarBusca" alignment="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="campoBuscaCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="checkCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buscarTransacao" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cancelarBusca" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>

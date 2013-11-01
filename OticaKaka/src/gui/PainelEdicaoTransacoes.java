@@ -4,7 +4,9 @@
  */
 package gui;
 
+import controlador.ControladorTransacoes;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 import utils.Transacoes;
 
 /**
@@ -18,6 +20,8 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
      */
     private Transacoes transacaoEscolhida;
     private int idSelecionado;
+    ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
+    private int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
     
     public PainelEdicaoTransacoes() {
         initComponents();
@@ -32,23 +36,23 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         this.novoNomeCliente.setText(transacaoEscolhida.getNomeDoCliente());
         this.novoNomeProdutoTransacao.setText(transacaoEscolhida.getNomeDoProduto());
         this.novoPrecoUnidadeTransacoes.setText(String.valueOf(transacaoEscolhida.getPrecoPorUnidade()));
-        this.novoValorTotalTransacoes.setText(String.valueOf(transacaoEscolhida.getValorTotalDaTransacao())); 
+        this.novoValorTotalTransacoes.setText(String.valueOf(transacaoEscolhida.getValorTotalDaTransacao()));
         this.novoCodigoProdutoTransacoes.setText(transacaoEscolhida.getCodigoDoProduto());
-        
+
         Date data = transacaoEscolhida.getData();
-        int year = data.getYear()+1900;
+        int year = data.getYear() + 1900;
         int day = data.getDate();
         int month = data.getMonth();
-        
+
         //ERROS NO TRATAMENTO DESSA DATA AQUI !
-        
-        this.comboNovoAno.setSelectedIndex(2016-year);
+
+        this.comboNovoAno.setSelectedIndex(2016 - year);
         this.comboNovoMes.setSelectedIndex(month);
-        this.comboNovoDia.setSelectedIndex(day-1);
-        
-        
+        this.comboNovoDia.setSelectedIndex(day - 1);
+
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +86,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         comboNovoDia = new javax.swing.JComboBox();
         comboNovoMes = new javax.swing.JComboBox();
         comboNovoAno = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        confirmarAlteracaoTransacao = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
@@ -117,11 +121,21 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
 
         comboNovoAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000" }));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
-        jButton1.setText("Confirmar");
+        confirmarAlteracaoTransacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
+        confirmarAlteracaoTransacao.setText("Confirmar");
+        confirmarAlteracaoTransacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarAlteracaoTransacaoActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,7 +178,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
                                 .addComponent(comboNovoAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(241, 241, 241))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(confirmarAlteracaoTransacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addGap(210, 210, 210))))
@@ -214,7 +228,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(confirmarAlteracaoTransacao)
                             .addComponent(jButton2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -262,6 +276,20 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void confirmarAlteracaoTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarAlteracaoTransacaoActionPerformed
+        if (!novoID.getText().equals("") && !novoNomeCliente.equals("") && !novoCPFCNPJTransacoes.equals("") && !novoNomeProdutoTransacao.equals("") && !novoCodigoProdutoTransacoes.equals("") && !novaQuantidadeTransacoes.equals("") && !novoValorTotalTransacoes.equals("") && !novoDescontoTransacoes.equals("")) {
+            controladorTransacoes.atualizaTransacoes(novoID.getText(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText(), novoNomeProdutoTransacao.getText(), novoCodigoProdutoTransacoes.getText(), novaQuantidadeTransacoes.getText(), novoPrecoUnidadeTransacoes.getText(),novoValorTotalTransacoes.getText(), novoDescontoTransacoes.getText(), new Date(anos[comboNovoAno.getSelectedIndex()]-1900, comboNovoMes.getSelectedIndex(), comboNovoDia.getSelectedIndex()+1), novoID.getText());
+            JOptionPane.showMessageDialog(this, "Transação atualizada com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Os campos precisam ser corretamente preenchidos", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_confirmarAlteracaoTransacaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +328,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
     private javax.swing.JComboBox comboNovoAno;
     private javax.swing.JComboBox comboNovoDia;
     private javax.swing.JComboBox comboNovoMes;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton confirmarAlteracaoTransacao;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
