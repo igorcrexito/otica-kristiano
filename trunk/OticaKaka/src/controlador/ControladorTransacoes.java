@@ -63,6 +63,22 @@ public class ControladorTransacoes {
 
         return transacoes;
     }
+    
+    public void atualizaTransacoes(String id, String nomeDoCliente, String cpf_cnpjDoCliente, String nomeDoProduto, String codigoDoProduto, String quantidadeVendida, String precoPorUnidade, String valorTotalTransacao, String desconto, Date data, String codigoSelecionado) {
+        precoPorUnidade = precoPorUnidade.replace(",", ".");
+        valorTotalTransacao = valorTotalTransacao.replace(",", ".");
+        desconto = desconto.replace(",", ".");
+        int idTransacao = Integer.parseInt(id);
+        quantidadeVendida = quantidadeVendida.replace(",", ".");
+        
+        int quantidadeTransacao = Integer.parseInt(quantidadeVendida);
+        transacoesDAO.atualizaTransacao(idTransacao, nomeDoCliente, cpf_cnpjDoCliente, nomeDoProduto, codigoDoProduto, quantidadeTransacao, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTotalTransacao), Double.parseDouble(desconto), data, codigoSelecionado);
+        
+    }
+
+    
+
+    
 
     
 }
