@@ -33,17 +33,18 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         this.novoNomeProdutoTransacao.setText(transacaoEscolhida.getNomeDoProduto());
         this.novoPrecoUnidadeTransacoes.setText(String.valueOf(transacaoEscolhida.getPrecoPorUnidade()));
         this.novoValorTotalTransacoes.setText(String.valueOf(transacaoEscolhida.getValorTotalDaTransacao())); 
+        this.novoCodigoProdutoTransacoes.setText(transacaoEscolhida.getCodigoDoProduto());
         
         Date data = transacaoEscolhida.getData();
         int year = data.getYear()+1900;
-        int day = data.getDay();
-        int month = data.getMonth()+1;
+        int day = data.getDate();
+        int month = data.getMonth();
         
         //ERROS NO TRATAMENTO DESSA DATA AQUI !
         
         this.comboNovoAno.setSelectedIndex(2016-year);
-        this.comboNovoAno.setSelectedIndex(month-1);
-        this.comboNovoDia.setSelectedIndex(day);
+        this.comboNovoMes.setSelectedIndex(month);
+        this.comboNovoDia.setSelectedIndex(day-1);
         
         
     }
