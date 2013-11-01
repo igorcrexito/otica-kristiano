@@ -4,11 +4,16 @@
  */
 package gui;
 
+import controlador.ControladorTransacoes;
 import controlador.ControladorUsuario;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import utils.Cliente;
+import utils.Transacoes;
 import utils.Usuario;
 
 /**
@@ -22,18 +27,41 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
      */
     ControladorUsuario controladorUsuario = new ControladorUsuario();
     ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    
+    ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
+    ArrayList<Transacoes> transacoes = new ArrayList<Transacoes>();
+    
+    int codigoSelecionado;
+    int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+    int[] meses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
+    
+    
     private final DefaultTableModel modelUsuarios;
     String loginSelecionado = "";
-    
+    private final DefaultTableModel modelTransacoes;
 
     public PainelDaZonaDeAdministracao() {
         initComponents();
-        
+
+        modelTransacoes = (DefaultTableModel) tabelaTransacoes.getModel();
         modelUsuarios = (DefaultTableModel) tabelaUsuarios.getModel();
 
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
         this.abasUsuario.setEnabledAt(2, false);
+
+        this.campoBuscaCPFCNPJ.setEnabled(false);
+        this.campoBuscaID.setEnabled(false);
+        this.campoBuscaCodigo.setEnabled(false);
+
+        this.comboAnoFinal.setEnabled(false);
+        this.comboAnoInicial.setEnabled(false);
+        this.comboMesFinal.setEnabled(false);
+        this.comboMesInicial.setEnabled(false);
+        this.comboDiaFinal.setEnabled(false);
+        this.comboDiaInicial.setEnabled(false);
+
     }
 
     /**
@@ -95,12 +123,13 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         comboDiaFinal = new javax.swing.JComboBox();
         comboMesFinal = new javax.swing.JComboBox();
         comboAnoFinal = new javax.swing.JComboBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        checkData = new javax.swing.JCheckBox();
+        checkCodigo = new javax.swing.JCheckBox();
+        checkCPFCNPJ = new javax.swing.JCheckBox();
+        checkID = new javax.swing.JCheckBox();
+        buscarTransacao = new javax.swing.JButton();
+        cancelarBusca = new javax.swing.JButton();
+        selecionarTransacao = new javax.swing.JButton();
 
         barraAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraAdministrador.setRollover(true);
@@ -391,19 +420,57 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         comboAnoFinal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000" }));
         comboAnoFinal.setSelectedIndex(3);
 
-        jCheckBox1.setText("Busca por data");
+        checkData.setText("Busca por data");
+        checkData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkDataActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setText("Busca por código");
+        checkCodigo.setText("Busca por código");
+        checkCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCodigoActionPerformed(evt);
+            }
+        });
 
-        jCheckBox3.setText("Busca por CPF/CNPJ");
+        checkCPFCNPJ.setText("Busca por CPF/CNPJ");
+        checkCPFCNPJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCPFCNPJActionPerformed(evt);
+            }
+        });
 
-        jCheckBox4.setText("Busca por ID");
+        checkID.setText("Busca por ID");
+        checkID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkIDActionPerformed(evt);
+            }
+        });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
-        jButton1.setText("Buscar");
+        buscarTransacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        buscarTransacao.setText("Buscar");
+        buscarTransacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarTransacaoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
-        jButton2.setText("Cancelar");
+        cancelarBusca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
+        cancelarBusca.setText("Cancelar");
+        cancelarBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBuscaActionPerformed(evt);
+            }
+        });
+
+        selecionarTransacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit.png"))); // NOI18N
+        selecionarTransacao.setText("Editar");
+        selecionarTransacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarTransacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -412,44 +479,49 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoBuscaID, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel14)
-                                .addGap(45, 45, 45)
-                                .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(67, 67, 67)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox4)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jCheckBox2)
-                                .addGap(66, 66, 66)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
-                            .addComponent(jCheckBox3))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoBuscaID, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jLabel14)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(67, 67, 67)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkData)
+                                    .addComponent(checkID)
+                                    .addComponent(checkCPFCNPJ)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(checkCodigo)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buscarTransacao)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cancelarBusca)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(selecionarTransacao, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 35, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,22 +533,23 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoBuscaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox4))
+                    .addComponent(checkID))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox3))
+                    .addComponent(checkCPFCNPJ))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(selecionarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                        .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkCodigo)
+                        .addComponent(buscarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelarBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -488,7 +561,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                     .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(checkData))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -505,13 +578,13 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(abasUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(abasUsuario))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(barraAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(abasUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+            .addComponent(abasUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -565,12 +638,12 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarBotaoActionPerformed
 
     private void buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarClienteActionPerformed
-            if (campoBuscaLogin.getText().equals("")) {
-                usuarios = controladorUsuario.buscaTodosOsUsuarios();
-            } else {
-                usuarios = controladorUsuario.buscaUsuariosPorLogin(campoBuscaLogin.getText());
-            }
-            
+        if (campoBuscaLogin.getText().equals("")) {
+            usuarios = controladorUsuario.buscaTodosOsUsuarios();
+        } else {
+            usuarios = controladorUsuario.buscaUsuariosPorLogin(campoBuscaLogin.getText());
+        }
+
         modelUsuarios.setNumRows(0);
 
 
@@ -583,7 +656,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         }
 
         this.repaint();
-            
+
     }//GEN-LAST:event_buscarClienteActionPerformed
 
     private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
@@ -598,7 +671,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     }//GEN-LAST:event_atualizaClienteActionPerformed
 
     private void selecionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaClienteActionPerformed
-         try {
+        try {
             int selecionado = tabelaUsuarios.getSelectedRow();
             Usuario usuarioSelecionado = usuarios.get(selecionado);
             novoLogin.setText(usuarioSelecionado.getLogin());
@@ -613,12 +686,160 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
     private void removerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteActionPerformed
         /*if (!cpfSelecionado.equals("") && cpfSelecionado != null && tabelaUsuarios.getSelectedRow() != -1) {
-            controladorCliente.deletaClientesPorCPFCNPJ(cpfSelecionado);
-            JOptionPane.showMessageDialog(this, "Cliente removido com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na Tabela", null, JOptionPane.OK_OPTION);
-        }*/
+         controladorCliente.deletaClientesPorCPFCNPJ(cpfSelecionado);
+         JOptionPane.showMessageDialog(this, "Cliente removido com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+         } else {
+         JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na Tabela", null, JOptionPane.OK_OPTION);
+         }*/
     }//GEN-LAST:event_removerClienteActionPerformed
+
+    private void checkIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkIDActionPerformed
+        if (checkID.isSelected()) {
+            this.campoBuscaCPFCNPJ.setEnabled(false);
+            this.campoBuscaID.setEnabled(true);
+            this.campoBuscaCodigo.setEnabled(false);
+
+            this.comboAnoFinal.setEnabled(false);
+            this.comboAnoInicial.setEnabled(false);
+            this.comboMesFinal.setEnabled(false);
+            this.comboMesInicial.setEnabled(false);
+            this.comboDiaFinal.setEnabled(false);
+            this.comboDiaInicial.setEnabled(false);
+            
+            this.checkCPFCNPJ.setSelected(false);
+            this.checkData.setSelected(false);
+            this.checkCodigo.setSelected(false);
+        }
+    }//GEN-LAST:event_checkIDActionPerformed
+
+    private void checkCPFCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCPFCNPJActionPerformed
+        if (checkCPFCNPJ.isSelected()) {    
+            this.campoBuscaCPFCNPJ.setEnabled(true);
+            this.campoBuscaID.setEnabled(false);
+            this.campoBuscaCodigo.setEnabled(false);
+
+            this.comboAnoFinal.setEnabled(false);
+            this.comboAnoInicial.setEnabled(false);
+            this.comboMesFinal.setEnabled(false);
+            this.comboMesInicial.setEnabled(false);
+            this.comboDiaFinal.setEnabled(false);
+            this.comboDiaInicial.setEnabled(false);
+            
+            this.checkID.setSelected(false);
+            this.checkData.setSelected(false);
+            this.checkCodigo.setSelected(false);
+        }
+    }//GEN-LAST:event_checkCPFCNPJActionPerformed
+
+    private void checkCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoActionPerformed
+        if (checkCodigo.isSelected()) {    
+            this.campoBuscaCPFCNPJ.setEnabled(false);
+            this.campoBuscaID.setEnabled(false);
+            this.campoBuscaCodigo.setEnabled(true);
+
+            this.comboAnoFinal.setEnabled(false);
+            this.comboAnoInicial.setEnabled(false);
+            this.comboMesFinal.setEnabled(false);
+            this.comboMesInicial.setEnabled(false);
+            this.comboDiaFinal.setEnabled(false);
+            this.comboDiaInicial.setEnabled(false);
+            
+            this.checkCPFCNPJ.setSelected(false);
+            this.checkID.setSelected(false);
+            this.checkData.setSelected(false);
+        }
+    }//GEN-LAST:event_checkCodigoActionPerformed
+
+    private void checkDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDataActionPerformed
+        if (checkData.isSelected()) {    
+            this.campoBuscaCPFCNPJ.setEnabled(false);
+            this.campoBuscaID.setEnabled(false);
+            this.campoBuscaCodigo.setEnabled(false);
+
+            this.comboAnoFinal.setEnabled(true);
+            this.comboAnoInicial.setEnabled(true);
+            this.comboMesFinal.setEnabled(true);
+            this.comboMesInicial.setEnabled(true);
+            this.comboDiaFinal.setEnabled(true);
+            this.comboDiaInicial.setEnabled(true);
+            
+            this.checkCPFCNPJ.setSelected(false);
+            this.checkID.setSelected(false);
+            this.checkCodigo.setSelected(false);
+        }
+    }//GEN-LAST:event_checkDataActionPerformed
+
+    private void buscarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTransacaoActionPerformed
+        int diaInicial = dias[comboDiaInicial.getSelectedIndex()]; 
+        int diaFinal = dias[comboDiaFinal.getSelectedIndex()]; 
+        int mesInicial = meses[comboMesInicial.getSelectedIndex()]; 
+        int mesFinal = meses[comboMesFinal.getSelectedIndex()]; 
+        int anoInicial = anos[comboAnoInicial.getSelectedIndex()]; 
+        int anoFinal = anos[comboAnoFinal.getSelectedIndex()]; 
+        
+        if (checkID.isSelected()) {
+             transacoes = controladorTransacoes.buscaTransacoesPorID(campoBuscaID.getText());
+         } else if (checkCodigo.isSelected()) {
+             transacoes = controladorTransacoes.buscaTransacoesPorCodigoProduto(campoBuscaCodigo.getText());
+         } else if (checkCPFCNPJ.isSelected()) {
+             transacoes = controladorTransacoes.buscaTransacoesPorCPFCNPJ(campoBuscaCPFCNPJ.getText());
+         } else if (checkData.isSelected()) {
+             transacoes = controladorTransacoes.buscaTransacoesPorData(new java.sql.Date(anoInicial-1900, mesInicial-1, diaInicial), new Date(anoFinal-1900, mesFinal-1, diaFinal));
+         } else {
+             transacoes = controladorTransacoes.buscaTodasAsTransacoes();
+         }
+         
+         modelTransacoes.setNumRows(0);
+
+
+        for (int i = 0; i < transacoes.size(); i++) {
+            Vector vec = new Vector();
+            vec.add(0, transacoes.get(i).getIdDaTransacao());
+            vec.add(1, transacoes.get(i).getNomeDoCliente());
+            vec.add(2, transacoes.get(i).getCpf_cnpjCliente());
+            vec.add(3, transacoes.get(i).getNomeDoProduto());
+            vec.add(4, transacoes.get(i).getCodigoDoProduto());
+            vec.add(5, transacoes.get(i).getQuantidadeVendidade());
+            vec.add(6, transacoes.get(i).getPrecoPorUnidade());
+            vec.add(7, transacoes.get(i).getValorTotalDaTransacao());
+            vec.add(8, transacoes.get(i).getDescontoDado());
+            vec.add(9, transacoes.get(i).getData());
+            modelTransacoes.addRow(vec);
+        }
+
+        this.repaint();
+    }//GEN-LAST:event_buscarTransacaoActionPerformed
+
+    private void cancelarBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBuscaActionPerformed
+            this.campoBuscaCPFCNPJ.setEnabled(false);
+            this.campoBuscaID.setEnabled(false);
+            this.campoBuscaCodigo.setEnabled(false);
+            
+            this.comboAnoFinal.setEnabled(false);
+            this.comboAnoInicial.setEnabled(false);
+            this.comboMesFinal.setEnabled(false);
+            this.comboMesInicial.setEnabled(false);
+            this.comboDiaFinal.setEnabled(false);
+            this.comboDiaInicial.setEnabled(false);
+            
+            this.checkData.setSelected(false);
+            this.checkCPFCNPJ.setSelected(false);
+            this.checkID.setSelected(false);
+            this.checkCodigo.setSelected(false);
+        
+    }//GEN-LAST:event_cancelarBuscaActionPerformed
+
+    private void selecionarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarTransacaoActionPerformed
+        try {
+            int selecionado = tabelaTransacoes.getSelectedRow();
+            Transacoes transacaoSelecionada = transacoes.get(selecionado);
+            PainelEdicaoTransacoes painelEdicaoTransacoes = new PainelEdicaoTransacoes(transacaoSelecionada, selecionado);
+            painelEdicaoTransacoes.setVisible(true);
+            painelEdicaoTransacoes.setAlwaysOnTop(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_selecionarTransacaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
@@ -627,6 +848,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JToolBar barraAdministrador;
     private javax.swing.JButton botaoConfirmarUsuario;
     private javax.swing.JButton buscarCliente;
+    private javax.swing.JButton buscarTransacao;
     private javax.swing.JTextField campoBuscaCPFCNPJ;
     private javax.swing.JTextField campoBuscaCodigo;
     private javax.swing.JTextField campoBuscaID;
@@ -634,6 +856,11 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField campoLoginUsuario;
     private javax.swing.JTextField campoSenha;
     private javax.swing.JButton cancelarBotao;
+    private javax.swing.JButton cancelarBusca;
+    private javax.swing.JCheckBox checkCPFCNPJ;
+    private javax.swing.JCheckBox checkCodigo;
+    private javax.swing.JCheckBox checkData;
+    private javax.swing.JCheckBox checkID;
     private javax.swing.JComboBox comboAnoFinal;
     private javax.swing.JComboBox comboAnoInicial;
     private javax.swing.JComboBox comboDiaFinal;
@@ -644,12 +871,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField confirmaSenha;
     private javax.swing.JButton editarTransacoes;
     private javax.swing.JButton editarUsuarios;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -675,6 +896,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField novoNivelAcesso;
     private javax.swing.JButton removerCliente;
     private javax.swing.JButton selecionaCliente;
+    private javax.swing.JButton selecionarTransacao;
     private javax.swing.JTable tabelaTransacoes;
     private javax.swing.JTable tabelaUsuarios;
     // End of variables declaration//GEN-END:variables
