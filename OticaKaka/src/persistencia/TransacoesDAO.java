@@ -262,4 +262,15 @@ public class TransacoesDAO {
 
         conexao.desconecta();
     }
+
+    public void removeTransacaoPorId(int idDaTransacao) {
+        conexao.conecta();
+
+        String tabela = "transacoes";
+        String SQL = "DELETE FROM " + tabela + " WHERE id = '" + idDaTransacao + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
 }

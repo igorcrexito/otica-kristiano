@@ -76,6 +76,12 @@ public class ControladorTransacoes {
         
     }
 
+    public void deletaTransacaoPorId(int idDaTransacao) {
+        
+        transacoesDAO.removeTransacaoPorId(idDaTransacao);
+        
+    }
+
     
 
     

@@ -29,6 +29,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
 
     public PainelEdicaoTransacoes(Transacoes transacaoEscolhida, int idSelecionado) {
         initComponents();
+        this.transacaoEscolhida = transacaoEscolhida;
         this.novaQuantidadeTransacoes.setText(String.valueOf(transacaoEscolhida.getQuantidadeVendidade()));
         this.novoCPFCNPJTransacoes.setText(transacaoEscolhida.getCpf_cnpjCliente());
         this.novoDescontoTransacoes.setText(String.valueOf(transacaoEscolhida.getDescontoDado()));
@@ -88,6 +89,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         comboNovoAno = new javax.swing.JComboBox();
         confirmarAlteracaoTransacao = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        removerTransacao = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -137,6 +139,14 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
             }
         });
 
+        removerTransacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        removerTransacao.setText("Remover");
+        removerTransacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerTransacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -158,7 +168,7 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(novaQuantidadeTransacoes, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +191,9 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
                         .addComponent(confirmarAlteracaoTransacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addGap(210, 210, 210))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removerTransacao)
+                        .addGap(131, 131, 131))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +241,8 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(confirmarAlteracaoTransacao)
-                            .addComponent(jButton2)))
+                            .addComponent(jButton2)
+                            .addComponent(removerTransacao)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
@@ -289,6 +302,17 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Os campos precisam ser corretamente preenchidos", null, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_confirmarAlteracaoTransacaoActionPerformed
+
+    private void removerTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerTransacaoActionPerformed
+         if (transacaoEscolhida!=null) {
+            controladorTransacoes.deletaTransacaoPorId(transacaoEscolhida.getIdDaTransacao());
+            JOptionPane.showMessageDialog(this, "Transação removida com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Essa transação não pode ser removida", null, JOptionPane.OK_OPTION);
+        }
+         
+         this.dispose();
+    }//GEN-LAST:event_removerTransacaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,5 +376,6 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
     private javax.swing.JTextField novoNomeProdutoTransacao;
     private javax.swing.JTextField novoPrecoUnidadeTransacoes;
     private javax.swing.JTextField novoValorTotalTransacoes;
+    private javax.swing.JButton removerTransacao;
     // End of variables declaration//GEN-END:variables
 }
