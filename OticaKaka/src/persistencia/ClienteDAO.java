@@ -50,7 +50,7 @@ public class ClienteDAO {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
         String SQL_string = "SELECT * FROM clientes WHERE "
-                + "cpf_cnpj LIKE '" + cpf_cnpj + "'";
+                + "cpf_cnpj LIKE '%" + cpf_cnpj + "%'";
 
         ResultSet rs = conexao.executeSql(SQL_string);
 

@@ -61,7 +61,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         botaoCliente = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         zonaDoAdministrador = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        gerarRelatorios = new javax.swing.JButton();
         botaoEstoque = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         painelPrincipal = new javax.swing.JPanel();
@@ -127,12 +127,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraBotoes.add(zonaDoAdministrador);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio.png"))); // NOI18N
-        jButton5.setText("Gerar Relatórios");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barraBotoes.add(jButton5);
+        gerarRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio.png"))); // NOI18N
+        gerarRelatorios.setText("Gerar Relatórios");
+        gerarRelatorios.setFocusable(false);
+        gerarRelatorios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gerarRelatorios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        gerarRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarRelatoriosActionPerformed(evt);
+            }
+        });
+        barraBotoes.add(gerarRelatorios);
 
         botaoEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/estoque.png"))); // NOI18N
         botaoEstoque.setText("Gerenciar Estoque");
@@ -235,6 +240,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_zonaDoAdministradorActionPerformed
 
+    private void gerarRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarRelatoriosActionPerformed
+        PainelGeracaoDeRelatorios painelRelatorios = new PainelGeracaoDeRelatorios();
+        painelPrincipal.removeAll();
+        this.painelPrincipal.setLayout(new BorderLayout());
+        painelPrincipal.add(painelRelatorios);
+        this.repaint();
+    }//GEN-LAST:event_gerarRelatoriosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,9 +287,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar barraBotoes;
     private javax.swing.JButton botaoCliente;
     private javax.swing.JButton botaoEstoque;
+    private javax.swing.JButton gerarRelatorios;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JButton zonaDoAdministrador;
