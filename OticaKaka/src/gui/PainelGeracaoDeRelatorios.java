@@ -4,6 +4,7 @@
  */
 package gui;
 
+import geracaopdf.ClienteListaPDF;
 import controlador.ControladorCliente;
 import geracaopdf.ClienteIndividualPDF;
 import java.util.ArrayList;
@@ -168,6 +169,11 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
         gerarListaPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
         gerarListaPDF.setText("Lista Inteira");
+        gerarListaPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarListaPDFActionPerformed(evt);
+            }
+        });
 
         clienteIndividualPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/clienteDaLista.png"))); // NOI18N
         clienteIndividualPDF.setText("Cliente Individual");
@@ -396,35 +402,31 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
             
     }//GEN-LAST:event_clienteIndividualPDFActionPerformed
 
+    private void gerarListaPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarListaPDFActionPerformed
+         if (clientes != null && clientes.size()>0)   {
+            ClienteListaPDF clienteListaPDF = new ClienteListaPDF(clientes);
+            JOptionPane.showMessageDialog(this, "Relatório de lista de clientes gerado com sucesso. Cheque-o em C:ArquivosPDF/Clientes/", "Warning", JOptionPane.WARNING_MESSAGE);
+         } else {
+            JOptionPane.showMessageDialog(this, "Não há clientes para esta opção de busca", null, JOptionPane.OK_OPTION);
+         }
+    }//GEN-LAST:event_gerarListaPDFActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasRelatorio;
-    private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JToolBar barraCliente;
-    private javax.swing.JButton botaoConfirmarUsuario;
     private javax.swing.JButton buscarClientes;
-    private javax.swing.JTextField campoCPFAddCliente;
-    private javax.swing.JTextField campoEnderecoAddCliente;
     private javax.swing.JTextField campoListaPorCPFCNPJ;
     private javax.swing.JTextField campoListaPorNome;
-    private javax.swing.JTextField campoNomeAddCliente;
-    private javax.swing.JTextField campoTelefoneAddCliente;
-    private javax.swing.JButton cancelarBotao;
     private javax.swing.JCheckBox checkPeloCPFCNPJ;
     private javax.swing.JCheckBox checkPeloNome;
     private javax.swing.JButton clienteIndividualPDF;
     private javax.swing.JButton clientesRelatorio;
     private javax.swing.JButton gerarListaPDF;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
