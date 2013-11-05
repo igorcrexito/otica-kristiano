@@ -33,7 +33,7 @@ import utils.Cliente;
  */
 public class ClienteIndividualPDF {
 
-    private static String file = "C:/Arquivos PDF/Clientes/";
+    private static String file;
     private Cliente clienteEscolhido;
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -53,7 +53,7 @@ public class ClienteIndividualPDF {
     public ClienteIndividualPDF(Cliente clienteEscolhido) {
         this.clienteEscolhido = clienteEscolhido;
         Document document = new Document();
-        file = file + clienteEscolhido.getCpf_cnpj() +clienteEscolhido.getNome() + ".pdf";
+        file = "C:/Arquivos PDF/Clientes/" + clienteEscolhido.getCpf_cnpj() +clienteEscolhido.getNome() + ".pdf";
         try {
             try {
                 PdfWriter.getInstance(document, new FileOutputStream(file));
