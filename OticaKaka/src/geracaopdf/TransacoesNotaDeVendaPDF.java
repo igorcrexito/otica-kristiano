@@ -31,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class TransacoesNotaDeVendaPDF {
 
     private Transacoes transacaoEscolhida;
     PdfContentByte cb;
-    private static String file = "C:/Arquivos PDF/Transacoes/";
+    private static String file;
     private Cliente clienteEscolhido;
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -64,7 +65,7 @@ public class TransacoesNotaDeVendaPDF {
     public TransacoesNotaDeVendaPDF(Transacoes transacaoEscolhida) {
         this.transacaoEscolhida = transacaoEscolhida;
         Document document = new Document();
-        file = file + "NotaDeVenda_" + transacaoEscolhida.getIdDaTransacao() + ".pdf";
+        file = "C:/Arquivos PDF/Transacoes/" + "Nota de Venda "+ transacaoEscolhida.getIdDaTransacao()+" - " + new Date().getHours()+" e "+ new Date().getMinutes() +".pdf";
         try {
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
@@ -81,9 +82,9 @@ public class TransacoesNotaDeVendaPDF {
     }
 
     private void addMetaData(Document document) {
-        document.addTitle("Nota de venda " + transacaoEscolhida.getNomeDoProduto());
-        document.addSubject("Nota de venda");
-        document.addKeywords("Java, PDF," + transacaoEscolhida.getNomeDoProduto());
+        document.addTitle("Nota de venda ");
+        document.addSubject("Notas de venda de transação");
+        document.addKeywords("Java, PDF, Transações" );
         document.addAuthor("Frente de Caixa");
         document.addCreator("Frente de Caixa");
     }

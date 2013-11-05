@@ -8,6 +8,7 @@ import geracaopdf.ClienteListaPDF;
 import controlador.ControladorCliente;
 import controlador.ControladorTransacoes;
 import geracaopdf.ClienteIndividualPDF;
+import geracaopdf.TransacoesListaPDF;
 import geracaopdf.TransacoesNotaDeVendaPDF;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     int[] meses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
-    
 
     public PainelGeracaoDeRelatorios() {
         initComponents();
@@ -47,7 +47,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         //aba de clientes
         campoListaPorNome.setEnabled(false);
         campoListaPorCPFCNPJ.setEnabled(false);
-        
+
         //aba de transações
         campoBuscaID.setEnabled(false);
         campoBuscaCodigo.setEnabled(false);
@@ -610,26 +610,26 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_gerarListaPDFActionPerformed
 
     private void buscarTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTransacoesActionPerformed
-        int diaInicial = dias[comboDiaInicial.getSelectedIndex()]; 
-        int diaFinal = dias[comboDiaFinal.getSelectedIndex()]; 
-        int mesInicial = meses[comboMesInicial.getSelectedIndex()]; 
-        int mesFinal = meses[comboMesFinal.getSelectedIndex()]; 
-        int anoInicial = anos[comboAnoInicial.getSelectedIndex()]; 
-        int anoFinal = anos[comboAnoFinal.getSelectedIndex()]; 
-        
+        int diaInicial = dias[comboDiaInicial.getSelectedIndex()];
+        int diaFinal = dias[comboDiaFinal.getSelectedIndex()];
+        int mesInicial = meses[comboMesInicial.getSelectedIndex()];
+        int mesFinal = meses[comboMesFinal.getSelectedIndex()];
+        int anoInicial = anos[comboAnoInicial.getSelectedIndex()];
+        int anoFinal = anos[comboAnoFinal.getSelectedIndex()];
+
         if (checkIDTransacao.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorID(campoBuscaID.getText());
-         } else if (checkCodigoTransacoes.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorCodigoProduto(campoBuscaCodigo.getText());
-         } else if (checkCPFCNPJTransacao.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorCPFCNPJ(campoBuscaCPFCNPJ.getText());
-         } else if (checkDataTransacoes.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorData(new java.sql.Date(anoInicial-1900, mesInicial-1, diaInicial), new Date(anoFinal-1900, mesFinal-1, diaFinal));
-         } else {
-             transacoes = controladorTransacoes.buscaTodasAsTransacoes();
-         }
-         
-         modelTabelaTransacoes.setNumRows(0);
+            transacoes = controladorTransacoes.buscaTransacoesPorID(campoBuscaID.getText());
+        } else if (checkCodigoTransacoes.isSelected()) {
+            transacoes = controladorTransacoes.buscaTransacoesPorCodigoProduto(campoBuscaCodigo.getText());
+        } else if (checkCPFCNPJTransacao.isSelected()) {
+            transacoes = controladorTransacoes.buscaTransacoesPorCPFCNPJ(campoBuscaCPFCNPJ.getText());
+        } else if (checkDataTransacoes.isSelected()) {
+            transacoes = controladorTransacoes.buscaTransacoesPorData(new java.sql.Date(anoInicial - 1900, mesInicial - 1, diaInicial), new Date(anoFinal - 1900, mesFinal - 1, diaFinal));
+        } else {
+            transacoes = controladorTransacoes.buscaTodasAsTransacoes();
+        }
+
+        modelTabelaTransacoes.setNumRows(0);
 
 
         for (int i = 0; i < transacoes.size(); i++) {
@@ -651,7 +651,12 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_buscarTransacoesActionPerformed
 
     private void gerarListaPDFTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarListaPDFTransacoesActionPerformed
-        
+        if (transacoes != null && transacoes.size() > 0) {
+            TransacoesListaPDF transacoesListaPDF = new TransacoesListaPDF(transacoes);
+            JOptionPane.showMessageDialog(this, "Relatório de lista de transações gerado com sucesso. Cheque-o em C:ArquivosPDF/Transacoes/", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não transações para esta opção de busca", null, JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_gerarListaPDFTransacoesActionPerformed
 
     private void gerarNotaDeVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarNotaDeVendaActionPerformed
@@ -719,7 +724,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_checkCodigoTransacoesActionPerformed
 
     private void checkDataTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDataTransacoesActionPerformed
-          if (checkDataTransacoes.isSelected()) {
+        if (checkDataTransacoes.isSelected()) {
             checkCPFCNPJTransacao.setSelected(false);
             checkIDTransacao.setSelected(false);
             checkCodigoTransacoes.setSelected(false);
@@ -737,24 +742,23 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_checkDataTransacoesActionPerformed
 
     private void cancelarTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarTransacoesActionPerformed
-            checkCPFCNPJTransacao.setSelected(false);
-            checkIDTransacao.setSelected(false);
-            checkCodigoTransacoes.setSelected(false);
-            checkDataTransacoes.setSelected(false);
+        checkCPFCNPJTransacao.setSelected(false);
+        checkIDTransacao.setSelected(false);
+        checkCodigoTransacoes.setSelected(false);
+        checkDataTransacoes.setSelected(false);
 
-            campoBuscaID.setEnabled(false);
-            campoBuscaCodigo.setEnabled(false);
-            campoBuscaCPFCNPJ.setEnabled(false);
-            comboAnoFinal.setEnabled(false);
-            comboAnoInicial.setEnabled(false);
-            comboDiaFinal.setEnabled(false);
-            comboDiaInicial.setEnabled(false);
-            comboMesFinal.setEnabled(false);
-            comboMesInicial.setEnabled(false);
-            
-            modelTabelaTransacoes.setNumRows(0);
+        campoBuscaID.setEnabled(false);
+        campoBuscaCodigo.setEnabled(false);
+        campoBuscaCPFCNPJ.setEnabled(false);
+        comboAnoFinal.setEnabled(false);
+        comboAnoInicial.setEnabled(false);
+        comboDiaFinal.setEnabled(false);
+        comboDiaInicial.setEnabled(false);
+        comboMesFinal.setEnabled(false);
+        comboMesInicial.setEnabled(false);
+
+        modelTabelaTransacoes.setNumRows(0);
     }//GEN-LAST:event_cancelarTransacoesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasRelatorio;
     private javax.swing.JToolBar barraCliente;
