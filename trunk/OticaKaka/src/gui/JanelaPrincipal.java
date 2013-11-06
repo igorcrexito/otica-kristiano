@@ -59,7 +59,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         apresentacaoBotao = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         botaoCliente = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        vendaDeProdutos = new javax.swing.JButton();
         zonaDoAdministrador = new javax.swing.JButton();
         gerarRelatorios = new javax.swing.JButton();
         botaoEstoque = new javax.swing.JButton();
@@ -108,12 +108,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraBotoes.add(botaoCliente);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transcacoes.png"))); // NOI18N
-        jButton3.setText("Checar Transações");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barraBotoes.add(jButton3);
+        vendaDeProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transcacoes.png"))); // NOI18N
+        vendaDeProdutos.setText("Venda de Produtos");
+        vendaDeProdutos.setFocusable(false);
+        vendaDeProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        vendaDeProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        vendaDeProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vendaDeProdutosActionPerformed(evt);
+            }
+        });
+        barraBotoes.add(vendaDeProdutos);
 
         zonaDoAdministrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/admin.png"))); // NOI18N
         zonaDoAdministrador.setText("Zona do Administrador");
@@ -232,7 +237,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDoAdministrador = new PainelAdministrador();
         painelDoAdministrador.setJanelaPrincipal(this);
         painelDoAdministrador.setVisible(true);
+        painelDoAdministrador.setZona(false);
       } else {
+          painelDoAdministrador.setZona(false);
           painelDoAdministrador.setVisible(true);
           
       }
@@ -247,6 +254,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelPrincipal.add(painelRelatorios);
         this.repaint();
     }//GEN-LAST:event_gerarRelatoriosActionPerformed
+
+    private void vendaDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendaDeProdutosActionPerformed
+        if (painelDoAdministrador==null) {  
+        painelDoAdministrador = new PainelAdministrador();
+        painelDoAdministrador.setJanelaPrincipal(this);
+        painelDoAdministrador.setVisible(true);
+        painelDoAdministrador.setZona(true);
+      } else {
+          painelDoAdministrador.setVisible(true);
+          painelDoAdministrador.setZona(true);
+          
+      }
+    }//GEN-LAST:event_vendaDeProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,9 +309,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botaoEstoque;
     private javax.swing.JButton gerarRelatorios;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JButton vendaDeProdutos;
     private javax.swing.JButton zonaDoAdministrador;
     // End of variables declaration//GEN-END:variables
 }

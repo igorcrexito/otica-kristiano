@@ -17,7 +17,18 @@ public class PainelAdministrador extends javax.swing.JFrame {
 
     ControladorUsuario controladorUsuario = new ControladorUsuario();
     JanelaPrincipal janelaPrincipal;
+    private boolean zona= false;
 
+    public boolean isZona() {
+        return zona;
+    }
+
+    public void setZona(boolean zona) {
+        this.zona = zona;
+    }
+
+    
+    
     /**
      * Creates new form PainelAdministrador
      */
@@ -173,14 +184,25 @@ public class PainelAdministrador extends javax.swing.JFrame {
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         if (controladorUsuario.checkUserIsAdmin(campoLogin.getText(), campoSenha.getText())) {
-            this.hide();
-            this.campoLogin.setText("");
-            this.campoSenha.setText("");
-            this.saidaLogin.setText("");
-            PainelDaZonaDeAdministracao painelZonaAdmin = new PainelDaZonaDeAdministracao();
-            janelaPrincipal.getPainelPrincipal().removeAll();
-            janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
-            janelaPrincipal.getPainelPrincipal().add(painelZonaAdmin);
+            if (zona==false) {
+                this.hide();
+                this.campoLogin.setText("");
+                this.campoSenha.setText("");
+                this.saidaLogin.setText("");
+                PainelDaZonaDeAdministracao painelZonaAdmin = new PainelDaZonaDeAdministracao();
+                janelaPrincipal.getPainelPrincipal().removeAll();
+                janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
+                janelaPrincipal.getPainelPrincipal().add(painelZonaAdmin);
+            } else {
+                this.hide();
+                this.campoLogin.setText("");
+                this.campoSenha.setText("");
+                this.saidaLogin.setText("");
+                PainelVendas painelVendas = new PainelVendas();
+                janelaPrincipal.getPainelPrincipal().removeAll();
+                janelaPrincipal.getPainelPrincipal().setLayout(new BorderLayout());
+                janelaPrincipal.getPainelPrincipal().add(painelVendas);
+            }
         } else {
 
             saidaLogin.setText("Este usuário não tem acesso a esta zona");
