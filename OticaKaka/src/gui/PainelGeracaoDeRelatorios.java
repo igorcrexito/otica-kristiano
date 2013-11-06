@@ -6,8 +6,10 @@ package gui;
 
 import geracaopdf.ClienteListaPDF;
 import controlador.ControladorCliente;
+import controlador.ControladorProduto;
 import controlador.ControladorTransacoes;
 import geracaopdf.ClienteIndividualPDF;
+import geracaopdf.ProdutosListaPDF;
 import geracaopdf.TransacoesListaPDF;
 import geracaopdf.TransacoesNotaDeVendaPDF;
 import java.sql.Date;
@@ -16,6 +18,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Cliente;
+import utils.Produto;
 import utils.Transacoes;
 
 /**
@@ -29,10 +32,14 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
      */
     ArrayList<Cliente> clientes;
     ArrayList<Transacoes> transacoes;
+    ArrayList<Produto> produtos;
     ControladorCliente controladorCliente = new ControladorCliente();
     ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
+    ControladorProduto controladorProduto = new ControladorProduto();
     DefaultTableModel modelTabelaClientes;
     DefaultTableModel modelTabelaTransacoes;
+    DefaultTableModel modelTabelaProdutos;
+    
     int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     int[] meses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
@@ -59,8 +66,13 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         comboMesFinal.setEnabled(false);
         comboMesInicial.setEnabled(false);
 
+        //aba de produtos
+        campoBuscaCodigoProduto.setEnabled(false);
+        campoBuscaNomeProduto.setEnabled(false);
+        
         modelTabelaClientes = (DefaultTableModel) tabelaRelatorioClientes.getModel();
         modelTabelaTransacoes = (DefaultTableModel) tabelaTransacoesRelatorios.getModel();
+        modelTabelaProdutos = (DefaultTableModel) tabelaProdutosRelatorio.getModel();
     }
 
     /**
@@ -119,6 +131,18 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         checkDataTransacoes = new javax.swing.JCheckBox();
         cancelarTransacoes = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        campoBuscaNomeProduto = new javax.swing.JTextField();
+        campoBuscaCodigoProduto = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        buscarProduto = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        checkCodigoProduto = new javax.swing.JCheckBox();
+        checkNomeProduto = new javax.swing.JCheckBox();
+        cancelar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaProdutosRelatorio = new javax.swing.JTable();
+        listaDeProdutos = new javax.swing.JButton();
 
         barraCliente.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraCliente.setRollover(true);
@@ -263,14 +287,14 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkPeloNome)
                                     .addComponent(checkPeloCPFCNPJ))))))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel7)
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -442,7 +466,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
                 .addComponent(buscarTransacoes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelarTransacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(gerarListaPDFTransacoes)
                 .addGap(18, 18, 18)
                 .addComponent(gerarNotaDeVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -496,15 +520,118 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
         abasRelatorio.addTab("Transações", jPanel4);
 
+        jLabel16.setText("Busque o produto pelo nome");
+
+        jLabel17.setText("Busque o produto por código");
+
+        buscarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        buscarProduto.setText("Buscar");
+        buscarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarProdutoActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setText("Relatórios dos Produtos");
+
+        checkCodigoProduto.setText("Busque pelo código do produto");
+        checkCodigoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCodigoProdutoActionPerformed(evt);
+            }
+        });
+
+        checkNomeProduto.setText("Busque pelo nome do produto");
+        checkNomeProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkNomeProdutoActionPerformed(evt);
+            }
+        });
+
+        cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+
+        tabelaProdutosRelatorio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Preço", "Quantidade", "Grupo"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaProdutosRelatorio);
+
+        listaDeProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
+        listaDeProdutos.setText("Lista de Produtos");
+        listaDeProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaDeProdutosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 949, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17)
+                                    .addComponent(campoBuscaCodigoProduto)
+                                    .addComponent(campoBuscaNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkCodigoProduto)
+                                    .addComponent(checkNomeProduto)))
+                            .addComponent(jLabel18)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(buscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(cancelar)
+                        .addGap(203, 203, 203)
+                        .addComponent(listaDeProdutos)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel18)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoBuscaCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkCodigoProduto))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoBuscaNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkNomeProduto))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelar)
+                    .addComponent(buscarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listaDeProdutos))
+                .addGap(98, 98, 98))
         );
 
         abasRelatorio.addTab("Produtos", jPanel5);
@@ -759,21 +886,91 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
         modelTabelaTransacoes.setNumRows(0);
     }//GEN-LAST:event_cancelarTransacoesActionPerformed
+
+    private void buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoActionPerformed
+
+        if (checkNomeProduto.isSelected()) {
+            produtos = controladorProduto.buscaProdutosPorNome(campoBuscaNomeProduto.getText());
+        } else if (checkCodigoProduto.isSelected()) {
+            produtos = controladorProduto.buscaClientesPorCodigo(campoBuscaCodigoProduto.getText());
+        } else {
+            produtos = controladorProduto.buscaTodosOsProdutos();
+        }
+
+        modelTabelaProdutos.setNumRows(0);
+
+        for (int i = 0; i < produtos.size(); i++) {
+            Vector vec = new Vector();
+            vec.add(0, produtos.get(i).getCodigo());
+            vec.add(1, produtos.get(i).getNome());
+            vec.add(2, produtos.get(i).getPrecoPorUnidade());
+            vec.add(3, produtos.get(i).getQuantidadeEstoque());
+            vec.add(4, produtos.get(i).getTipoProduto());
+            modelTabelaProdutos.addRow(vec);
+        }
+
+        this.repaint();
+    }//GEN-LAST:event_buscarProdutoActionPerformed
+
+    private void listaDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaDeProdutosActionPerformed
+        if (produtos != null && produtos.size() > 0) {
+            ProdutosListaPDF listaProdutos = new ProdutosListaPDF(produtos);
+            JOptionPane.showMessageDialog(this, "Relatório de lista de produtos gerado com sucesso. Cheque-o em C:ArquivosPDF/Transacoes/", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não produtos para esta opção de busca", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_listaDeProdutosActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        checkCodigoProduto.setSelected(false);
+        checkNomeProduto.setSelected(false);
+        campoBuscaCodigoProduto.setEnabled(false);
+        campoBuscaNomeProduto.setEnabled(false);
+        
+        modelTabelaProdutos.setNumRows(0);
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void checkCodigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoProdutoActionPerformed
+        if (checkCodigoProduto.isSelected()) {
+            checkNomeProduto.setSelected(false);
+            campoBuscaNomeProduto.setEnabled(false);
+            campoBuscaCodigoProduto.setEnabled(true);
+        } else {
+            campoBuscaCodigoProduto.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkCodigoProdutoActionPerformed
+
+    private void checkNomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNomeProdutoActionPerformed
+        if (checkNomeProduto.isSelected()) {
+            checkCodigoProduto.setSelected(false);
+            campoBuscaNomeProduto.setEnabled(true);
+            campoBuscaCodigoProduto.setEnabled(false);
+        } else {
+            campoBuscaNomeProduto.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkNomeProdutoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasRelatorio;
     private javax.swing.JToolBar barraCliente;
     private javax.swing.JButton buscarClientes;
+    private javax.swing.JButton buscarProduto;
     private javax.swing.JButton buscarTransacoes;
     private javax.swing.JTextField campoBuscaCPFCNPJ;
     private javax.swing.JTextField campoBuscaCodigo;
+    private javax.swing.JTextField campoBuscaCodigoProduto;
     private javax.swing.JTextField campoBuscaID;
+    private javax.swing.JTextField campoBuscaNomeProduto;
     private javax.swing.JTextField campoListaPorCPFCNPJ;
     private javax.swing.JTextField campoListaPorNome;
+    private javax.swing.JButton cancelar;
     private javax.swing.JButton cancelarTransacoes;
     private javax.swing.JCheckBox checkCPFCNPJTransacao;
+    private javax.swing.JCheckBox checkCodigoProduto;
     private javax.swing.JCheckBox checkCodigoTransacoes;
     private javax.swing.JCheckBox checkDataTransacoes;
     private javax.swing.JCheckBox checkIDTransacao;
+    private javax.swing.JCheckBox checkNomeProduto;
     private javax.swing.JCheckBox checkPeloCPFCNPJ;
     private javax.swing.JCheckBox checkPeloNome;
     private javax.swing.JButton clienteIndividualPDF;
@@ -793,6 +990,9 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -803,7 +1003,10 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton listaDeProdutos;
     private javax.swing.JButton produtosRelatorio;
+    private javax.swing.JTable tabelaProdutosRelatorio;
     private javax.swing.JTable tabelaRelatorioClientes;
     private javax.swing.JTable tabelaTransacoesRelatorios;
     private javax.swing.JButton transacoesRelatorio;
