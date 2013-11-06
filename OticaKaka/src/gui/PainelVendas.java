@@ -6,6 +6,8 @@ package gui;
 
 import controlador.ControladorCliente;
 import controlador.ControladorProduto;
+import controlador.ControladorTransacoes;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -26,24 +28,34 @@ public class PainelVendas extends javax.swing.JPanel {
     private ArrayList<Produto> produtos;
     DefaultTableModel modelClientes;
     DefaultTableModel modelProdutos;
-    
+    boolean checado = false;
     ControladorCliente controladorCliente = new ControladorCliente();
     ControladorProduto controladorProduto = new ControladorProduto();
-    
+    ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
     Cliente clienteSelecionado;
     Produto produtoSelecionado;
+
     public PainelVendas() {
         initComponents();
-        
+
         //aba de clientes
         campoBuscaClienteCPF.setEnabled(false);
         campoBuscaClienteNome.setEnabled(false);
         abasVendas.setEnabledAt(1, false);
         abasVendas.setEnabledAt(2, false);
-        
+
         //aba de produtos
         campoBuscaCodigo.setEnabled(false);
         campoBuscaNome.setEnabled(false);
+
+        //aba de vendas
+        campoCPFEscolhido.setEnabled(false);
+        campoNomeEscolhido.setEnabled(false);
+        nomeProdutoEscolhido.setEnabled(false);
+        codigoProdutoEscolhido.setEnabled(false);
+        campoPreco.setEnabled(false);
+        campoValor.setEnabled(false);
+        campoValorFinal.setEnabled(false);    
         
         modelProdutos = (DefaultTableModel) tabelaProdutos.getModel();
         modelClientes = (DefaultTableModel) tabelaClientes.getModel();
@@ -90,6 +102,26 @@ public class PainelVendas extends javax.swing.JPanel {
         selectProduto = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        campoNomeEscolhido = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        campoCPFEscolhido = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        nomeProdutoEscolhido = new javax.swing.JTextField();
+        codigoProdutoEscolhido = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        campoQuantidade = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        campoPreco = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        campoValor = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        campoDesconto = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        campoValorFinal = new javax.swing.JTextField();
+        checaVenda = new javax.swing.JButton();
+        realizaVenda = new javax.swing.JButton();
 
         barraCliente.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraCliente.setRollover(true);
@@ -215,7 +247,7 @@ public class PainelVendas extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkCPF)
                                     .addComponent(checkNome))
-                                .addGap(0, 16, Short.MAX_VALUE))))
+                                .addGap(0, 139, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -331,7 +363,7 @@ public class PainelVendas extends javax.swing.JPanel {
                                     .addComponent(checkCodigoProduto)
                                     .addComponent(checkNomeProduto)))
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 44, Short.MAX_VALUE)))
+                        .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
@@ -374,21 +406,135 @@ public class PainelVendas extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Realize a venda");
 
+        jLabel4.setText("Nome do cliente");
+
+        jLabel5.setText("CPF/CNPJ do cliente");
+
+        jLabel6.setText("Nome do produto");
+
+        jLabel9.setText("Código do produto");
+
+        jLabel10.setText("Quantidade");
+
+        jLabel11.setText("Preço por unidade");
+
+        jLabel12.setText("Valor da transação");
+
+        jLabel13.setText("Desconto dado:");
+
+        campoDesconto.setText("0,00");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("Valor Final da Transação");
+
+        campoValorFinal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        checaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/question.png"))); // NOI18N
+        checaVenda.setText("Checa Venda");
+        checaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checaVendaActionPerformed(evt);
+            }
+        });
+
+        realizaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
+        realizaVenda.setText("Confirma Venda");
+        realizaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizaVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel3)
-                .addContainerGap(518, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(checaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(realizaVenda))
+                    .addComponent(jLabel14)
+                    .addComponent(campoValorFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(campoNomeEscolhido, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                                    .addComponent(nomeProdutoEscolhido))
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(campoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(93, 93, 93)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(campoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel9)
+                            .addComponent(campoCPFEscolhido)
+                            .addComponent(codigoProdutoEscolhido)))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel3)
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoCPFEscolhido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(codigoProdutoEscolhido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoNomeEscolhido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nomeProdutoEscolhido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoValorFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checaVenda)
+                    .addComponent(realizaVenda))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         abasVendas.addTab("Realize a venda", jPanel4);
@@ -414,15 +560,15 @@ public class PainelVendas extends javax.swing.JPanel {
 
     private void selecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarClienteActionPerformed
         abasVendas.setSelectedIndex(0);
-        
+
         abasVendas.setEnabledAt(0, true);
         abasVendas.setEnabledAt(1, false);
         abasVendas.setEnabledAt(2, false);
     }//GEN-LAST:event_selecionarClienteActionPerformed
 
     private void selecionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarProdutoActionPerformed
-         abasVendas.setSelectedIndex(1);
-        
+        abasVendas.setSelectedIndex(1);
+
         abasVendas.setEnabledAt(0, false);
         abasVendas.setEnabledAt(1, true);
         abasVendas.setEnabledAt(2, false);
@@ -430,7 +576,7 @@ public class PainelVendas extends javax.swing.JPanel {
 
     private void realizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarVendaActionPerformed
         abasVendas.setSelectedIndex(2);
-        
+
         abasVendas.setEnabledAt(0, false);
         abasVendas.setEnabledAt(1, false);
         abasVendas.setEnabledAt(2, true);
@@ -485,12 +631,12 @@ public class PainelVendas extends javax.swing.JPanel {
         campoBuscaClienteNome.setEnabled(false);
         checkCPF.setSelected(false);
         checkNome.setSelected(false);
-        
+
         modelClientes.setNumRows(0);
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarActionPerformed
-         try {
+        try {
             int selecionado = tabelaClientes.getSelectedRow();
             clienteSelecionado = clientes.get(selecionado);
             JOptionPane.showMessageDialog(this, "Cliente selecionado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -498,6 +644,10 @@ public class PainelVendas extends javax.swing.JPanel {
             abasVendas.setEnabledAt(0, false);
             abasVendas.setEnabledAt(2, false);
             abasVendas.setEnabledAt(1, true);
+
+            campoCPFEscolhido.setText(clienteSelecionado.getCpf_cnpj());
+            campoNomeEscolhido.setText(clienteSelecionado.getNome());
+            checado = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
         }
@@ -553,12 +703,12 @@ public class PainelVendas extends javax.swing.JPanel {
         campoBuscaNome.setEnabled(false);
         checkCodigoProduto.setSelected(false);
         checkNomeProduto.setSelected(false);
-        
+
         modelProdutos.setNumRows(0);
     }//GEN-LAST:event_cancelarProdutoActionPerformed
 
     private void selectProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectProdutoActionPerformed
-         try {
+        try {
             int selecionado = tabelaProdutos.getSelectedRow();
             produtoSelecionado = produtos.get(selecionado);
             JOptionPane.showMessageDialog(this, "Produto selecionado com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -566,11 +716,44 @@ public class PainelVendas extends javax.swing.JPanel {
             abasVendas.setEnabledAt(0, false);
             abasVendas.setEnabledAt(2, true);
             abasVendas.setEnabledAt(1, false);
+
+            codigoProdutoEscolhido.setText(produtoSelecionado.getCodigo());
+            nomeProdutoEscolhido.setText(produtoSelecionado.getNome());
+            campoPreco.setText(produtoSelecionado.getPrecoPorUnidade());
+            checado = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Um produto deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_selectProdutoActionPerformed
 
+    private void realizaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaVendaActionPerformed
+        if (checado) {
+        } else {
+            JOptionPane.showMessageDialog(this, "Disponibilidade da venda ainda não foi checada", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_realizaVendaActionPerformed
+
+    private void checaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checaVendaActionPerformed
+        try {
+            if (produtoSelecionado != null && clienteSelecionado != null) {
+                if (produtoSelecionado.getQuantidadeEstoque() >= Integer.parseInt(campoQuantidade.getText())) {
+                    if (!campoDesconto.getText().equals("") && !campoQuantidade.getText().equals("")) {
+                        double valor = Integer.parseInt(campoQuantidade.getText())*Double.parseDouble(produtoSelecionado.getPrecoPorUnidade());
+                        double valorFinal = valor - Double.parseDouble(campoDesconto.getText().replace(",", "."));
+                        
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        campoValor.setText(String.valueOf(df.format(valor)));
+                        campoValorFinal.setText(String.valueOf(df.format(valorFinal)));
+                        checado = true;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Quantidade indisponível do produto", null, JOptionPane.OK_OPTION);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Transação não pôde ser realizada", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_checaVendaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasVendas;
     private javax.swing.JToolBar barraCliente;
@@ -580,23 +763,43 @@ public class PainelVendas extends javax.swing.JPanel {
     private javax.swing.JTextField campoBuscaClienteNome;
     private javax.swing.JTextField campoBuscaCodigo;
     private javax.swing.JTextField campoBuscaNome;
+    private javax.swing.JTextField campoCPFEscolhido;
+    private javax.swing.JTextField campoDesconto;
+    private javax.swing.JTextField campoNomeEscolhido;
+    private javax.swing.JTextField campoPreco;
+    private javax.swing.JTextField campoQuantidade;
+    private javax.swing.JTextField campoValor;
+    private javax.swing.JTextField campoValorFinal;
     private javax.swing.JButton cancelar;
     private javax.swing.JButton cancelarProduto;
+    private javax.swing.JButton checaVenda;
     private javax.swing.JCheckBox checkCPF;
     private javax.swing.JCheckBox checkCodigoProduto;
     private javax.swing.JCheckBox checkNome;
     private javax.swing.JCheckBox checkNomeProduto;
+    private javax.swing.JTextField codigoProdutoEscolhido;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField nomeProdutoEscolhido;
+    private javax.swing.JButton realizaVenda;
     private javax.swing.JButton realizarVenda;
     private javax.swing.JButton selecionar;
     private javax.swing.JButton selecionarCliente;
