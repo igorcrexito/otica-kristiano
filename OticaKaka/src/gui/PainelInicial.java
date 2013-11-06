@@ -49,7 +49,6 @@ public class PainelInicial extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -96,7 +95,7 @@ public class PainelInicial extends javax.swing.JPanel {
         jLabel8.setText("- Remoção de clientes já cadastrados");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel11.setText("Checar Transações");
+        jLabel11.setText("Venda de Produtos");
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transcacoes256.png"))); // NOI18N
 
@@ -104,8 +103,6 @@ public class PainelInicial extends javax.swing.JPanel {
         jLabel13.setText("A aba de transações permite o acesso às seguintes funções:");
 
         jLabel14.setText("- Realização de vendas de produtos (Administrador)");
-
-        jLabel15.setText("- Checagem de transações anteriores, podendo estas serem filtradas por data, produto, valor ou cliente");
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/admin256.png"))); // NOI18N
 
@@ -207,7 +204,6 @@ public class PainelInicial extends javax.swing.JPanel {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel31)
                                             .addComponent(jLabel30)))
-                                    .addComponent(jLabel15)
                                     .addComponent(jLabel14)
                                     .addComponent(jLabel26)
                                     .addComponent(jLabel25)))
@@ -255,9 +251,7 @@ public class PainelInicial extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12))
+                            .addComponent(jLabel12)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -266,9 +260,7 @@ public class PainelInicial extends javax.swing.JPanel {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15)
-                        .addGap(95, 95, 95)))
+                        .addGap(120, 120, 120)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
@@ -314,7 +306,7 @@ public class PainelInicial extends javax.swing.JPanel {
                                 .addComponent(jLabel30)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel31)))
-                        .addContainerGap(30, Short.MAX_VALUE))))
+                        .addContainerGap(48, Short.MAX_VALUE))))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -341,7 +333,6 @@ public class PainelInicial extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
