@@ -41,7 +41,7 @@ public class TransacoesDAO {
         String valorTransacao;
         String desconto;
         Date data;
-
+        int idCompra;
         try {
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -54,7 +54,7 @@ public class TransacoesDAO {
                 valorTransacao = rs.getString("valortotaltransacao");
                 desconto = rs.getString("desconto");
                 data = rs.getDate("data");
-
+                idCompra = rs.getInt("idDaCompra");
                 try {
                     transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
                 } catch (Exception ex) {
@@ -87,7 +87,7 @@ public class TransacoesDAO {
         String valorTransacao;
         String desconto;
         Date data;
-
+        int idCompra;
         try {
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -100,7 +100,7 @@ public class TransacoesDAO {
                 valorTransacao = rs.getString("valortotaltransacao");
                 desconto = rs.getString("desconto");
                 data = rs.getDate("data");
-
+                idCompra = rs.getInt("idDaCompra");
                 try {
                     transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
                 } catch (Exception ex) {
@@ -133,7 +133,7 @@ public class TransacoesDAO {
         String valorTransacao;
         String desconto;
         Date data;
-
+        int idCompra;
         try {
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -146,7 +146,7 @@ public class TransacoesDAO {
                 valorTransacao = rs.getString("valortotaltransacao");
                 desconto = rs.getString("desconto");
                 data = rs.getDate("data");
-
+                idCompra = rs.getInt("idDaCompra");
                 try {
                     transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
                 } catch (Exception ex) {
@@ -178,7 +178,8 @@ public class TransacoesDAO {
         String valorTransacao;
         String desconto;
         Date data;
-
+        int idCompra;
+                
         try {
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -191,7 +192,8 @@ public class TransacoesDAO {
                 valorTransacao = rs.getString("valortotaltransacao");
                 desconto = rs.getString("desconto");
                 data = rs.getDate("data");
-
+                idCompra = rs.getInt("idDaCompra");
+                
                 try {
                     transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
                 } catch (Exception ex) {
@@ -222,7 +224,8 @@ public class TransacoesDAO {
         String valorTransacao;
         String desconto;
         Date data;
-
+        int idCompra;
+        
         try {
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -235,6 +238,7 @@ public class TransacoesDAO {
                 valorTransacao = rs.getString("valortotaltransacao");
                 desconto = rs.getString("desconto");
                 data = rs.getDate("data");
+                idCompra = rs.getInt("idDaCompra");
 
                 try {
                     if (data.compareTo(dataInicial) == 0 || data.compareTo(dataInicial) >= 0) {
@@ -272,5 +276,52 @@ public class TransacoesDAO {
         conexao.execute(SQL);
 
         conexao.desconecta();
+    }
+
+    ArrayList<Transacoes> buscaTransacoesPorIDDaCompra(int idDaCompra) {
+        conexao.conecta();
+        ArrayList<Transacoes> transacoes = new ArrayList<Transacoes>();
+
+        String SQL_string = "SELECT * FROM transacoes WHERE "
+                + "idDaCompra LIKE '%" + idDaCompra + "%'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+
+        int id;
+        String nomeDoCliente;
+        String cpf_cnpjCliente;
+        String nomeDoProduto;
+        String codigoDoProduto;
+        int quantidadeVendida;
+        String precoPorUnidade;
+        String valorTransacao;
+        String desconto;
+        Date data;
+        int idCompra;
+
+        try {
+            while (rs.next()) {
+                id = rs.getInt("id");
+                nomeDoCliente = rs.getString("nomedocliente");
+                cpf_cnpjCliente = rs.getString("cpf_cnpjcliente");
+                nomeDoProduto = rs.getString("nomedoproduto");
+                codigoDoProduto = rs.getString("codigodoproduto");
+                quantidadeVendida = rs.getInt("qtdvendida");
+                precoPorUnidade = rs.getString("precoporunidade").replace(",", ".");
+                valorTransacao = rs.getString("valortotaltransacao");
+                desconto = rs.getString("desconto");
+                data = rs.getDate("data");
+                idCompra = rs.getInt("idDaCompra");
+
+                try {
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                } catch (Exception ex) {
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return transacoes;
     }
 }
