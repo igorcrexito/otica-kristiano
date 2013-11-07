@@ -23,8 +23,9 @@ public class Transacoes {
     private double valorTotalDaTransacao;
     private double descontoDado;
     private Date data;
+    private int idDaCompra;
 
-    public Transacoes(int idDaTransacao, String nomeDoCliente, String cpf_cnpjCliente, String nomeDoProduto, String codigoDoProduto, int quantidadeVendidade, double precoPorUnidade, double valorTotalDaTransacao, double descontoDado, Date data) {
+    public Transacoes(int idDaTransacao, String nomeDoCliente, String cpf_cnpjCliente, String nomeDoProduto, String codigoDoProduto, int quantidadeVendidade, double precoPorUnidade, double valorTotalDaTransacao, double descontoDado, Date data, int idDaCompra) {
         this.idDaTransacao = idDaTransacao;
         this.nomeDoCliente = nomeDoCliente;
         this.cpf_cnpjCliente = cpf_cnpjCliente;
@@ -35,6 +36,15 @@ public class Transacoes {
         this.valorTotalDaTransacao = valorTotalDaTransacao;
         this.descontoDado = descontoDado;
         this.data = data;
+        this.idDaCompra = idDaCompra;
+    }
+
+    public int getIdDaCompra() {
+        return idDaCompra;
+    }
+
+    public void setIdDaCompra(int idDaCompra) {
+        this.idDaCompra = idDaCompra;
     }
  
     public Date getData() {
@@ -115,6 +125,10 @@ public class Transacoes {
 
     public void setDescontoDado(double descontoDado) {
         this.descontoDado = descontoDado;
+    }
+
+    public void setIDDaCompra(int lastID) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
     
