@@ -26,7 +26,20 @@ public class Transacoes {
     private int idDaCompra;
 
     public Transacoes(int idDaTransacao, String nomeDoCliente, String cpf_cnpjCliente, String nomeDoProduto, String codigoDoProduto, int quantidadeVendidade, double precoPorUnidade, double valorTotalDaTransacao, double descontoDado, Date data, int idDaCompra) {
+        this.nomeDoCliente = nomeDoCliente;
+        this.cpf_cnpjCliente = cpf_cnpjCliente;
+        this.nomeDoProduto = nomeDoProduto;
+        this.codigoDoProduto = codigoDoProduto;
+        this.quantidadeVendidade = quantidadeVendidade;
+        this.precoPorUnidade = precoPorUnidade;
+        this.valorTotalDaTransacao = valorTotalDaTransacao;
+        this.descontoDado = descontoDado;
+        this.data = data;
+        this.idDaCompra = idDaCompra;
         this.idDaTransacao = idDaTransacao;
+    }
+    
+    public Transacoes(String nomeDoCliente, String cpf_cnpjCliente, String nomeDoProduto, String codigoDoProduto, int quantidadeVendidade, double precoPorUnidade, double valorTotalDaTransacao, double descontoDado, Date data, int idDaCompra) {
         this.nomeDoCliente = nomeDoCliente;
         this.cpf_cnpjCliente = cpf_cnpjCliente;
         this.nomeDoProduto = nomeDoProduto;
