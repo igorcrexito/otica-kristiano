@@ -45,4 +45,9 @@ public class ControladorCompra {
     public void insereCompra(String nomeDoCliente, String cpf_cnpj, ArrayList<Transacoes> transacoes, String precoTotal, String descontoTotal, Date data) {
         compraDAO.insereCompra(nomeDoCliente, cpf_cnpj, transacoes, Double.parseDouble(precoTotal.replace(",", ".")), Double.parseDouble(descontoTotal.replace(",", ".")), data);
     }
+
+    public ArrayList<Compra> buscaTodasAsCompras() {
+        ArrayList<Compra> compras = compraDAO.buscaTodasAsCompras();
+        return compras;
+    }
 }
