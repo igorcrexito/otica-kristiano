@@ -4,10 +4,13 @@
  */
 package persistencia;
 
+import controlador.ControladorUsuario;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.Compra;
 import utils.Produto;
 import utils.Transacoes;
@@ -218,7 +221,30 @@ public class CompraDAO {
         return compras;
     }
 
-    public void insereCompra(String nomeDoCliente, String cpf_cnpj, ArrayList<Transacoes> transacoes, double parseDouble, double parseDouble0, Date data) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public void insereCompra(String nomeDoCliente, String cpf_cnpj, ArrayList<Transacoes> transacoes, double precoTotal, double descontoTotal, Date data) {
+        conexao.conecta();
+
+        TransacoesDAO transacaoDAO = new TransacoesDAO();
+
+        String SQL_String = "INSERT INTO compras (nomedocliente,cpfcnpj,precototal, descontototal, data)"
+                + " VALUES ('" + nomeDoCliente + "', '" + cpf_cnpj + "', '" + precoTotal + "', '" + descontoTotal + "', '" + data + "')";
+
+        conexao.execute(SQL_String);
+
+        ArrayList<Compra> compras = buscaTodasAsCompras();
+
+        int lastID = compras.size() - 1;
+
+        for (int i = 0; i < transacoes.size(); i++) {
+            transacoes.get(i).setIDDaCompra(lastID);
+            Transacoes transacao = transacoes.get(i);
+            //insere transação
+            SQL_String = "INSERT INTO transacoes (nomedocliente,cpf_cnpjcliente,nomedoproduto, codigodoproduto, qtdvendida, precoporunidade, valortotaltransacao, desconto, data, idDaCompra)"
+                    + " VALUES ('" + transacao.getNomeDoCliente() + "', '" + transacao.getCpf_cnpjCliente() + "', '" + transacao.getNomeDoProduto() + "', '" + transacao.getCodigoDoProduto() + "', '" + transacao.getQuantidadeVendidade() + "', '" + transacao.getPrecoPorUnidade() + "', '" + transacao.getValorTotalDaTransacao() + "', '" + transacao.getDescontoDado() + "', '" + transacao.getData() + "', '" + transacao.getIdDaCompra() + "')";
+
+            conexao.execute(SQL_String);
+        }
+
+        conexao.desconecta();
     }
 }

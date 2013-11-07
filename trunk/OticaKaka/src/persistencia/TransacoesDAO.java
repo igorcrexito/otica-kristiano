@@ -56,7 +56,7 @@ public class TransacoesDAO {
                 data = rs.getDate("data");
                 idCompra = rs.getInt("idDaCompra");
                 try {
-                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                 } catch (Exception ex) {
                 }
             }
@@ -102,7 +102,7 @@ public class TransacoesDAO {
                 data = rs.getDate("data");
                 idCompra = rs.getInt("idDaCompra");
                 try {
-                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                 } catch (Exception ex) {
                 }
             }
@@ -148,7 +148,7 @@ public class TransacoesDAO {
                 data = rs.getDate("data");
                 idCompra = rs.getInt("idDaCompra");
                 try {
-                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                 } catch (Exception ex) {
                 }
             }
@@ -195,7 +195,7 @@ public class TransacoesDAO {
                 idCompra = rs.getInt("idDaCompra");
                 
                 try {
-                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                 } catch (Exception ex) {
                 }
             }
@@ -243,7 +243,7 @@ public class TransacoesDAO {
                 try {
                     if (data.compareTo(dataInicial) == 0 || data.compareTo(dataInicial) >= 0) {
                         if (data.compareTo(dataFinal) == 0 || data.compareTo(dataFinal) <= 0) {
-                            transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                            transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                         }
                     }
                 } catch (Exception ex) {
@@ -314,7 +314,7 @@ public class TransacoesDAO {
                 idCompra = rs.getInt("idDaCompra");
 
                 try {
-                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data));
+                    transacoes.add(new Transacoes(id, nomeDoCliente, cpf_cnpjCliente, nomeDoProduto, codigoDoProduto, quantidadeVendida, Double.parseDouble(precoPorUnidade), Double.parseDouble(valorTransacao), Double.parseDouble(desconto), data, idCompra));
                 } catch (Exception ex) {
                 }
             }
