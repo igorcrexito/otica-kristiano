@@ -807,7 +807,38 @@ public class PainelVendas extends javax.swing.JPanel {
     }//GEN-LAST:event_selectProdutoActionPerformed
 
     private void realizaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaVendaActionPerformed
-
+        if (transacoesDasCompras != null & transacoesDasCompras.size() != 0) {
+            
+            double valorFinal = 0;
+            double descontoTotal = 0;
+            for (int z = 0; z < transacoesDasCompras.size(); z++) {
+                valorFinal += transacoesDasCompras.get(z).getValorTotalDaTransacao() - transacoesDasCompras.get(z).getDescontoDado();
+                descontoTotal += transacoesDasCompras.get(z).getDescontoDado();
+            }
+            
+            
+            controladorCompra.insereCompra(clienteSelecionado.getNome(), clienteSelecionado.getCpf_cnpj(), transacoesDasCompras, String.valueOf(df.format(valorFinal)), String.valueOf(df.format(descontoTotal)), transacoesDasCompras.get(0).getData());
+            produtoSelecionado = null;
+            clienteSelecionado = null;
+            abasVendas.setSelectedIndex(0);
+            transacoesDasCompras = new ArrayList<Transacoes>();
+            JOptionPane.showMessageDialog(this, "Venda realizada com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
+            
+            
+            campoQuantidade.setText("0");
+            modelCompras.setNumRows(0);
+            campoValorFinal.setText("");
+            campoDesconto.setText("0,00");
+            realizarVenda.setEnabled(false);
+            selecionarCliente.setEnabled(true);
+            selecionarProduto.setEnabled(false);
+            
+            abasVendas.setEnabledAt(0, true);
+            abasVendas.setEnabledAt(1, false);
+            abasVendas.setEnabledAt(2, false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado para ser vendido", null, JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_realizaVendaActionPerformed
 
     private void adicionarCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarCarrinhoActionPerformed
@@ -893,13 +924,13 @@ public class PainelVendas extends javax.swing.JPanel {
                 vec.add(8, transacoesDasCompras.get(i).getData());
                 modelCompras.addRow(vec);
             }
-            
+
             double valorFinal = 0;
             for (int z = 0; z < transacoesDasCompras.size(); z++) {
                 valorFinal += transacoesDasCompras.get(z).getValorTotalDaTransacao() - transacoesDasCompras.get(z).getDescontoDado();
             }
             campoValorFinal.setText(String.valueOf(df.format(valorFinal)));
-                        
+
 
             this.repaint();
         } else {
