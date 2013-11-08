@@ -98,4 +98,8 @@ public class ControladorProduto {
         produtoDAO.atualizaProduto(codigo, nome, precoUnidade, quantidadeEstoque, tipo, codigoAntigo);
 
     }
+
+    public void atualizaProdutoVenda(String codigoDoProduto, int quantidadeVendidade) {
+        produtoDAO.atualizaProdutoVenda(codigoDoProduto,quantidadeVendidade);
+    }
 }

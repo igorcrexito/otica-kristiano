@@ -321,4 +321,15 @@ public class ProdutoDAO {
         conexao.desconecta();
     }
 
+    public void atualizaProdutoVenda(String codigoDoProduto, int quantidadeVendidade) {
+         conexao.conecta();
+
+        String tabela = "produtos";
+        String SQL = "UPDATE " + tabela + " SET qtdestoque = qtdestoque - '" + quantidadeVendidade +  "' WHERE codigo = '" + codigoDoProduto + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
 }

@@ -821,6 +821,12 @@ public class PainelVendas extends javax.swing.JPanel {
             produtoSelecionado = null;
             clienteSelecionado = null;
             abasVendas.setSelectedIndex(0);
+            
+            for (int i=0;i<transacoesDasCompras.size();i++) {
+               Transacoes transacao = transacoesDasCompras.get(i);
+               controladorProduto.atualizaProdutoVenda(transacao.getCodigoDoProduto(), transacao.getQuantidadeVendidade());
+            }
+            
             transacoesDasCompras = new ArrayList<Transacoes>();
             JOptionPane.showMessageDialog(this, "Venda realizada com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
             
@@ -832,6 +838,8 @@ public class PainelVendas extends javax.swing.JPanel {
             realizarVenda.setEnabled(false);
             selecionarCliente.setEnabled(true);
             selecionarProduto.setEnabled(false);
+            
+            
             
             abasVendas.setEnabledAt(0, true);
             abasVendas.setEnabledAt(1, false);
