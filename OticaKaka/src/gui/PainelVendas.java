@@ -40,6 +40,7 @@ public class PainelVendas extends javax.swing.JPanel {
     ControladorCompra controladorCompra = new ControladorCompra();
     Cliente clienteSelecionado;
     Produto produtoSelecionado;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     public PainelVendas() {
         initComponents();
@@ -300,7 +301,7 @@ public class PainelVendas extends javax.swing.JPanel {
                     .addComponent(selecionar))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         abasVendas.addTab("Selecione o cliente", jPanel2);
@@ -413,7 +414,7 @@ public class PainelVendas extends javax.swing.JPanel {
                         .addGap(36, 36, 36)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(selectProduto))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         abasVendas.addTab("Selecione o produto", jPanel3);
@@ -473,12 +474,18 @@ public class PainelVendas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cliente", "CPF/CNPJ", "Produto", "Código", "Quantidade", "Preço", "Valor", "Desconto"
+                "Cliente", "CPF/CNPJ", "Produto", "Código", "Quantidade", "Preço", "Valor", "Desconto", "Data"
             }
         ));
         jScrollPane3.setViewportView(tabelaTransacoesCompra);
 
+        removerProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menos.png"))); // NOI18N
         removerProduto.setText("Remover Produto");
+        removerProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -491,34 +498,28 @@ public class PainelVendas extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
+                            .addComponent(campoValorFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(adicionarCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removerProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selecionarMaisProdutos))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(campoNomeEscolhido, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                                    .addComponent(nomeProdutoEscolhido))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel9)
+                                    .addComponent(campoCPFEscolhido, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                                    .addComponent(codigoProdutoEscolhido))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jLabel4)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(campoNomeEscolhido, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                                                    .addComponent(nomeProdutoEscolhido))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(jLabel9)
-                                                    .addComponent(campoCPFEscolhido, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                                    .addComponent(codigoProdutoEscolhido)))
-                                            .addComponent(campoValorFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, Short.MAX_VALUE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(adicionarCarrinho)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(realizaVenda)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(removerProduto)
-                                        .addGap(122, 122, 122)))
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selecionarMaisProdutos)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel10)
@@ -534,7 +535,8 @@ public class PainelVendas extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel11)
-                                            .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(campoPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(realizaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -588,12 +590,13 @@ public class PainelVendas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adicionarCarrinho)
-                    .addComponent(realizaVenda)
                     .addComponent(selecionarMaisProdutos)
                     .addComponent(removerProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(realizaVenda)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         abasVendas.addTab("Realize a venda", jPanel4);
@@ -804,12 +807,12 @@ public class PainelVendas extends javax.swing.JPanel {
     }//GEN-LAST:event_selectProdutoActionPerformed
 
     private void realizaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaVendaActionPerformed
+
     }//GEN-LAST:event_realizaVendaActionPerformed
 
     private void adicionarCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarCarrinhoActionPerformed
         java.util.Calendar cal = java.util.Calendar.getInstance();
         java.util.Date utilDate = cal.getTime();
-        DecimalFormat df = new DecimalFormat("#.##");
 
         try {
             if (produtoSelecionado != null && clienteSelecionado != null) {
@@ -863,14 +866,46 @@ public class PainelVendas extends javax.swing.JPanel {
         abasVendas.setEnabledAt(0, false);
         abasVendas.setEnabledAt(1, true);
         abasVendas.setEnabledAt(2, false);
-        
+
         realizarVenda.setEnabled(false);
         selecionarCliente.setEnabled(false);
         selecionarProduto.setEnabled(true);
-        
+
         this.campoQuantidade.setText("");
         this.campoDesconto.setText("0,00");
     }//GEN-LAST:event_selecionarMaisProdutosActionPerformed
+
+    private void removerProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutoActionPerformed
+        if (tabelaTransacoesCompra.getSelectedRow() != -1) {
+            transacoesDasCompras.remove(tabelaTransacoesCompra.getSelectedRow());
+
+            modelCompras.setNumRows(0);
+            for (int i = 0; i < transacoesDasCompras.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, transacoesDasCompras.get(i).getNomeDoCliente());
+                vec.add(1, transacoesDasCompras.get(i).getCpf_cnpjCliente());
+                vec.add(2, transacoesDasCompras.get(i).getNomeDoProduto());
+                vec.add(3, transacoesDasCompras.get(i).getCodigoDoProduto());
+                vec.add(4, transacoesDasCompras.get(i).getQuantidadeVendidade());
+                vec.add(5, df.format(transacoesDasCompras.get(i).getPrecoPorUnidade()));
+                vec.add(6, df.format(transacoesDasCompras.get(i).getValorTotalDaTransacao()));
+                vec.add(7, df.format(transacoesDasCompras.get(i).getDescontoDado()));
+                vec.add(8, transacoesDasCompras.get(i).getData());
+                modelCompras.addRow(vec);
+            }
+            
+            double valorFinal = 0;
+            for (int z = 0; z < transacoesDasCompras.size(); z++) {
+                valorFinal += transacoesDasCompras.get(z).getValorTotalDaTransacao() - transacoesDasCompras.get(z).getDescontoDado();
+            }
+            campoValorFinal.setText(String.valueOf(df.format(valorFinal)));
+                        
+
+            this.repaint();
+        } else {
+            JOptionPane.showMessageDialog(this, "Deve-se selecionar um produto na tabela para remoção", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_removerProdutoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasVendas;
     private javax.swing.JButton adicionarCarrinho;
