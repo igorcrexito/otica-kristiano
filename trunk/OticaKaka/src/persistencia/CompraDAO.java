@@ -224,17 +224,20 @@ public class CompraDAO {
     public void insereCompra(String nomeDoCliente, String cpf_cnpj, ArrayList<Transacoes> transacoes, double precoTotal, double descontoTotal, Date data) {
         conexao.conecta();
 
-        
+
         String SQL_String = "INSERT INTO compras (nomedocliente,cpfcnpj,precototal, descontototal, data)"
                 + " VALUES ('" + nomeDoCliente + "', '" + cpf_cnpj + "', '" + precoTotal + "', '" + descontoTotal + "', '" + data + "')";
 
         conexao.execute(SQL_String);
+        conexao.desconecta();
 
+        
         ArrayList<Compra> compras = buscaTodasAsCompras();
 
-        int lastID = compras.size() - 1;
-
-        for (int i = 0; i < transacoes.size(); i++) {
+        int lastID = compras.get(compras.size()-1).getId();
+        
+        conexao.conecta();
+        for (int i = 0; i < transacoes.size(); i++) {           
             transacoes.get(i).setIDDaCompra(lastID);
             Transacoes transacao = transacoes.get(i);
             SQL_String = "INSERT INTO transacoes (nomedocliente,cpf_cnpjcliente,nomedoproduto, codigodoproduto, qtdvendida, precoporunidade, valortotaltransacao, desconto, data, idDaCompra)"
@@ -242,7 +245,6 @@ public class CompraDAO {
 
             conexao.execute(SQL_String);
         }
-
         conexao.desconecta();
     }
 }

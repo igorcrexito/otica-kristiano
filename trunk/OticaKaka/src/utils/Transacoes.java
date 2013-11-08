@@ -141,7 +141,7 @@ public class Transacoes {
     }
 
     public void setIDDaCompra(int lastID) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.idDaCompra = lastID;
     }
     
     
