@@ -301,6 +301,7 @@ public class TransacoesDAO {
 
         try {
             while (rs.next()) {
+
                 id = rs.getInt("id");
                 nomeDoCliente = rs.getString("nomedocliente");
                 cpf_cnpjCliente = rs.getString("cpf_cnpjcliente");
@@ -341,6 +342,17 @@ public class TransacoesDAO {
 
         String tabela = "transacoes";
         String SQL = "UPDATE " + tabela + " SET nomedocliente = '" + nomeDoCliente + "', cpf_cnpjcliente = '" + cpfCnpj + "' WHERE id = '" + idDaTransacao + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
+    public void deletaTransacaoPorIdDaCompra(int id) {
+        conexao.conecta();
+
+        String tabela = "transacoes";
+        String SQL = "DELETE FROM " + tabela + " WHERE idDaCompra = '" + id + "'";
 
         conexao.execute(SQL);
 

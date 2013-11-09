@@ -305,4 +305,15 @@ public class CompraDAO {
 
         conexao.desconecta();
     }
+
+    public void deletaCompraSelecionada(int id) {
+        conexao.conecta();
+
+        String tabela = "compras";
+        String SQL = "DELETE FROM " + tabela + " WHERE id = '" + id + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
 }

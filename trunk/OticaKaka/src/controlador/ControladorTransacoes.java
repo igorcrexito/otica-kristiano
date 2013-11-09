@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.TransacoesDAO;
 import persistencia.UsuarioDAO;
+import utils.Compra;
 import utils.Produto;
 import utils.Transacoes;
 import utils.Usuario;
@@ -94,6 +95,10 @@ public class ControladorTransacoes {
 
     public void atualizaCliente(int idDaTransacao, String nomeDoCliente, String cpfCnpj) {
         transacoesDAO.atualizaClienteTransacoes(idDaTransacao, nomeDoCliente, cpfCnpj);
+    }
+
+    public void deletaTransacaoPorIdDaCompra(Compra compraSelecionada) {
+        transacoesDAO.deletaTransacaoPorIdDaCompra(compraSelecionada.getId());
     }
 
     
