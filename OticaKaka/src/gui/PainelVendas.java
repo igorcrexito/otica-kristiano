@@ -816,8 +816,10 @@ public class PainelVendas extends javax.swing.JPanel {
                 descontoTotal += transacoesDasCompras.get(z).getDescontoDado();
             }
             
+            String valorFinalTruncado = String.valueOf(df.format(valorFinal));
+            String descontoFinalTruncado = String.valueOf(df.format(descontoTotal));
             
-            controladorCompra.insereCompra(clienteSelecionado.getNome(), clienteSelecionado.getCpf_cnpj(), transacoesDasCompras, String.valueOf(df.format(valorFinal)), String.valueOf(df.format(descontoTotal)), transacoesDasCompras.get(0).getData());
+            controladorCompra.insereCompra(clienteSelecionado.getNome(), clienteSelecionado.getCpf_cnpj(), transacoesDasCompras, valorFinalTruncado, descontoFinalTruncado, transacoesDasCompras.get(0).getData());
             produtoSelecionado = null;
             clienteSelecionado = null;
             abasVendas.setSelectedIndex(0);
@@ -844,6 +846,9 @@ public class PainelVendas extends javax.swing.JPanel {
             abasVendas.setEnabledAt(0, true);
             abasVendas.setEnabledAt(1, false);
             abasVendas.setEnabledAt(2, false);
+            modelClientes.setNumRows(0);
+            modelProdutos.setNumRows(0);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado para ser vendido", null, JOptionPane.OK_OPTION);
         }
