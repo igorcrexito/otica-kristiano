@@ -278,7 +278,7 @@ public class TransacoesDAO {
         conexao.desconecta();
     }
 
-    ArrayList<Transacoes> buscaTransacoesPorIDDaCompra(int idDaCompra) {
+    public ArrayList<Transacoes> buscaTransacoesPorIDDaCompra(int idDaCompra) {
         conexao.conecta();
         ArrayList<Transacoes> transacoes = new ArrayList<Transacoes>();
 
@@ -324,4 +324,28 @@ public class TransacoesDAO {
         conexao.desconecta();
         return transacoes;
     }
+
+    public void atualizaDatasTransacoes(int idDaTransacao, Date novaData) {
+        conexao.conecta();
+
+        String tabela = "transacoes";
+        String SQL = "UPDATE " + tabela + " SET data = '" + novaData + "' WHERE id = '" + idDaTransacao + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
+    public void atualizaClienteTransacoes(int idDaTransacao, String nomeDoCliente, String cpfCnpj) {
+        conexao.conecta();
+
+        String tabela = "transacoes";
+        String SQL = "UPDATE " + tabela + " SET nomedocliente = '" + nomeDoCliente + "', cpf_cnpjcliente = '" + cpfCnpj + "' WHERE id = '" + idDaTransacao + "'";
+
+        conexao.execute(SQL);
+
+        conexao.desconecta();
+    }
+
+    
 }

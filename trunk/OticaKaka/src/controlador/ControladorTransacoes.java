@@ -82,6 +82,20 @@ public class ControladorTransacoes {
         
     }
 
+    public ArrayList<Transacoes> buscaTransacoesPorIDDaCompra(int id) {
+        ArrayList<Transacoes> transacoes = null;
+        transacoes = transacoesDAO.buscaTransacoesPorIDDaCompra(id);
+        return transacoes;
+    }
+
+    public void atualizaDatasTransacoes(int idDaTransacao, Date novaData) {
+        transacoesDAO.atualizaDatasTransacoes(idDaTransacao, novaData);
+    }
+
+    public void atualizaCliente(int idDaTransacao, String nomeDoCliente, String cpfCnpj) {
+        transacoesDAO.atualizaClienteTransacoes(idDaTransacao, nomeDoCliente, cpfCnpj);
+    }
+
     
 
     

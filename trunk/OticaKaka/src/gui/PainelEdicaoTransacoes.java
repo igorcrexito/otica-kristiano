@@ -4,9 +4,13 @@
  */
 package gui;
 
+import controlador.ControladorCompra;
 import controlador.ControladorTransacoes;
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import utils.Compra;
 import utils.Transacoes;
 
 /**
@@ -21,8 +25,10 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
     private Transacoes transacaoEscolhida;
     private int idSelecionado;
     ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
+    ControladorCompra controladorCompras = new ControladorCompra();
+    DecimalFormat df = new DecimalFormat("#.##");
     private int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
-    
+
     public PainelEdicaoTransacoes() {
         initComponents();
     }
@@ -45,7 +51,6 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
         int day = data.getDate();
         int month = data.getMonth();
 
-        //ERROS NO TRATAMENTO DESSA DATA AQUI !
 
         this.comboNovoAno.setSelectedIndex(2016 - year);
         this.comboNovoMes.setSelectedIndex(month);
@@ -295,7 +300,24 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
 
     private void confirmarAlteracaoTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarAlteracaoTransacaoActionPerformed
         if (!novoID.getText().equals("") && !novoNomeCliente.equals("") && !novoCPFCNPJTransacoes.equals("") && !novoNomeProdutoTransacao.equals("") && !novoCodigoProdutoTransacoes.equals("") && !novaQuantidadeTransacoes.equals("") && !novoValorTotalTransacoes.equals("") && !novoDescontoTransacoes.equals("")) {
-            controladorTransacoes.atualizaTransacoes(novoID.getText(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText(), novoNomeProdutoTransacao.getText(), novoCodigoProdutoTransacoes.getText(), novaQuantidadeTransacoes.getText(), novoPrecoUnidadeTransacoes.getText(),novoValorTotalTransacoes.getText(), novoDescontoTransacoes.getText(), new Date(anos[comboNovoAno.getSelectedIndex()]-1900, comboNovoMes.getSelectedIndex(), comboNovoDia.getSelectedIndex()+1), novoID.getText());
+            Date novaData = new Date(anos[comboNovoAno.getSelectedIndex()] - 1900, comboNovoMes.getSelectedIndex(), comboNovoDia.getSelectedIndex() + 1);
+            controladorTransacoes.atualizaTransacoes(novoID.getText(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText(), novoNomeProdutoTransacao.getText(), novoCodigoProdutoTransacoes.getText(), novaQuantidadeTransacoes.getText(), novoPrecoUnidadeTransacoes.getText(), novoValorTotalTransacoes.getText(), novoDescontoTransacoes.getText(), novaData, novoID.getText());
+
+            ArrayList<Compra> compras = controladorCompras.buscaCompraPorIDExato(transacaoEscolhida.getIdDaCompra());
+            Compra compraAtual = compras.get(0);
+            ArrayList<Transacoes> transacoes = controladorTransacoes.buscaTransacoesPorIDDaCompra(compraAtual.getId());
+            double valorFinal = 0;
+            double descontoFinal = 0;
+
+            for (int i = 0; i < transacoes.size(); i++) {
+                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()));
+                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()));
+                controladorTransacoes.atualizaDatasTransacoes(transacoes.get(i).getIdDaTransacao(), novaData);
+                controladorTransacoes.atualizaCliente(transacoes.get(i).getIdDaTransacao(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText());
+            }
+
+            controladorCompras.atualizaCompra(compraAtual.getId(), valorFinal, descontoFinal, transacoes.get(0).getData(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText());
+
             JOptionPane.showMessageDialog(this, "Transação atualizada com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
             this.dispose();
         } else {
@@ -304,14 +326,28 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmarAlteracaoTransacaoActionPerformed
 
     private void removerTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerTransacaoActionPerformed
-         if (transacaoEscolhida!=null) {
+        if (transacaoEscolhida != null) {
             controladorTransacoes.deletaTransacaoPorId(transacaoEscolhida.getIdDaTransacao());
+            ArrayList<Compra> compras = controladorCompras.buscaCompraPorIDExato(transacaoEscolhida.getIdDaCompra());
+            Compra compraAtual = compras.get(0);
+            ArrayList<Transacoes> transacoes = controladorTransacoes.buscaTransacoesPorIDDaCompra(compraAtual.getId());
+            double valorFinal = 0;
+            double descontoFinal = 0;
+
+            for (int i = 0; i < transacoes.size(); i++) {
+                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()));
+                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()));
+            }
+
+            controladorCompras.atualizaCompra(compraAtual.getId(), valorFinal, descontoFinal, transacoes.get(0).getData(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText());
+
+
             JOptionPane.showMessageDialog(this, "Transação removida com sucesso", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Essa transação não pode ser removida", null, JOptionPane.OK_OPTION);
         }
-         
-         this.dispose();
+
+        this.dispose();
     }//GEN-LAST:event_removerTransacaoActionPerformed
 
     /**
