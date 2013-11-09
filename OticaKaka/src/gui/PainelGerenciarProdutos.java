@@ -512,6 +512,8 @@ public class PainelGerenciarProdutos extends javax.swing.JPanel {
             produtos = controladorProduto.buscaProdutosPorNome(campoBuscaNome.getText());
         } else if (campoBuscaCodigo.getText() != null && !campoBuscaCodigo.getText().equals("") && campoBuscaCodigo.isEnabled()) {
             produtos = controladorProduto.buscaClientesPorCodigo(campoBuscaCodigo.getText());
+        } else {
+            produtos = controladorProduto.buscaTodosOsProdutos();
         }
 
         modelUsuarios.setNumRows(0);

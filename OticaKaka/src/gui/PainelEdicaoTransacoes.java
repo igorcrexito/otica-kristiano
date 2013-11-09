@@ -310,8 +310,8 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
             double descontoFinal = 0;
 
             for (int i = 0; i < transacoes.size(); i++) {
-                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()));
-                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()));
+                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()).replace(",", "."));
+                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()).replace(",", "."));
                 controladorTransacoes.atualizaDatasTransacoes(transacoes.get(i).getIdDaTransacao(), novaData);
                 controladorTransacoes.atualizaCliente(transacoes.get(i).getIdDaTransacao(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText());
             }
@@ -335,8 +335,8 @@ public class PainelEdicaoTransacoes extends javax.swing.JFrame {
             double descontoFinal = 0;
 
             for (int i = 0; i < transacoes.size(); i++) {
-                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()));
-                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()));
+                valorFinal = Double.parseDouble(df.format(valorFinal + transacoes.get(i).getValorTotalDaTransacao() - transacoes.get(i).getDescontoDado()).replace(",", "."));
+                descontoFinal = Double.parseDouble(df.format(descontoFinal + transacoes.get(i).getDescontoDado()).replace(",", "."));
             }
 
             controladorCompras.atualizaCompra(compraAtual.getId(), valorFinal, descontoFinal, transacoes.get(0).getData(), novoNomeCliente.getText(), novoCPFCNPJTransacoes.getText());
