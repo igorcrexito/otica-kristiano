@@ -8,6 +8,7 @@ import controlador.ControladorUsuario;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,8 @@ import utils.Transacoes;
 public class CompraDAO {
 
     private ConexaoBD conexao;
-
+    DecimalFormat df = new DecimalFormat("#.##");
+    
     public CompraDAO() {
         this.conexao = ConexaoBD.getConexaoBD();
     }
@@ -240,8 +242,13 @@ public class CompraDAO {
         for (int i = 0; i < transacoes.size(); i++) {           
             transacoes.get(i).setIDDaCompra(lastID);
             Transacoes transacao = transacoes.get(i);
+            
+            double valorTotal = Double.parseDouble(df.format(transacao.getValorTotalDaTransacao()).replace(",", "."));
+            double precoPorUnidade = Double.parseDouble(df.format(transacao.getPrecoPorUnidade()).replace(",", "."));
+            double descontoDadoTotal = Double.parseDouble(df.format(transacao.getDescontoDado()).replace(",", "."));
+            
             SQL_String = "INSERT INTO transacoes (nomedocliente,cpf_cnpjcliente,nomedoproduto, codigodoproduto, qtdvendida, precoporunidade, valortotaltransacao, desconto, data, idDaCompra)"
-                    + " VALUES ('" + transacao.getNomeDoCliente() + "', '" + transacao.getCpf_cnpjCliente() + "', '" + transacao.getNomeDoProduto() + "', '" + transacao.getCodigoDoProduto() + "', '" + transacao.getQuantidadeVendidade() + "', '" + transacao.getPrecoPorUnidade() + "', '" + transacao.getValorTotalDaTransacao() + "', '" + transacao.getDescontoDado() + "', '" + transacao.getData() + "', '" + transacao.getIdDaCompra() + "')";
+                    + " VALUES ('" + transacao.getNomeDoCliente() + "', '" + transacao.getCpf_cnpjCliente() + "', '" + transacao.getNomeDoProduto() + "', '" + transacao.getCodigoDoProduto() + "', '" + transacao.getQuantidadeVendidade() + "', '" + precoPorUnidade+ "', '" + valorTotal + "', '" + descontoDadoTotal+ "', '" + transacao.getData() + "', '" + transacao.getIdDaCompra() + "')";
 
             conexao.execute(SQL_String);
         }
