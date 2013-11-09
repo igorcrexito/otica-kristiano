@@ -952,7 +952,8 @@ public class PainelVendas extends javax.swing.JPanel {
     private void adicionarCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarCarrinhoActionPerformed
         java.util.Calendar cal = java.util.Calendar.getInstance();
         java.util.Date utilDate = cal.getTime();
-
+        Date dataAtual = new Date(utilDate.getYear(), utilDate.getMonth(), utilDate.getDate());
+        
         try {
             if (produtoSelecionado != null && clienteSelecionado != null) {
                 if (produtoSelecionado.getQuantidadeEstoque() >= Integer.parseInt(campoQuantidade.getText())) {
@@ -963,7 +964,7 @@ public class PainelVendas extends javax.swing.JPanel {
 
 
                         modelCompras.setNumRows(0);
-                        transacoesDasCompras.add(new Transacoes(clienteSelecionado.getNome(), clienteSelecionado.getCpf_cnpj(), produtoSelecionado.getNome(), produtoSelecionado.getCodigo(), Integer.parseInt(campoQuantidade.getText()), Double.parseDouble(produtoSelecionado.getPrecoPorUnidade()), valor, Double.parseDouble(campoDesconto.getText().replace(",", ".")), new Date(utilDate.getDate()), 0));
+                        transacoesDasCompras.add(new Transacoes(clienteSelecionado.getNome(), clienteSelecionado.getCpf_cnpj(), produtoSelecionado.getNome(), produtoSelecionado.getCodigo(), Integer.parseInt(campoQuantidade.getText()), Double.parseDouble(produtoSelecionado.getPrecoPorUnidade()), valor, Double.parseDouble(campoDesconto.getText().replace(",", ".")), dataAtual, 0));
 
                         for (int i = 0; i < transacoesDasCompras.size(); i++) {
                             Vector vec = new Vector();
