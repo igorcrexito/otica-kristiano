@@ -160,7 +160,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         barraCliente.add(clientesRelatorio);
 
         transacoesRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transacoes2.png"))); // NOI18N
-        transacoesRelatorio.setText("Transações");
+        transacoesRelatorio.setText("Vendas");
         transacoesRelatorio.setFocusable(false);
         transacoesRelatorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         transacoesRelatorio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

@@ -29,7 +29,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
           <Component id="barraCliente" max="32767" attributes="0"/>
-          <Component id="abasVendas" alignment="0" pref="509" max="32767" attributes="0"/>
+          <Component id="abasVendas" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
