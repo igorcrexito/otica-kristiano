@@ -4,6 +4,7 @@
  */
 package gui;
 
+import controlador.ControladorCompra;
 import controlador.ControladorTransacoes;
 import controlador.ControladorUsuario;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Cliente;
+import utils.Compra;
 import utils.Transacoes;
 import utils.Usuario;
 
@@ -27,25 +29,26 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
      */
     ControladorUsuario controladorUsuario = new ControladorUsuario();
     ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-    
     ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
+    ControladorCompra controladorCompras = new ControladorCompra();
     ArrayList<Transacoes> transacoes = new ArrayList<Transacoes>();
-    
+    ArrayList<Compra> compras = new ArrayList<Compra>();
+    Compra compraSelecionada;
     int codigoSelecionado;
     int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     int[] meses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     int[] anos = {2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000};
-    
-    
     private final DefaultTableModel modelUsuarios;
     String loginSelecionado = "";
     private final DefaultTableModel modelTransacoes;
+    private final DefaultTableModel modelCompras;
 
     public PainelDaZonaDeAdministracao() {
         initComponents();
 
         modelTransacoes = (DefaultTableModel) tabelaTransacoes.getModel();
         modelUsuarios = (DefaultTableModel) tabelaUsuarios.getModel();
+        modelCompras = (DefaultTableModel) tabelaCompras.getModel();
 
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
@@ -53,7 +56,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
         this.campoBuscaCPFCNPJ.setEnabled(false);
         this.campoBuscaID.setEnabled(false);
-        this.campoBuscaCodigo.setEnabled(false);
 
         this.comboAnoFinal.setEnabled(false);
         this.comboAnoInicial.setEnabled(false);
@@ -113,8 +115,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         campoBuscaID = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         campoBuscaCPFCNPJ = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        campoBuscaCodigo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         comboDiaInicial = new javax.swing.JComboBox();
         comboMesInicial = new javax.swing.JComboBox();
@@ -124,12 +124,14 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         comboMesFinal = new javax.swing.JComboBox();
         comboAnoFinal = new javax.swing.JComboBox();
         checkData = new javax.swing.JCheckBox();
-        checkCodigo = new javax.swing.JCheckBox();
         checkCPFCNPJ = new javax.swing.JCheckBox();
         checkID = new javax.swing.JCheckBox();
         buscarTransacao = new javax.swing.JButton();
         cancelarBusca = new javax.swing.JButton();
         selecionarTransacao = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaCompras = new javax.swing.JTable();
+        selecionarCompra = new javax.swing.JButton();
 
         barraAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraAdministrador.setRollover(true);
@@ -159,7 +161,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         barraAdministrador.add(editarUsuarios);
 
         editarTransacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transacoes2.png"))); // NOI18N
-        editarTransacoes.setText("Editar Transações");
+        editarTransacoes.setText("Editar Vendas");
         editarTransacoes.setFocusable(false);
         editarTransacoes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         editarTransacoes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -234,7 +236,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addComponent(campoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                                 .addComponent(campoLoginUsuario)
                                 .addComponent(confirmaSenha)))))
-                .addContainerGap(784, Short.MAX_VALUE))
+                .addContainerGap(786, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +349,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(removerCliente))
                             .addComponent(jLabel9))
-                        .addGap(0, 200, Short.MAX_VALUE))))
+                        .addGap(0, 202, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,15 +394,17 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             }
         ));
         jScrollPane2.setViewportView(tabelaTransacoes);
+        tabelaTransacoes.getColumnModel().getColumn(3).setHeaderValue("Nome do Produto");
+        tabelaTransacoes.getColumnModel().getColumn(4).setHeaderValue("Código do Produto");
+        tabelaTransacoes.getColumnModel().getColumn(5).setHeaderValue("Quantidade");
+        tabelaTransacoes.getColumnModel().getColumn(6).setHeaderValue("Preço por Unidade");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Edição de Transações");
+        jLabel8.setText("Edição de Vendas");
 
         jLabel10.setText("Busque a transação pelo ID:");
 
         jLabel11.setText("Busque pelo CPF/CNPJ do cliente:");
-
-        jLabel12.setText("Busque pelo código do produto:");
 
         jLabel13.setText("Busque pela data: (Entre primeira data e segunda data):");
 
@@ -424,13 +428,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         checkData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkDataActionPerformed(evt);
-            }
-        });
-
-        checkCodigo.setText("Busca por código");
-        checkCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkCodigoActionPerformed(evt);
             }
         });
 
@@ -472,6 +469,24 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             }
         });
 
+        tabelaCompras.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Transação", "Desconto", "Data"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaCompras);
+
+        selecionarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/select.png"))); // NOI18N
+        selecionarCompra.setText("Selecionar");
+        selecionarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarCompraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -479,20 +494,10 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoBuscaID, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel13)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -507,73 +512,90 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(67, 67, 67)
+                        .addGap(8, 697, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
                             .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(campoBuscaID, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(297, 297, 297)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkData)
                                     .addComponent(checkID)
-                                    .addComponent(checkCPFCNPJ))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(checkCodigo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buscarTransacao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cancelarBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(selecionarTransacao)
-                                .addGap(8, 8, 8))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(checkCPFCNPJ)
+                                            .addComponent(checkData))
+                                        .addGap(103, 103, 103)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(buscarTransacao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(selecionarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(cancelarBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(selecionarTransacao))))))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkID))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkCPFCNPJ))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkCodigo))
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(buscarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cancelarBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(selecionarTransacao)))
-                        .addGap(10, 10, 10)))
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkData))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(campoBuscaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkID))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(checkCPFCNPJ)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(buscarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(selecionarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cancelarBusca)
+                                    .addComponent(selecionarTransacao)))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkData))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addContainerGap(240, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(170, 170, 170)))
         );
 
         abasUsuario.addTab("Transações", jPanel4);
@@ -706,7 +728,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         if (checkID.isSelected()) {
             this.campoBuscaCPFCNPJ.setEnabled(false);
             this.campoBuscaID.setEnabled(true);
-            this.campoBuscaCodigo.setEnabled(false);
 
             this.comboAnoFinal.setEnabled(false);
             this.comboAnoInicial.setEnabled(false);
@@ -714,18 +735,16 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             this.comboMesInicial.setEnabled(false);
             this.comboDiaFinal.setEnabled(false);
             this.comboDiaInicial.setEnabled(false);
-            
+
             this.checkCPFCNPJ.setSelected(false);
             this.checkData.setSelected(false);
-            this.checkCodigo.setSelected(false);
         }
     }//GEN-LAST:event_checkIDActionPerformed
 
     private void checkCPFCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCPFCNPJActionPerformed
-        if (checkCPFCNPJ.isSelected()) {    
+        if (checkCPFCNPJ.isSelected()) {
             this.campoBuscaCPFCNPJ.setEnabled(true);
             this.campoBuscaID.setEnabled(false);
-            this.campoBuscaCodigo.setEnabled(false);
 
             this.comboAnoFinal.setEnabled(false);
             this.comboAnoInicial.setEnabled(false);
@@ -733,37 +752,16 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             this.comboMesInicial.setEnabled(false);
             this.comboDiaFinal.setEnabled(false);
             this.comboDiaInicial.setEnabled(false);
-            
+
             this.checkID.setSelected(false);
             this.checkData.setSelected(false);
-            this.checkCodigo.setSelected(false);
         }
     }//GEN-LAST:event_checkCPFCNPJActionPerformed
 
-    private void checkCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoActionPerformed
-        if (checkCodigo.isSelected()) {    
-            this.campoBuscaCPFCNPJ.setEnabled(false);
-            this.campoBuscaID.setEnabled(false);
-            this.campoBuscaCodigo.setEnabled(true);
-
-            this.comboAnoFinal.setEnabled(false);
-            this.comboAnoInicial.setEnabled(false);
-            this.comboMesFinal.setEnabled(false);
-            this.comboMesInicial.setEnabled(false);
-            this.comboDiaFinal.setEnabled(false);
-            this.comboDiaInicial.setEnabled(false);
-            
-            this.checkCPFCNPJ.setSelected(false);
-            this.checkID.setSelected(false);
-            this.checkData.setSelected(false);
-        }
-    }//GEN-LAST:event_checkCodigoActionPerformed
-
     private void checkDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDataActionPerformed
-        if (checkData.isSelected()) {    
+        if (checkData.isSelected()) {
             this.campoBuscaCPFCNPJ.setEnabled(false);
             this.campoBuscaID.setEnabled(false);
-            this.campoBuscaCodigo.setEnabled(false);
 
             this.comboAnoFinal.setEnabled(true);
             this.comboAnoInicial.setEnabled(true);
@@ -771,49 +769,42 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             this.comboMesInicial.setEnabled(true);
             this.comboDiaFinal.setEnabled(true);
             this.comboDiaInicial.setEnabled(true);
-            
+
             this.checkCPFCNPJ.setSelected(false);
             this.checkID.setSelected(false);
-            this.checkCodigo.setSelected(false);
         }
     }//GEN-LAST:event_checkDataActionPerformed
 
     private void buscarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTransacaoActionPerformed
-        int diaInicial = dias[comboDiaInicial.getSelectedIndex()]; 
-        int diaFinal = dias[comboDiaFinal.getSelectedIndex()]; 
-        int mesInicial = meses[comboMesInicial.getSelectedIndex()]; 
-        int mesFinal = meses[comboMesFinal.getSelectedIndex()]; 
-        int anoInicial = anos[comboAnoInicial.getSelectedIndex()]; 
-        int anoFinal = anos[comboAnoFinal.getSelectedIndex()]; 
-        
+        int diaInicial = dias[comboDiaInicial.getSelectedIndex()];
+        int diaFinal = dias[comboDiaFinal.getSelectedIndex()];
+        int mesInicial = meses[comboMesInicial.getSelectedIndex()];
+        int mesFinal = meses[comboMesFinal.getSelectedIndex()];
+        int anoInicial = anos[comboAnoInicial.getSelectedIndex()];
+        int anoFinal = anos[comboAnoFinal.getSelectedIndex()];
+
         if (checkID.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorID(campoBuscaID.getText());
-         } else if (checkCodigo.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorCodigoProduto(campoBuscaCodigo.getText());
-         } else if (checkCPFCNPJ.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorCPFCNPJ(campoBuscaCPFCNPJ.getText());
-         } else if (checkData.isSelected()) {
-             transacoes = controladorTransacoes.buscaTransacoesPorData(new java.sql.Date(anoInicial-1900, mesInicial-1, diaInicial), new Date(anoFinal-1900, mesFinal-1, diaFinal));
-         } else {
-             transacoes = controladorTransacoes.buscaTodasAsTransacoes();
-         }
-         
-         modelTransacoes.setNumRows(0);
+            compras = controladorCompras.buscaCompraPorID(Integer.parseInt(campoBuscaID.getText()));
+        } else if (checkCPFCNPJ.isSelected()) {
+            compras = controladorCompras.buscaCompraPorCPF_CNPJ(campoBuscaCPFCNPJ.getText());
+        } else if (checkData.isSelected()) {
+            compras = controladorCompras.buscaCompraPorData(new Date(anoInicial - 1900, mesInicial - 1, diaInicial), new Date(anoFinal - 1900, mesFinal - 1, diaFinal));
+        } else {
+            compras = controladorCompras.buscaTodasAsCompras();
+        }
+
+        modelCompras.setNumRows(0);
 
 
-        for (int i = 0; i < transacoes.size(); i++) {
+        for (int i = 0; i < compras.size(); i++) {
             Vector vec = new Vector();
-            vec.add(0, transacoes.get(i).getIdDaTransacao());
-            vec.add(1, transacoes.get(i).getNomeDoCliente());
-            vec.add(2, transacoes.get(i).getCpf_cnpjCliente());
-            vec.add(3, transacoes.get(i).getNomeDoProduto());
-            vec.add(4, transacoes.get(i).getCodigoDoProduto());
-            vec.add(5, transacoes.get(i).getQuantidadeVendidade());
-            vec.add(6, transacoes.get(i).getPrecoPorUnidade());
-            vec.add(7, transacoes.get(i).getValorTotalDaTransacao());
-            vec.add(8, transacoes.get(i).getDescontoDado());
-            vec.add(9, transacoes.get(i).getData());
-            modelTransacoes.addRow(vec);
+            vec.add(0, compras.get(i).getId());
+            vec.add(1, compras.get(i).getNomeDoCliente());
+            vec.add(2, compras.get(i).getCpf_cnpjDoCliente());
+            vec.add(3, compras.get(i).getPrecoTotal());
+            vec.add(4, compras.get(i).getDescontoTotal());
+            vec.add(5, compras.get(i).getDataDaCompra());
+            modelCompras.addRow(vec);
         }
 
         this.repaint();
@@ -821,23 +812,22 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
     private void cancelarBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBuscaActionPerformed
 
-            modelTransacoes.setNumRows(0);
-            this.campoBuscaCPFCNPJ.setEnabled(false);
-            this.campoBuscaID.setEnabled(false);
-            this.campoBuscaCodigo.setEnabled(false);
-            
-            this.comboAnoFinal.setEnabled(false);
-            this.comboAnoInicial.setEnabled(false);
-            this.comboMesFinal.setEnabled(false);
-            this.comboMesInicial.setEnabled(false);
-            this.comboDiaFinal.setEnabled(false);
-            this.comboDiaInicial.setEnabled(false);
-            
-            this.checkData.setSelected(false);
-            this.checkCPFCNPJ.setSelected(false);
-            this.checkID.setSelected(false);
-            this.checkCodigo.setSelected(false);
-        
+        modelTransacoes.setNumRows(0);
+        modelCompras.setNumRows(0);
+        this.campoBuscaCPFCNPJ.setEnabled(false);
+        this.campoBuscaID.setEnabled(false);
+
+        this.comboAnoFinal.setEnabled(false);
+        this.comboAnoInicial.setEnabled(false);
+        this.comboMesFinal.setEnabled(false);
+        this.comboMesInicial.setEnabled(false);
+        this.comboDiaFinal.setEnabled(false);
+        this.comboDiaInicial.setEnabled(false);
+
+        this.checkData.setSelected(false);
+        this.checkCPFCNPJ.setSelected(false);
+        this.checkID.setSelected(false);
+
     }//GEN-LAST:event_cancelarBuscaActionPerformed
 
     private void selecionarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarTransacaoActionPerformed
@@ -848,10 +838,36 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             painelEdicaoTransacoes.setVisible(true);
             painelEdicaoTransacoes.setAlwaysOnTop(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Um cliente deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Uma transação deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_selecionarTransacaoActionPerformed
 
+    private void selecionarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarCompraActionPerformed
+        try {
+            compraSelecionada = compras.get(tabelaCompras.getSelectedRow());
+
+            transacoes = controladorTransacoes.buscaTransacoesPorIDDaCompra(compraSelecionada.getId());
+
+            modelTransacoes.setNumRows(0);
+            for (int i = 0; i < transacoes.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, transacoes.get(i).getIdDaTransacao());
+                vec.add(1, transacoes.get(i).getNomeDoCliente());
+                vec.add(2, transacoes.get(i).getCpf_cnpjCliente());
+                vec.add(3, transacoes.get(i).getNomeDoProduto());
+                vec.add(4, transacoes.get(i).getCodigoDoProduto());
+                vec.add(5, transacoes.get(i).getQuantidadeVendidade());
+                vec.add(6, transacoes.get(i).getPrecoPorUnidade());
+                vec.add(7, transacoes.get(i).getValorTotalDaTransacao());
+                vec.add(8, transacoes.get(i).getDescontoDado());
+                vec.add(9, transacoes.get(i).getData());
+                modelTransacoes.addRow(vec);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Deve-se selecionar uma compra na tabela", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_selecionarCompraActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuarios;
@@ -861,7 +877,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JButton buscarCliente;
     private javax.swing.JButton buscarTransacao;
     private javax.swing.JTextField campoBuscaCPFCNPJ;
-    private javax.swing.JTextField campoBuscaCodigo;
     private javax.swing.JTextField campoBuscaID;
     private javax.swing.JTextField campoBuscaLogin;
     private javax.swing.JTextField campoLoginUsuario;
@@ -869,7 +884,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JButton cancelarBusca;
     private javax.swing.JCheckBox checkCPFCNPJ;
-    private javax.swing.JCheckBox checkCodigo;
     private javax.swing.JCheckBox checkData;
     private javax.swing.JCheckBox checkID;
     private javax.swing.JComboBox comboAnoFinal;
@@ -885,7 +899,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -902,12 +915,15 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField novaSenha;
     private javax.swing.JTextField novoLogin;
     private javax.swing.JTextField novoNivelAcesso;
     private javax.swing.JButton removerCliente;
     private javax.swing.JButton selecionaCliente;
+    private javax.swing.JButton selecionarCompra;
     private javax.swing.JButton selecionarTransacao;
+    private javax.swing.JTable tabelaCompras;
     private javax.swing.JTable tabelaTransacoes;
     private javax.swing.JTable tabelaUsuarios;
     // End of variables declaration//GEN-END:variables

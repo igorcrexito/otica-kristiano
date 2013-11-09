@@ -143,6 +143,46 @@ public class CompraDAO {
         return compras;
     }
 
+    public ArrayList<Compra> buscaCompraPorIDExato(int idCompra) {
+        conexao.conecta();
+        TransacoesDAO transacoesDAO = new TransacoesDAO();
+        ArrayList<Compra> compras = new ArrayList<Compra>();
+
+        String SQL_string = "SELECT * FROM compras WHERE "
+                + "Id LIKE '" + idCompra + "'";
+
+        ResultSet rs = conexao.executeSql(SQL_string);
+
+        String nomeDoCliente;
+        String precoTotal;
+        String descontoTotal;
+        String cpf_cnpj;
+        int idDaCompra = -1;
+        Date dataDaCompra;
+        try {
+            while (rs.next()) {
+                nomeDoCliente = rs.getString("nomedocliente");
+                idDaCompra = rs.getInt("Id");
+                precoTotal = rs.getString("precototal");
+                cpf_cnpj = rs.getString("cpfcnpj");
+                descontoTotal = rs.getString("descontototal");
+                dataDaCompra = rs.getDate("data");
+
+                if (!nomeDoCliente.equals("") && !precoTotal.equals("") && idDaCompra != -1 && !cpf_cnpj.equals("") && !descontoTotal.equals("") && dataDaCompra != null) {
+                    ArrayList<Transacoes> transacoesDaCompra = transacoesDAO.buscaTransacoesPorIDDaCompra(idDaCompra);
+                    compras.add(new Compra(nomeDoCliente, cpf_cnpj, dataDaCompra, transacoesDaCompra, Double.parseDouble(precoTotal.replace(",", ".")), Double.parseDouble(descontoTotal.replace(",", ".")), idDaCompra));
+
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro no sistema");
+        }
+        conexao.desconecta();
+        return compras;
+    }
+
+    
+    
     public ArrayList<Compra> buscaTodasAsCompras() {
         conexao.conecta();
         TransacoesDAO transacoesDAO = new TransacoesDAO();
@@ -252,6 +292,17 @@ public class CompraDAO {
 
             conexao.execute(SQL_String);
         }
+        conexao.desconecta();
+    }
+
+    public void atualizaCompra(int id, double valorFinal, double descontoFinal, Date data, String nomeDoCliente, String cpfCnpjDoCliente) {
+        conexao.conecta();
+
+        String tabela = "compras";
+        String SQL = "UPDATE " + tabela + " SET precototal = '" + valorFinal + "', descontototal = '" + descontoFinal + "', data = '" + data + "', nomedocliente = '" + nomeDoCliente + "', cpfcnpj = '" + cpfCnpjDoCliente + "' WHERE id = '" + id + "'";
+
+        conexao.execute(SQL);
+
         conexao.desconecta();
     }
 }

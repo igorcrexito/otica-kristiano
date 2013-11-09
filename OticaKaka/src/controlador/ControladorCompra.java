@@ -50,4 +50,13 @@ public class ControladorCompra {
         ArrayList<Compra> compras = compraDAO.buscaTodasAsCompras();
         return compras;
     }
+
+    public ArrayList<Compra> buscaCompraPorIDExato(int idDaCompra) {
+        ArrayList<Compra> compras = compraDAO.buscaCompraPorIDExato(idDaCompra);
+        return compras;
+    }
+
+    public void atualizaCompra(int id, double valorFinal, double descontoFinal, Date data, String nomeDoCliente, String cnpjDoCliente) {
+        compraDAO.atualizaCompra(id, valorFinal, descontoFinal, data, nomeDoCliente, cnpjDoCliente);
+    }
 }
