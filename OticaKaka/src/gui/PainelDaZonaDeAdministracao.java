@@ -132,6 +132,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCompras = new javax.swing.JTable();
         selecionarCompra = new javax.swing.JButton();
+        removerCompra = new javax.swing.JButton();
 
         barraAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraAdministrador.setRollover(true);
@@ -462,7 +463,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         });
 
         selecionarTransacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit.png"))); // NOI18N
-        selecionarTransacao.setText("Editar/Remover");
+        selecionarTransacao.setText("Editar/Remover Transações");
         selecionarTransacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecionarTransacaoActionPerformed(evt);
@@ -487,6 +488,14 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             }
         });
 
+        removerCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
+        removerCompra.setText("Remover");
+        removerCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerCompraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -494,7 +503,6 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
@@ -511,10 +519,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(8, 697, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -528,18 +533,21 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(checkCPFCNPJ)
                                             .addComponent(checkData))
-                                        .addGap(103, 103, 103)
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel4Layout.createSequentialGroup()
                                                 .addComponent(buscarTransacao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(selecionarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(selecionarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(removerCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel4Layout.createSequentialGroup()
                                                 .addComponent(cancelarBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(selecionarTransacao))))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(selecionarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -569,9 +577,10 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                     .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(checkCPFCNPJ)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(buscarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(selecionarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(selecionarCompra)
+                                    .addComponent(buscarTransacao)
+                                    .addComponent(removerCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cancelarBusca)
@@ -868,6 +877,18 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Deve-se selecionar uma compra na tabela", null, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_selecionarCompraActionPerformed
+
+    private void removerCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerCompraActionPerformed
+        try {
+            int selecionado = tabelaCompras.getSelectedRow();
+            Compra compraSelecionada = compras.get(selecionado);
+            controladorCompras.deletaCompra(compraSelecionada);
+            controladorTransacoes.deletaTransacaoPorIdDaCompra(compraSelecionada);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Uma transação deve ser selecionado na tabela", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_removerCompraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuarios;
@@ -920,6 +941,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField novoLogin;
     private javax.swing.JTextField novoNivelAcesso;
     private javax.swing.JButton removerCliente;
+    private javax.swing.JButton removerCompra;
     private javax.swing.JButton selecionaCliente;
     private javax.swing.JButton selecionarCompra;
     private javax.swing.JButton selecionarTransacao;

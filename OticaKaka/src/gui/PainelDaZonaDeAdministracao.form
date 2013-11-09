@@ -465,7 +465,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" pref="1089" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -484,11 +483,6 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="comboAnoFinal" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <EmptySpace min="8" pref="697" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -504,17 +498,19 @@
                                                   <Component id="checkCPFCNPJ" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="checkData" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Group type="102" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
                                                       <Component id="buscarTransacao" min="-2" pref="150" max="-2" attributes="0"/>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="selecionarCompra" max="32767" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="selecionarCompra" min="-2" pref="143" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="removerCompra" min="-2" pref="143" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="cancelarBusca" min="-2" pref="150" max="-2" attributes="0"/>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="selecionarTransacao" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="selecionarTransacao" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -524,6 +520,7 @@
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane2" pref="1089" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -561,9 +558,10 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="buscarTransacao" max="32767" attributes="0"/>
-                                          <Component id="selecionarCompra" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="selecionarCompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buscarTransacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="removerCompra" alignment="3" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -940,7 +938,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/edit.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Editar/Remover"/>
+                <Property name="text" type="java.lang.String" value="Editar/Remover Transa&#xe7;&#xf5;es"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selecionarTransacaoActionPerformed"/>
@@ -1015,6 +1013,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selecionarCompraActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="removerCompra">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/cancel.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Remover"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerCompraActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

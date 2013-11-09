@@ -59,4 +59,8 @@ public class ControladorCompra {
     public void atualizaCompra(int id, double valorFinal, double descontoFinal, Date data, String nomeDoCliente, String cnpjDoCliente) {
         compraDAO.atualizaCompra(id, valorFinal, descontoFinal, data, nomeDoCliente, cnpjDoCliente);
     }
+
+    public void deletaCompra(Compra compraSelecionada) {
+        compraDAO.deletaCompraSelecionada(compraSelecionada.getId());
+    }
 }
