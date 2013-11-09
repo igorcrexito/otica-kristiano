@@ -58,7 +58,7 @@ public class TransacoesListaPDF {
     public TransacoesListaPDF(ArrayList<Transacoes> transacoesDaLista) {
         this.transacoesDaLista = transacoesDaLista;
         Document document = new Document();
-        file = "C:/Arquivos PDF/Transacoes/"+"lista de Transacoes " + new Date().getHours() + " e " + new Date().getMinutes() + ".pdf";
+        file = "C:/Arquivos PDF/Compras/"+"Compra " + new Date().getHours() + " e " + new Date().getMinutes() + ".pdf";
         try {
             try {
                 PdfWriter.getInstance(document, new FileOutputStream(file));

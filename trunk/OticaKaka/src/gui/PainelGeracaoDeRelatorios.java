@@ -6,6 +6,7 @@ package gui;
 
 import geracaopdf.ClienteListaPDF;
 import controlador.ControladorCliente;
+import controlador.ControladorCompra;
 import controlador.ControladorProduto;
 import controlador.ControladorTransacoes;
 import geracaopdf.ClienteIndividualPDF;
@@ -18,6 +19,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Cliente;
+import utils.Compra;
 import utils.Produto;
 import utils.Transacoes;
 
@@ -33,11 +35,14 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     ArrayList<Cliente> clientes;
     ArrayList<Transacoes> transacoes;
     ArrayList<Produto> produtos;
+    ArrayList<Compra> compras;
+    
     ControladorCliente controladorCliente = new ControladorCliente();
     ControladorTransacoes controladorTransacoes = new ControladorTransacoes();
     ControladorProduto controladorProduto = new ControladorProduto();
+    ControladorCompra controladorCompra = new ControladorCompra();
     DefaultTableModel modelTabelaClientes;
-    DefaultTableModel modelTabelaTransacoes;
+    DefaultTableModel modelCompras;
     DefaultTableModel modelTabelaProdutos;
     
     int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
@@ -57,7 +62,6 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
         //aba de transações
         campoBuscaID.setEnabled(false);
-        campoBuscaCodigo.setEnabled(false);
         campoBuscaCPFCNPJ.setEnabled(false);
         comboAnoFinal.setEnabled(false);
         comboAnoInicial.setEnabled(false);
@@ -71,7 +75,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         campoBuscaNomeProduto.setEnabled(false);
         
         modelTabelaClientes = (DefaultTableModel) tabelaRelatorioClientes.getModel();
-        modelTabelaTransacoes = (DefaultTableModel) tabelaTransacoesRelatorios.getModel();
+        modelCompras = (DefaultTableModel) tabelaComprasRelatorio.getModel();
         modelTabelaProdutos = (DefaultTableModel) tabelaProdutosRelatorio.getModel();
     }
 
@@ -106,7 +110,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaTransacoesRelatorios = new javax.swing.JTable();
+        tabelaComprasRelatorio = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         comboDiaInicial = new javax.swing.JComboBox();
         comboMesInicial = new javax.swing.JComboBox();
@@ -120,14 +124,10 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         campoBuscaID = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         campoBuscaCPFCNPJ = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        campoBuscaCodigo = new javax.swing.JTextField();
-        buscarTransacoes = new javax.swing.JButton();
-        gerarListaPDFTransacoes = new javax.swing.JButton();
+        buscarCompras = new javax.swing.JButton();
         gerarNotaDeVenda = new javax.swing.JButton();
         checkIDTransacao = new javax.swing.JCheckBox();
         checkCPFCNPJTransacao = new javax.swing.JCheckBox();
-        checkCodigoTransacoes = new javax.swing.JCheckBox();
         checkDataTransacoes = new javax.swing.JCheckBox();
         cancelarTransacoes = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -321,15 +321,15 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
         abasRelatorio.addTab("Clientes", jPanel3);
 
-        tabelaTransacoesRelatorios.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaComprasRelatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Nome do Cliente", "CPF/CNPJ", "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Valor da Transação", "Desconto", "Data"
+                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Compra", "Desconto Dado", "Data"
             }
         ));
-        jScrollPane2.setViewportView(tabelaTransacoesRelatorios);
+        jScrollPane2.setViewportView(tabelaComprasRelatorio);
 
         jLabel13.setText("Busque pela data: (Entre primeira data e segunda data):");
 
@@ -350,27 +350,17 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         comboAnoFinal.setSelectedIndex(3);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("Relatórios das Transações");
+        jLabel10.setText("Relatórios das Vendas");
 
         jLabel11.setText("Busque a transação pelo ID:");
 
         jLabel12.setText("Busque pelo CPF/CNPJ do cliente:");
 
-        jLabel15.setText("Busque pelo código do produto:");
-
-        buscarTransacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
-        buscarTransacoes.setText("Buscar Transações");
-        buscarTransacoes.addActionListener(new java.awt.event.ActionListener() {
+        buscarCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        buscarCompras.setText("Buscar Compras");
+        buscarCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarTransacoesActionPerformed(evt);
-            }
-        });
-
-        gerarListaPDFTransacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
-        gerarListaPDFTransacoes.setText("Lista de Transações");
-        gerarListaPDFTransacoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerarListaPDFTransacoesActionPerformed(evt);
+                buscarComprasActionPerformed(evt);
             }
         });
 
@@ -382,7 +372,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
             }
         });
 
-        checkIDTransacao.setText("Busque pelo ID da transação");
+        checkIDTransacao.setText("Busque pelo ID da venda");
         checkIDTransacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkIDTransacaoActionPerformed(evt);
@@ -393,13 +383,6 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         checkCPFCNPJTransacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkCPFCNPJTransacaoActionPerformed(evt);
-            }
-        });
-
-        checkCodigoTransacoes.setText("Busque pelo código do produto");
-        checkCodigoTransacoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkCodigoTransacoesActionPerformed(evt);
             }
         });
 
@@ -429,48 +412,47 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel13)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(campoBuscaID, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel15)
-                                    .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jLabel14)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(92, 92, 92)
+                                    .addComponent(jLabel11))
+                                .addGap(322, 322, 322)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkDataTransacoes)
                                     .addComponent(checkIDTransacao)
                                     .addComponent(checkCPFCNPJTransacao)
-                                    .addComponent(checkCodigoTransacoes))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(checkDataTransacoes))))
+                        .addGap(0, 263, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(127, 127, 127)
-                .addComponent(buscarTransacoes)
+                .addComponent(buscarCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelarTransacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                .addComponent(gerarListaPDFTransacoes)
-                .addGap(18, 18, 18)
+                .addComponent(cancelarTransacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(gerarNotaDeVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(comboDiaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboMesInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboAnoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel14)
+                        .addGap(45, 45, 45)
+                        .addComponent(comboDiaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,12 +471,6 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoBuscaCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkCPFCNPJTransacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkCodigoTransacoes))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -507,18 +483,17 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
                     .addComponent(comboMesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboAnoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkDataTransacoes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscarTransacoes)
+                    .addComponent(buscarCompras)
                     .addComponent(gerarNotaDeVenda)
-                    .addComponent(gerarListaPDFTransacoes)
                     .addComponent(cancelarTransacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
 
-        abasRelatorio.addTab("Transações", jPanel4);
+        abasRelatorio.addTab("Vendas", jPanel4);
 
         jLabel16.setText("Busque o produto pelo nome");
 
@@ -736,7 +711,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_gerarListaPDFActionPerformed
 
-    private void buscarTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTransacoesActionPerformed
+    private void buscarComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarComprasActionPerformed
         int diaInicial = dias[comboDiaInicial.getSelectedIndex()];
         int diaFinal = dias[comboDiaFinal.getSelectedIndex()];
         int mesInicial = meses[comboMesInicial.getSelectedIndex()];
@@ -745,51 +720,35 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         int anoFinal = anos[comboAnoFinal.getSelectedIndex()];
 
         if (checkIDTransacao.isSelected()) {
-            transacoes = controladorTransacoes.buscaTransacoesPorID(campoBuscaID.getText());
-        } else if (checkCodigoTransacoes.isSelected()) {
-            transacoes = controladorTransacoes.buscaTransacoesPorCodigoProduto(campoBuscaCodigo.getText());
+            compras = controladorCompra.buscaCompraPorID(Integer.parseInt(campoBuscaID.getText()));
         } else if (checkCPFCNPJTransacao.isSelected()) {
-            transacoes = controladorTransacoes.buscaTransacoesPorCPFCNPJ(campoBuscaCPFCNPJ.getText());
+            compras = controladorCompra.buscaCompraPorCPF_CNPJ(campoBuscaCPFCNPJ.getText());
         } else if (checkDataTransacoes.isSelected()) {
-            transacoes = controladorTransacoes.buscaTransacoesPorData(new java.sql.Date(anoInicial - 1900, mesInicial - 1, diaInicial), new Date(anoFinal - 1900, mesFinal - 1, diaFinal));
+            compras = controladorCompra.buscaCompraPorData(new java.sql.Date(anoInicial - 1900, mesInicial - 1, diaInicial), new Date(anoFinal - 1900, mesFinal - 1, diaFinal));
         } else {
-            transacoes = controladorTransacoes.buscaTodasAsTransacoes();
+            compras = controladorCompra.buscaTodasAsCompras();
         }
 
-        modelTabelaTransacoes.setNumRows(0);
+        modelCompras.setNumRows(0);
 
-
-        for (int i = 0; i < transacoes.size(); i++) {
+        for (int i = 0; i < compras.size(); i++) {
             Vector vec = new Vector();
-            vec.add(0, transacoes.get(i).getIdDaTransacao());
-            vec.add(1, transacoes.get(i).getNomeDoCliente());
-            vec.add(2, transacoes.get(i).getCpf_cnpjCliente());
-            vec.add(3, transacoes.get(i).getNomeDoProduto());
-            vec.add(4, transacoes.get(i).getCodigoDoProduto());
-            vec.add(5, transacoes.get(i).getQuantidadeVendidade());
-            vec.add(6, transacoes.get(i).getPrecoPorUnidade());
-            vec.add(7, transacoes.get(i).getValorTotalDaTransacao());
-            vec.add(8, transacoes.get(i).getDescontoDado());
-            vec.add(9, transacoes.get(i).getData());
-            modelTabelaTransacoes.addRow(vec);
+            vec.add(0, compras.get(i).getId());
+            vec.add(1, compras.get(i).getNomeDoCliente());
+            vec.add(2, compras.get(i).getCpf_cnpjDoCliente());
+            vec.add(3, compras.get(i).getPrecoTotal());
+            vec.add(4, compras.get(i).getDescontoTotal());
+            vec.add(5, compras.get(i).getDataDaCompra());
+            modelCompras.addRow(vec);
         }
 
         this.repaint();
-    }//GEN-LAST:event_buscarTransacoesActionPerformed
-
-    private void gerarListaPDFTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarListaPDFTransacoesActionPerformed
-        if (transacoes != null && transacoes.size() > 0) {
-            TransacoesListaPDF transacoesListaPDF = new TransacoesListaPDF(transacoes);
-            JOptionPane.showMessageDialog(this, "Relatório de lista de transações gerado com sucesso. Cheque-o em C:ArquivosPDF/Transacoes/", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Não transações para esta opção de busca", null, JOptionPane.OK_OPTION);
-        }
-    }//GEN-LAST:event_gerarListaPDFTransacoesActionPerformed
+    }//GEN-LAST:event_buscarComprasActionPerformed
 
     private void gerarNotaDeVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarNotaDeVendaActionPerformed
-        if (tabelaTransacoesRelatorios.getSelectedRow() != -1) {
-            Transacoes transacaoEscolhida = transacoes.get(tabelaTransacoesRelatorios.getSelectedRow());
-            TransacoesNotaDeVendaPDF transacaoPDF = new TransacoesNotaDeVendaPDF(transacaoEscolhida);
+        if (tabelaComprasRelatorio.getSelectedRow() != -1) {
+            Compra compraEscolhida = compras.get(tabelaComprasRelatorio.getSelectedRow());
+            TransacoesNotaDeVendaPDF transacaoPDF = new TransacoesNotaDeVendaPDF(compraEscolhida);
             JOptionPane.showMessageDialog(this, "Relatório de transação gerado com sucesso. Cheque-o em C:ArquivosPDF/Transacoes/", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Uma transação precisa ser selecionada na Tabela", null, JOptionPane.OK_OPTION);
@@ -800,10 +759,8 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         if (checkIDTransacao.isSelected()) {
             checkCPFCNPJTransacao.setSelected(false);
             checkDataTransacoes.setSelected(false);
-            checkCodigoTransacoes.setSelected(false);
 
             campoBuscaID.setEnabled(true);
-            campoBuscaCodigo.setEnabled(false);
             campoBuscaCPFCNPJ.setEnabled(false);
             comboAnoFinal.setEnabled(false);
             comboAnoInicial.setEnabled(false);
@@ -818,10 +775,8 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         if (checkCPFCNPJTransacao.isSelected()) {
             checkIDTransacao.setSelected(false);
             checkDataTransacoes.setSelected(false);
-            checkCodigoTransacoes.setSelected(false);
 
             campoBuscaID.setEnabled(false);
-            campoBuscaCodigo.setEnabled(false);
             campoBuscaCPFCNPJ.setEnabled(true);
             comboAnoFinal.setEnabled(false);
             comboAnoInicial.setEnabled(false);
@@ -832,32 +787,12 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_checkCPFCNPJTransacaoActionPerformed
 
-    private void checkCodigoTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCodigoTransacoesActionPerformed
-        if (checkCodigoTransacoes.isSelected()) {
-            checkIDTransacao.setSelected(false);
-            checkDataTransacoes.setSelected(false);
-            checkCPFCNPJTransacao.setSelected(false);
-
-            campoBuscaID.setEnabled(false);
-            campoBuscaCodigo.setEnabled(true);
-            campoBuscaCPFCNPJ.setEnabled(false);
-            comboAnoFinal.setEnabled(false);
-            comboAnoInicial.setEnabled(false);
-            comboDiaFinal.setEnabled(false);
-            comboDiaInicial.setEnabled(false);
-            comboMesFinal.setEnabled(false);
-            comboMesInicial.setEnabled(false);
-        }
-    }//GEN-LAST:event_checkCodigoTransacoesActionPerformed
-
     private void checkDataTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDataTransacoesActionPerformed
         if (checkDataTransacoes.isSelected()) {
             checkCPFCNPJTransacao.setSelected(false);
             checkIDTransacao.setSelected(false);
-            checkCodigoTransacoes.setSelected(false);
 
             campoBuscaID.setEnabled(false);
-            campoBuscaCodigo.setEnabled(false);
             campoBuscaCPFCNPJ.setEnabled(false);
             comboAnoFinal.setEnabled(true);
             comboAnoInicial.setEnabled(true);
@@ -871,11 +806,9 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private void cancelarTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarTransacoesActionPerformed
         checkCPFCNPJTransacao.setSelected(false);
         checkIDTransacao.setSelected(false);
-        checkCodigoTransacoes.setSelected(false);
         checkDataTransacoes.setSelected(false);
 
         campoBuscaID.setEnabled(false);
-        campoBuscaCodigo.setEnabled(false);
         campoBuscaCPFCNPJ.setEnabled(false);
         comboAnoFinal.setEnabled(false);
         comboAnoInicial.setEnabled(false);
@@ -884,7 +817,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
         comboMesFinal.setEnabled(false);
         comboMesInicial.setEnabled(false);
 
-        modelTabelaTransacoes.setNumRows(0);
+        modelCompras.setNumRows(0);
     }//GEN-LAST:event_cancelarTransacoesActionPerformed
 
     private void buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutoActionPerformed
@@ -954,10 +887,9 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JTabbedPane abasRelatorio;
     private javax.swing.JToolBar barraCliente;
     private javax.swing.JButton buscarClientes;
+    private javax.swing.JButton buscarCompras;
     private javax.swing.JButton buscarProduto;
-    private javax.swing.JButton buscarTransacoes;
     private javax.swing.JTextField campoBuscaCPFCNPJ;
-    private javax.swing.JTextField campoBuscaCodigo;
     private javax.swing.JTextField campoBuscaCodigoProduto;
     private javax.swing.JTextField campoBuscaID;
     private javax.swing.JTextField campoBuscaNomeProduto;
@@ -967,7 +899,6 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JButton cancelarTransacoes;
     private javax.swing.JCheckBox checkCPFCNPJTransacao;
     private javax.swing.JCheckBox checkCodigoProduto;
-    private javax.swing.JCheckBox checkCodigoTransacoes;
     private javax.swing.JCheckBox checkDataTransacoes;
     private javax.swing.JCheckBox checkIDTransacao;
     private javax.swing.JCheckBox checkNomeProduto;
@@ -982,14 +913,12 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JComboBox comboMesFinal;
     private javax.swing.JComboBox comboMesInicial;
     private javax.swing.JButton gerarListaPDF;
-    private javax.swing.JButton gerarListaPDFTransacoes;
     private javax.swing.JButton gerarNotaDeVenda;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1006,9 +935,9 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton listaDeProdutos;
     private javax.swing.JButton produtosRelatorio;
+    private javax.swing.JTable tabelaComprasRelatorio;
     private javax.swing.JTable tabelaProdutosRelatorio;
     private javax.swing.JTable tabelaRelatorioClientes;
-    private javax.swing.JTable tabelaTransacoesRelatorios;
     private javax.swing.JButton transacoesRelatorio;
     // End of variables declaration//GEN-END:variables
 }

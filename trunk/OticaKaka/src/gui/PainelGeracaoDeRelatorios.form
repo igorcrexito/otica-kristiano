@@ -308,8 +308,8 @@
         <Container class="javax.swing.JPanel" name="jPanel4">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Transa&#xe7;&#xf5;es">
-                <Property name="tabTitle" type="java.lang.String" value="Transa&#xe7;&#xf5;es"/>
+              <JTabbedPaneConstraints tabName="Vendas">
+                <Property name="tabTitle" type="java.lang.String" value="Vendas"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -324,7 +324,6 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -332,49 +331,51 @@
                                               <Component id="campoBuscaCPFCNPJ" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                          <Component id="campoBuscaCodigo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="comboDiaInicial" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="comboMesInicial" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="comboAnoInicial" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Component id="comboDiaFinal" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="comboMesFinal" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="comboAnoFinal" min="-2" max="-2" attributes="0"/>
-                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="322" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="checkDataTransacoes" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkIDTransacao" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkCPFCNPJTransacao" min="-2" max="-2" attributes="0"/>
-                                          <Component id="checkCodigoTransacoes" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkDataTransacoes" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="263" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
-                      <Component id="buscarTransacoes" min="-2" max="-2" attributes="0"/>
+                      <Component id="buscarCompras" min="-2" pref="166" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cancelarTransacoes" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace pref="124" max="32767" attributes="0"/>
-                      <Component id="gerarListaPDFTransacoes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cancelarTransacoes" min="-2" pref="158" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="gerarNotaDeVenda" min="-2" pref="153" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="comboDiaInicial" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboMesInicial" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboAnoInicial" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="comboDiaFinal" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboMesFinal" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboAnoFinal" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -397,13 +398,6 @@
                           <Component id="campoBuscaCPFCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkCPFCNPJTransacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="campoBuscaCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkCodigoTransacoes" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -417,13 +411,12 @@
                           <Component id="comboAnoFinal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkDataTransacoes" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="65" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="156" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buscarTransacoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buscarCompras" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="gerarNotaDeVenda" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="gerarListaPDFTransacoes" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cancelarTransacoes" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -439,21 +432,51 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tabelaTransacoesRelatorios">
+                <Component class="javax.swing.JTable" name="tabelaComprasRelatorio">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="10" rowCount="0">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="Nome do Cliente" type="java.lang.Object"/>
                         <Column editable="true" title="CPF/CNPJ" type="java.lang.Object"/>
-                        <Column editable="true" title="Nome do Produto" type="java.lang.Object"/>
-                        <Column editable="true" title="C&#xf3;digo do Produto" type="java.lang.Object"/>
-                        <Column editable="true" title="Quantidade" type="java.lang.Object"/>
-                        <Column editable="true" title="Pre&#xe7;o por Unidade" type="java.lang.Object"/>
-                        <Column editable="true" title="Valor da Transa&#xe7;&#xe3;o" type="java.lang.Object"/>
-                        <Column editable="true" title="Desconto" type="java.lang.Object"/>
+                        <Column editable="true" title="Valor da Compra" type="java.lang.Object"/>
+                        <Column editable="true" title="Desconto Dado" type="java.lang.Object"/>
                         <Column editable="true" title="Data" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -647,7 +670,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios das Transa&#xe7;&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios das Vendas"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
@@ -664,33 +687,15 @@
             </Component>
             <Component class="javax.swing.JTextField" name="campoBuscaCPFCNPJ">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel15">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Busque pelo c&#xf3;digo do produto:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="campoBuscaCodigo">
-            </Component>
-            <Component class="javax.swing.JButton" name="buscarTransacoes">
+            <Component class="javax.swing.JButton" name="buscarCompras">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/search.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Buscar Transa&#xe7;&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Buscar Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarTransacoesActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="gerarListaPDFTransacoes">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagens/listaClientes.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Lista de Transa&#xe7;&#xf5;es"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gerarListaPDFTransacoesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarComprasActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="gerarNotaDeVenda">
@@ -706,7 +711,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkIDTransacao">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Busque pelo ID da transa&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Busque pelo ID da venda"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkIDTransacaoActionPerformed"/>
@@ -718,14 +723,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCPFCNPJTransacaoActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkCodigoTransacoes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Busque pelo c&#xf3;digo do produto"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCodigoTransacoesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkDataTransacoes">
