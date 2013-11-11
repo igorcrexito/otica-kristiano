@@ -635,23 +635,28 @@
                         <Column editable="true" title="Pre&#xe7;o por Unidade" type="java.lang.Object"/>
                         <Column editable="true" title="Valor da Transa&#xe7;&#xe3;o" type="java.lang.Object"/>
                         <Column editable="true" title="Desconto" type="java.lang.Object"/>
-                        <Column editable="true" title="Data" type="java.lang.Object"/>
+                        <Column editable="true" title="Data (ano-m&#xea;s-dia)" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="id"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Nome do Cliente"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="CPF/CNPJ"/>
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -676,12 +681,7 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Valor da Transa&#xe7;&#xe3;o"/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Desconto"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -974,7 +974,7 @@
                         <Column editable="true" title="CPF/CNPJ" type="java.lang.Object"/>
                         <Column editable="true" title="Valor da Transa&#xe7;&#xe3;o" type="java.lang.Object"/>
                         <Column editable="true" title="Desconto" type="java.lang.Object"/>
-                        <Column editable="true" title="Data" type="java.lang.Object"/>
+                        <Column editable="true" title="Data (ano-m&#xea;s-dia)" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1059,7 +1059,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jButton3" min="-2" pref="181" max="-2" attributes="0"/>
+                              <Component id="gerarListaProdutosVendidos" min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" alignment="0" pref="1085" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -1118,7 +1118,7 @@
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="227" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="gerarListaProdutosVendidos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -1345,7 +1345,7 @@
                         <Column editable="true" title="C&#xf3;digo do Produto" type="java.lang.Object"/>
                         <Column editable="true" title="Quantidade" type="java.lang.Object"/>
                         <Column editable="true" title="Pre&#xe7;o por Unidade" type="java.lang.Object"/>
-                        <Column editable="true" title="Data" type="java.lang.Object"/>
+                        <Column editable="true" title="Data (ano-m&#xea;s-dia)" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1384,13 +1384,16 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="gerarListaProdutosVendidos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/listaClientes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gerarListaProdutosVendidosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
