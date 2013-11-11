@@ -326,7 +326,7 @@ public class PainelGeracaoDeRelatorios extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Compra", "Desconto Dado", "Data"
+                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Compra", "Desconto Dado", "Data (ano-mês-dia)"
             }
         ));
         jScrollPane2.setViewportView(tabelaComprasRelatorio);

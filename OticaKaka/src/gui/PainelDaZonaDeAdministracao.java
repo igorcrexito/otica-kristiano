@@ -7,6 +7,8 @@ package gui;
 import controlador.ControladorCompra;
 import controlador.ControladorTransacoes;
 import controlador.ControladorUsuario;
+import geracaopdf.ListaProdutosVendidosPorDataPDF;
+import geracaopdf.TransacoesNotaDeVendaPDF;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
@@ -152,7 +154,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         cancelarProdutosVendidos = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaProdutosVendidos = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        gerarListaProdutosVendidos = new javax.swing.JButton();
 
         barraAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraAdministrador.setRollover(true);
@@ -423,15 +425,10 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Nome do Cliente", "CPF/CNPJ", "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Valor da Transação", "Desconto", "Data"
+                "id", "Nome do Cliente", "CPF/CNPJ", "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Valor da Transação", "Desconto", "Data (ano-mês-dia)"
             }
         ));
         jScrollPane2.setViewportView(tabelaTransacoes);
-        tabelaTransacoes.getColumnModel().getColumn(0).setHeaderValue("id");
-        tabelaTransacoes.getColumnModel().getColumn(1).setHeaderValue("Nome do Cliente");
-        tabelaTransacoes.getColumnModel().getColumn(2).setHeaderValue("CPF/CNPJ");
-        tabelaTransacoes.getColumnModel().getColumn(7).setHeaderValue("Valor da Transação");
-        tabelaTransacoes.getColumnModel().getColumn(8).setHeaderValue("Desconto");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Edição de Vendas");
@@ -508,7 +505,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Transação", "Desconto", "Data"
+                "id", "Nome do Cliente", "CPF/CNPJ", "Valor da Transação", "Desconto", "Data (ano-mês-dia)"
             }
         ));
         jScrollPane3.setViewportView(tabelaCompras);
@@ -682,13 +679,18 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Data"
+                "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Data (ano-mês-dia)"
             }
         ));
         jScrollPane4.setViewportView(tabelaProdutosVendidos);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
-        jButton3.setText("Gerar Relatório");
+        gerarListaProdutosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
+        gerarListaProdutosVendidos.setText("Gerar Relatório");
+        gerarListaProdutosVendidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarListaProdutosVendidosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -699,7 +701,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(gerarListaProdutosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -748,7 +750,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(gerarListaProdutosVendidos)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -1073,6 +1075,15 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         
     }//GEN-LAST:event_buscarProdutosVendidosActionPerformed
 
+    private void gerarListaProdutosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarListaProdutosVendidosActionPerformed
+        if (modelProdutosVendidos.getRowCount()>0 && listaProdutosVendidos.size()>0) {
+            ListaProdutosVendidosPorDataPDF transacaoPDF = new ListaProdutosVendidosPorDataPDF(listaProdutosVendidos);
+            JOptionPane.showMessageDialog(this, "Relatório de transação gerado com sucesso. Cheque-o em C:ArquivosPDF/Transacoes/", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi vendido nesta data", null, JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_gerarListaProdutosVendidosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuarios;
@@ -1109,7 +1120,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField confirmaSenha;
     private javax.swing.JButton editarTransacoes;
     private javax.swing.JButton editarUsuarios;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton gerarListaProdutosVendidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

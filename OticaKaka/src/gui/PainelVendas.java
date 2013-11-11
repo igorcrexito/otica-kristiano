@@ -533,7 +533,7 @@ public class PainelVendas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cliente", "CPF/CNPJ", "Produto", "Código", "Quantidade", "Preço", "Valor", "Desconto", "Data"
+                "Cliente", "CPF/CNPJ", "Produto", "Código", "Quantidade", "Preço", "Valor", "Desconto", "Data (ano-mês-dia)"
             }
         ));
         jScrollPane3.setViewportView(tabelaTransacoesCompra);
