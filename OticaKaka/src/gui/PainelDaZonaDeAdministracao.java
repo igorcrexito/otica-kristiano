@@ -33,6 +33,8 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     ControladorCompra controladorCompras = new ControladorCompra();
     ArrayList<Transacoes> transacoes = new ArrayList<Transacoes>();
     ArrayList<Compra> compras = new ArrayList<Compra>();
+    ArrayList<Transacoes> listaProdutosVendidos = new ArrayList<Transacoes>();
+    
     Compra compraSelecionada;
     int codigoSelecionado;
     int[] dias = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
@@ -42,6 +44,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     String loginSelecionado = "";
     private final DefaultTableModel modelTransacoes;
     private final DefaultTableModel modelCompras;
+    private final DefaultTableModel modelProdutosVendidos;
 
     public PainelDaZonaDeAdministracao() {
         initComponents();
@@ -49,10 +52,12 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         modelTransacoes = (DefaultTableModel) tabelaTransacoes.getModel();
         modelUsuarios = (DefaultTableModel) tabelaUsuarios.getModel();
         modelCompras = (DefaultTableModel) tabelaCompras.getModel();
+        modelProdutosVendidos = (DefaultTableModel) tabelaProdutosVendidos.getModel();
 
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
         this.abasUsuario.setEnabledAt(2, false);
+        this.abasUsuario.setEnabledAt(3, false);
 
         this.campoBuscaCPFCNPJ.setEnabled(false);
         this.campoBuscaID.setEnabled(false);
@@ -79,6 +84,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         adicionarUsuarios = new javax.swing.JButton();
         editarUsuarios = new javax.swing.JButton();
         editarTransacoes = new javax.swing.JButton();
+        produtosVendidos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         abasUsuario = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -133,6 +139,20 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         tabelaCompras = new javax.swing.JTable();
         selecionarCompra = new javax.swing.JButton();
         removerCompra = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        comboAnoFinalProduto = new javax.swing.JComboBox();
+        comboMesFinalProduto = new javax.swing.JComboBox();
+        comboDiaFinalProduto = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        comboAnoInicialProduto = new javax.swing.JComboBox();
+        comboMesInicialProduto = new javax.swing.JComboBox();
+        comboDiaInicialProduto = new javax.swing.JComboBox();
+        buscarProdutosVendidos = new javax.swing.JButton();
+        cancelarProdutosVendidos = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaProdutosVendidos = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         barraAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         barraAdministrador.setRollover(true);
@@ -172,6 +192,18 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             }
         });
         barraAdministrador.add(editarTransacoes);
+
+        produtosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtosVendidos.png"))); // NOI18N
+        produtosVendidos.setText("Produtos Vendidos");
+        produtosVendidos.setFocusable(false);
+        produtosVendidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        produtosVendidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        produtosVendidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                produtosVendidosActionPerformed(evt);
+            }
+        });
+        barraAdministrador.add(produtosVendidos);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -237,7 +269,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addComponent(campoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                                 .addComponent(campoLoginUsuario)
                                 .addComponent(confirmaSenha)))))
-                .addContainerGap(786, Short.MAX_VALUE))
+                .addContainerGap(782, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +382,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(removerCliente))
                             .addComponent(jLabel9))
-                        .addGap(0, 202, Short.MAX_VALUE))))
+                        .addGap(0, 198, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,10 +427,11 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
             }
         ));
         jScrollPane2.setViewportView(tabelaTransacoes);
-        tabelaTransacoes.getColumnModel().getColumn(3).setHeaderValue("Nome do Produto");
-        tabelaTransacoes.getColumnModel().getColumn(4).setHeaderValue("Código do Produto");
-        tabelaTransacoes.getColumnModel().getColumn(5).setHeaderValue("Quantidade");
-        tabelaTransacoes.getColumnModel().getColumn(6).setHeaderValue("Preço por Unidade");
+        tabelaTransacoes.getColumnModel().getColumn(0).setHeaderValue("id");
+        tabelaTransacoes.getColumnModel().getColumn(1).setHeaderValue("Nome do Cliente");
+        tabelaTransacoes.getColumnModel().getColumn(2).setHeaderValue("CPF/CNPJ");
+        tabelaTransacoes.getColumnModel().getColumn(7).setHeaderValue("Valor da Transação");
+        tabelaTransacoes.getColumnModel().getColumn(8).setHeaderValue("Desconto");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Edição de Vendas");
@@ -547,12 +580,12 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
                                                 .addComponent(selecionarTransacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
@@ -609,6 +642,118 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
 
         abasUsuario.addTab("Transações", jPanel4);
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setText("Produtos Vendidos");
+
+        comboAnoFinalProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000" }));
+        comboAnoFinalProduto.setSelectedIndex(3);
+
+        comboMesFinalProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" }));
+
+        comboDiaFinalProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jLabel15.setText("a:");
+
+        comboAnoInicialProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000" }));
+        comboAnoInicialProduto.setSelectedIndex(3);
+
+        comboMesInicialProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" }));
+
+        comboDiaInicialProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        buscarProdutosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        buscarProdutosVendidos.setText("Buscar");
+        buscarProdutosVendidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarProdutosVendidosActionPerformed(evt);
+            }
+        });
+
+        cancelarProdutosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
+        cancelarProdutosVendidos.setText("Cancelar");
+        cancelarProdutosVendidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarProdutosVendidosActionPerformed(evt);
+            }
+        });
+
+        tabelaProdutosVendidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome do Produto", "Código do Produto", "Quantidade", "Preço por Unidade", "Data"
+            }
+        ));
+        jScrollPane4.setViewportView(tabelaProdutosVendidos);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listaClientes.png"))); // NOI18N
+        jButton3.setText("Gerar Relatório");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(comboDiaInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboMesInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboAnoInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel15)
+                                .addGap(69, 69, 69)
+                                .addComponent(comboDiaFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboMesFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboAnoFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(buscarProdutosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelarProdutosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel12)
+                .addGap(52, 52, 52)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboDiaInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMesInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboAnoInicialProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(comboDiaFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMesFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboAnoFinalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscarProdutosVendidos)
+                    .addComponent(cancelarProdutosVendidos))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        abasUsuario.addTab("Produtos Vendidos", jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -633,6 +778,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         this.abasUsuario.setEnabledAt(0, true);
         this.abasUsuario.setEnabledAt(1, false);
         this.abasUsuario.setEnabledAt(2, false);
+        this.abasUsuario.setEnabledAt(3, false);
     }//GEN-LAST:event_adicionarUsuariosActionPerformed
 
     private void editarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuariosActionPerformed
@@ -640,6 +786,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         this.abasUsuario.setEnabledAt(0, false);
         this.abasUsuario.setEnabledAt(2, false);
         this.abasUsuario.setEnabledAt(1, true);
+        this.abasUsuario.setEnabledAt(3, false);
     }//GEN-LAST:event_editarUsuariosActionPerformed
 
     private void editarTransacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarTransacoesActionPerformed
@@ -647,6 +794,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         this.abasUsuario.setEnabledAt(0, false);
         this.abasUsuario.setEnabledAt(1, false);
         this.abasUsuario.setEnabledAt(2, true);
+        this.abasUsuario.setEnabledAt(3, false);
 
     }//GEN-LAST:event_editarTransacoesActionPerformed
 
@@ -889,6 +1037,42 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_removerCompraActionPerformed
 
+    private void produtosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosVendidosActionPerformed
+        abasUsuario.setSelectedIndex(3);
+        this.abasUsuario.setEnabledAt(0, false);
+        this.abasUsuario.setEnabledAt(1, false);
+        this.abasUsuario.setEnabledAt(2, false);
+        this.abasUsuario.setEnabledAt(3, true);
+    }//GEN-LAST:event_produtosVendidosActionPerformed
+
+    private void cancelarProdutosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarProdutosVendidosActionPerformed
+        this.modelProdutosVendidos.setNumRows(0);
+    }//GEN-LAST:event_cancelarProdutosVendidosActionPerformed
+
+    private void buscarProdutosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProdutosVendidosActionPerformed
+        int diaInicial = dias[comboDiaInicialProduto.getSelectedIndex()];
+        int diaFinal = dias[comboDiaFinalProduto.getSelectedIndex()];
+        int mesInicial = meses[comboMesInicialProduto.getSelectedIndex()];
+        int mesFinal = meses[comboMesFinalProduto.getSelectedIndex()];
+        int anoInicial = anos[comboAnoInicialProduto.getSelectedIndex()];
+        int anoFinal = anos[comboAnoFinalProduto.getSelectedIndex()];
+        listaProdutosVendidos = controladorTransacoes.buscaTransacoesPorData(new Date(anoInicial - 1900, mesInicial - 1, diaInicial), new Date(anoFinal - 1900, mesFinal - 1, diaFinal));
+        
+        modelProdutosVendidos.setNumRows(0);
+            for (int i = 0; i < listaProdutosVendidos.size(); i++) {
+                Vector vec = new Vector();
+                vec.add(0, listaProdutosVendidos.get(i).getNomeDoProduto());
+                vec.add(1, listaProdutosVendidos.get(i).getCodigoDoProduto());
+                vec.add(2, listaProdutosVendidos.get(i).getQuantidadeVendidade());
+                vec.add(3, listaProdutosVendidos.get(i).getPrecoPorUnidade());
+                vec.add(4, listaProdutosVendidos.get(i).getData());
+                modelProdutosVendidos.addRow(vec);
+            }
+
+        this.repaint();
+        
+    }//GEN-LAST:event_buscarProdutosVendidosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abasUsuario;
     private javax.swing.JButton adicionarUsuarios;
@@ -896,6 +1080,7 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JToolBar barraAdministrador;
     private javax.swing.JButton botaoConfirmarUsuario;
     private javax.swing.JButton buscarCliente;
+    private javax.swing.JButton buscarProdutosVendidos;
     private javax.swing.JButton buscarTransacao;
     private javax.swing.JTextField campoBuscaCPFCNPJ;
     private javax.swing.JTextField campoBuscaID;
@@ -904,24 +1089,34 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JTextField campoSenha;
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JButton cancelarBusca;
+    private javax.swing.JButton cancelarProdutosVendidos;
     private javax.swing.JCheckBox checkCPFCNPJ;
     private javax.swing.JCheckBox checkData;
     private javax.swing.JCheckBox checkID;
     private javax.swing.JComboBox comboAnoFinal;
+    private javax.swing.JComboBox comboAnoFinalProduto;
     private javax.swing.JComboBox comboAnoInicial;
+    private javax.swing.JComboBox comboAnoInicialProduto;
     private javax.swing.JComboBox comboDiaFinal;
+    private javax.swing.JComboBox comboDiaFinalProduto;
     private javax.swing.JComboBox comboDiaInicial;
+    private javax.swing.JComboBox comboDiaInicialProduto;
     private javax.swing.JComboBox comboMesFinal;
+    private javax.swing.JComboBox comboMesFinalProduto;
     private javax.swing.JComboBox comboMesInicial;
+    private javax.swing.JComboBox comboMesInicialProduto;
     private javax.swing.JComboBox comboNivelAcesso;
     private javax.swing.JTextField confirmaSenha;
     private javax.swing.JButton editarTransacoes;
     private javax.swing.JButton editarUsuarios;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -934,18 +1129,22 @@ public class PainelDaZonaDeAdministracao extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField novaSenha;
     private javax.swing.JTextField novoLogin;
     private javax.swing.JTextField novoNivelAcesso;
+    private javax.swing.JButton produtosVendidos;
     private javax.swing.JButton removerCliente;
     private javax.swing.JButton removerCompra;
     private javax.swing.JButton selecionaCliente;
     private javax.swing.JButton selecionarCompra;
     private javax.swing.JButton selecionarTransacao;
     private javax.swing.JTable tabelaCompras;
+    private javax.swing.JTable tabelaProdutosVendidos;
     private javax.swing.JTable tabelaTransacoes;
     private javax.swing.JTable tabelaUsuarios;
     // End of variables declaration//GEN-END:variables
